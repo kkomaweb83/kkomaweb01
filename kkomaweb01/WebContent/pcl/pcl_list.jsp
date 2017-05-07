@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<title>컴퓨터 쇼핑몰의 최강자 DanaCom</title>
+<title>상품분류 관리</title>
 <script type="text/javascript" src="../js/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="../js/kkoma01.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/kkoma_new_01.css" />
@@ -25,7 +25,23 @@
 	
 	</header>
 	
-	<div id="content">
+	<div id="admin_content">
+	
+	<aside id="admin_aside">
+	<%-- 관리자 외편 메뉴 include 처리 --%>
+	<jsp:include page="../left/admin_left.jsp" flush="false" />
+	
+	</aside>
+	
+	<section id="admin_section">
+	
+	<div class="title_div1">
+		<span style="font-size: 5px;">&nbsp;</span><br/>
+		<span class="title_box1">☞ 상품분류 관리</span><br/>
+		<span style="font-size: 0px;">&nbsp;</span>
+	</div>		
+	
+	</section>
 	
 	</div>
 	
