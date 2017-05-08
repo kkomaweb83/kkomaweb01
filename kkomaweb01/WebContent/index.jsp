@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String cp = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,12 +40,12 @@
 		<tbody>
 			<tr>
 				<td align="center">
-					<img src="/kkomaweb01/img/index02.gif" alt="꼬마web의 놀이터" />
+					<img src="<%=cp %>/img/index02.gif" alt="꼬마web의 놀이터" />
 				</td>
 			</tr>
 			<tr>
 				<td align="center">
-					<a href="/kkomaweb01/ProController?dana=pro_main_prelist&pro_pcl_no=0101"><img src="img/top_main01.gif" alt="다나컴" /></a>
+					<a href="<%=cp %>/ProController?dana=pro_main_prelist&pro_pcl_no=0101"><img src="<%=cp %>/img/top_main01.gif" alt="다나컴" /></a>
 				</td>
 			</tr>
 		</tbody>
