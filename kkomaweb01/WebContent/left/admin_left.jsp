@@ -9,25 +9,41 @@
 </head>
 <body>
 
-<div style="text-align: left;">
-
-<div style="height: 10px;"></div>
-<div style="height: 15px;">
-	<span style="font-size: 5px;">&nbsp;</span><br/>
-	<span class="box_button2">☞ 상품관리</span><br/>
-	<span style="font-size: 0px;">&nbsp;</span>
+<div style="text-align: center;">
+	<span id="admin_top_title">▷ 관리자 메뉴 ◁</span>
 </div>
-<div style="height: 10px;"></div>
 
-<div style="line-height:15px;">
+<span class="box_button2">☞ 상품관리</span>
+<nav id="admin_menu_lnb">
 	<ul>
-		<li><a href="../pcl/pcl_list.jsp">상품분류 관리</a></li>
-		<li><a href="../mkr/mkr_list.jsp">제조사 관리</a></li>
-		<li><a href="../pro/pro_admin_list.jsp">상품 리스트</a></li>
+		<li><a href="../pcl/pcl_list.jsp">- 상품분류 관리</a></li>
+		<li><a href="../mkr/mkr_list.jsp">- 제조사 관리</a></li>
+		<li><a href="../pro/pro_admin_list.jsp">- 상품 리스트</a></li>
 	</ul>
-</div>
+</nav>
 
-</div>
+<span class="box_button2">☞ 주문관리</span>
+<nav id="admin_menu_lnb">
+	<ul>
+		<li><a href="#">- 주문 리스트</a></li>
+	</ul>
+</nav>
+
+<span class="box_button2">☞ 회원관리</span>
+<nav id="admin_menu_lnb">
+	<ul>
+		<li><a href="#">- 회원 리스트</a></li>
+	</ul>
+</nav>
+
+<span class="box_button2">☞ 베틀관리</span>
+<nav id="admin_menu_lnb">
+	<ul>
+		<li><a href="#">- 베틀 리스트</a></li>
+	</ul>
+</nav>
+
+<div style="height: 500px;"></div>
 
 </body>
 </html>

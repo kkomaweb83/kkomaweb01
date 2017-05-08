@@ -6,9 +6,9 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <title>상품 admin 리스트</title>
-<script type="text/javascript" src="../js/jquery-3.2.1.js"></script>
-<script type="text/javascript" src="../js/kkoma01.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/kkoma_new_01.css" />
+<script type="text/javascript" src="/kkomaweb01/js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="/kkomaweb01/js/kkoma01.js"></script>
+<link rel="stylesheet" type="text/css" href="/kkomaweb01/css/kkoma_new_01.css" />
 <style type="text/css">
 
 </style>

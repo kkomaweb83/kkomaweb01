@@ -1,20 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<title>Insert title here</title>
+<title>컴퓨터 쇼핑몰의 최강자 DanaCom</title>
+<script type="text/javascript">
+	$(function() {
+
+	});
+	
+	function goProList(pro_pcl_no){
+		location.href = "/kkomaweb01/ProController?dana=pro_main_prelist&pro_pcl_no="+pro_pcl_no;
+	}
+</script>
 </head>
 <body>
 
 <div id="top_title">
-<a href="../pro/pro_main_list.jsp"><img src="../img/top_main01.gif" alt="다나컴" /></a>
+<a href="/kkomaweb01/ProController?dana=pro_main_prelist&pro_pcl_no=0101"><img src="/kkomaweb01/img/top_main01.gif" alt="다나컴" /></a>
 </div>
 <nav id="top_ltb">
 	<ul>
-		<li><a href="../pcl/pcl_list.jsp">관리자모드</a></li>
+		<li><a href="/kkomaweb01/pcl/pcl_list.jsp">관리자모드</a></li>
 	</ul>	
 </nav>
 <nav id="top_gnb">
@@ -47,69 +57,27 @@
 <div style="width: 960px; margin: 0 auto; position: absolute; top: 93px;">
 	<table style="width: 960px; padding: 0; border-spacing: 0;">
 	<tr>
+		<c:forEach var="bean" items="${class_list}" varStatus="vs">
+		<c:if test="${vs.count < 3}">
 		<td>
 			<table style="width: 480px; padding: 0; border-spacing: 1px;">
-			<tr><td style="width: 480px;" class="main_title1">PC주요부품</td></tr>
+			<tr><td style="width: 480px;" class="main_title1">${bean.pcl_name}</td></tr>
 			<tr><td>
-			
-			<table style="width: 480px; padding: 0; border-spacing: 1px;">
-			<tr>
-				<td class="main_title2">
-					<a href="#">CPU</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">메인보드</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">메모리</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">그래픽카드</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">SSD</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">케이스</a>
-				</td>
-			</tr>
-			</table>
-			
+				<table style="width: 480px; padding: 0; border-spacing: 1px;">
+				<tr>
+					<c:forEach var="bean2" items="${bean.pcl_list}">
+					<td class="main_title2">
+						<a href="javascript:goProList('${bean2.pcl_no}');">${bean2.pcl_name}</a>
+					</td>
+					</c:forEach>
+				</tr>
+				</table>
 			</td></tr>
 			</table>
 		</td>
-		
-		<td>
-			<table style="width: 480px; padding: 0; border-spacing: 1px;">
-			<tr><td style="width: 480px;" class="main_title1">PC주변기기</td></tr>
-			<tr><td>
-			
-			<table style="width: 480px; padding: 0; border-spacing: 1px;">
-			<tr>
-				<td class="main_title2">
-					<a href="#">키보드</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">마우스</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">파워</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">모니터</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">복합기</a>
-				</td>
-				<td class="main_title2">
-					<a href="#">공유기</a>
-				</td>
-			</tr>
-			</table>
-			
-			</td></tr>
-			</table>
-		</td>
+		</c:if>
+		</c:forEach>
+
 	
 	</tr>
 	</table>
