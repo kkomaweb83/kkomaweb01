@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% String cp = request.getContextPath(); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,18 +15,18 @@
 	});
 	
 	function goProList(pro_pcl_no){
-		location.href = "/kkomaweb01/ProController?dana=pro_main_prelist&pro_pcl_no="+pro_pcl_no;
+		location.href = "<%=cp %>/ProController?dana=pro_main_prelist&pro_pcl_no="+pro_pcl_no;
 	}
 </script>
 </head>
 <body>
 
 <div id="top_title">
-<a href="/kkomaweb01/ProController?dana=pro_main_prelist&pro_pcl_no=0101"><img src="/kkomaweb01/img/top_main01.gif" alt="다나컴" /></a>
+<a href="<%=cp %>/ProController?dana=pro_main_prelist&pro_pcl_no=0101"><img src="<%=cp %>/img/top_main01.gif" alt="다나컴" /></a>
 </div>
 <nav id="top_ltb">
 	<ul>
-		<li><a href="/kkomaweb01/pcl/pcl_list.jsp">관리자모드</a></li>
+		<li><a href="<%=cp %>/pcl/pcl_list.jsp">관리자모드</a></li>
 	</ul>	
 </nav>
 <nav id="top_gnb">

@@ -7,9 +7,9 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <title>컴퓨터 쇼핑몰의 최강자 DanaCom</title>
-<script type="text/javascript" src="/kkomaweb01/js/jquery-3.2.1.js"></script>
-<script type="text/javascript" src="/kkomaweb01/js/kkoma01.js"></script>
-<link rel="stylesheet" type="text/css" href="/kkomaweb01/css/kkoma_new_01.css" />
+<script type="text/javascript" src="<%=cp %>/js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="<%=cp %>/js/kkoma01.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=cp %>/css/kkoma_new_01.css" />
 <style type="text/css">
 
 </style>
@@ -21,7 +21,7 @@
 	
 	function init(){
 		$.ajax({
-			url : "/kkomaweb01/ProController",
+			url : "<%=cp %>/ProController",
 			type : "post",
 			data : "dana=ajax_pro_topSearch&pro_pcl_no=${param.pro_pcl_no}",
 			dataType : "html",
