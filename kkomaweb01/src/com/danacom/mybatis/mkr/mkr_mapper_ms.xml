@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.danacom.mybatis.mkr.mkr_mapper_ms">
+	
+	<!-- 사용자 상품 리스트 상단 검색조건 제조사 조회 -->
+	<select id="mkrList" resultType="com.danacom.mybatis.mkr.MakerVo" parameterType="String">
+		SELECT 
+			MKR_NO, MKR_NAME, MKR_PCL_NO, PCL_NAME
+		FROM MAKER A
+		JOIN PRO_CLASS B ON A.MKR_PCL_NO = B.PCL_NO
+		WHERE MKR_PCL_NO = #{pro_pcl_no}
+		ORDER BY MKR_NO
+	</select>
+	
+</mapper>
