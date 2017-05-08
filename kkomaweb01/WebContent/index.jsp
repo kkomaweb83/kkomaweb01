@@ -44,7 +44,7 @@
 			</tr>
 			<tr>
 				<td align="center">
-					<a href="#"><img src="img/top_main01.gif" alt="다나컴" /></a>
+					<a href="pro/pro_main_list.jsp"><img src="img/top_main01.gif" alt="다나컴" /></a>
 				</td>
 			</tr>
 		</tbody>

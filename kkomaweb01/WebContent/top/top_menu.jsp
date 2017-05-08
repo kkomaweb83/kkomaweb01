@@ -44,7 +44,7 @@
 </nav>
 
 <!-- 상품분류 -->
-<div style="width: 960px; margin: 0 auto; position: absolute; top: 100px;">
+<div style="width: 960px; margin: 0 auto; position: absolute; top: 93px;">
 	<table style="width: 960px; padding: 0; border-spacing: 0;">
 	<tr>
 		<td>
