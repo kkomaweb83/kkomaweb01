@@ -18,7 +18,7 @@ public class DBService {
 			System.out.println("Host Name = [" + ip.getHostName() + "]"); 
 			System.out.println("Host Address = [" + ip.getHostAddress() + "]");
 			
-			if("119.193.204.153".equals(ip.getHostAddress())){
+			if("183.111.100.173".equals(ip.getHostAddress())){
 				config = "mysql_config.xml";
 			}
 
