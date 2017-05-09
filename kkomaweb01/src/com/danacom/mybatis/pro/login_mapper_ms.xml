@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.danacom.mybatis.pro.login_mapper_ms">
+	
+	<!-- 사용자 로그인 체크 -->
+	<select id="loginChk" resultType="com.danacom.mybatis.pro.MemComVo" parameterType="String">
+		SELECT     /* [danacom]_[pro]_[LoginCommand.getLoginChk]_kkomaweb_20170509 */ 
+			mem_no, mem_id, mem_pass, mem_name, mem_email, mem_hp
+			, mem_mil, DATE_FORMAT(mem_rdate,'%Y-%m-%d') as date_desc, mem_admin_autho
+		FROM MEM_COM 
+		WHERE mem_id = #{mem_id}
+	</select>
+	
+</mapper>

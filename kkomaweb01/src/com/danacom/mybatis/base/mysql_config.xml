@@ -17,5 +17,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="com/danacom/mybatis/pcl/pcl_mapper_ms.xml" />
 		<mapper resource="com/danacom/mybatis/mkr/mkr_mapper_ms.xml" />
+		<mapper resource="com/danacom/mybatis/pro/login_mapper_ms.xml" />
 	</mappers>
 </configuration>
