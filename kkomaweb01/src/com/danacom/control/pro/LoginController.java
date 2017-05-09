@@ -1,4 +1,4 @@
-package com.danacom.control.pcl;
+package com.danacom.control.pro;
 
 import java.io.IOException;
 
@@ -10,13 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
-import com.danacom.model.pcl.PclAdminListCommand;
+import com.danacom.model.pcl.PclTopListCommand;
+import com.danacom.model.pro.LoginCommand;
+import com.danacom.model.pro.ProTopSearchCommand;
 
-@WebServlet("/PclController")
-public class PclController extends HttpServlet {
+@WebServlet("/LoginController")
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public PclController() {
+    public LoginController() {
         super();
     }
 
@@ -36,14 +38,19 @@ public class PclController extends HttpServlet {
 		
 		dana = request.getParameter("dana");
 		
-		if("pcl_list".equals(dana)){
-			baseComm = new PclAdminListCommand();
+		if("loginChk".equals(dana)){
+			baseComm = new LoginCommand();
+		
+			path = baseComm.exec(request, response);
+			
+			rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+		
+		}else if("logout".equals(dana)){
+			request.getSession().removeAttribute("login");
+			response.sendRedirect("ProController?dana=pro_main_prelist&pro_pcl_no=0101");
 		}
 		
-		path = baseComm.exec(request, response);
-		
-		rd = request.getRequestDispatcher(path);
-		rd.forward(request, response);
 	}
 
 }

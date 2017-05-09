@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String cp = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <title>상품분류 관리</title>
-<script type="text/javascript" src="../js/jquery-3.2.1.js"></script>
-<script type="text/javascript" src="../js/kkoma01.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/kkoma_new_01.css" />
+<script type="text/javascript" src="<%=cp %>/js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="<%=cp %>/js/kkoma01.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=cp %>/css/kkoma_new_01.css" />
 <style type="text/css">
 
 </style>

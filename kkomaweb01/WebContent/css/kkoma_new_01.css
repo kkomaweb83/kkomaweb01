@@ -208,3 +208,9 @@ a:hover { text-decoration: none; color: black; }
 	text-align: center;
 	color: #000000;
 }
+
+.box_input_left4{
+	border: 1px solid gray;
+	text-align: left;
+	padding-top: 4px;
+}

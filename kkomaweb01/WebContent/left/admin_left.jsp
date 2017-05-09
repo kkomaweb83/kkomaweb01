@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String cp = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,9 +17,9 @@
 <span class="box_button2">☞ 상품관리</span>
 <nav id="admin_menu_lnb">
 	<ul>
-		<li><a href="../pcl/pcl_list.jsp">- 상품분류 관리</a></li>
-		<li><a href="../mkr/mkr_list.jsp">- 제조사 관리</a></li>
-		<li><a href="../pro/pro_admin_list.jsp">- 상품 리스트</a></li>
+		<li><a href="<%=cp %>/PclController?dana=pcl_list">- 상품분류 관리</a></li>
+		<li><a href="<%=cp %>/mkr/mkr_list.jsp">- 제조사 관리</a></li>
+		<li><a href="<%=cp %>/pro/pro_admin_list.jsp">- 상품 리스트</a></li>
 	</ul>
 </nav>
 
