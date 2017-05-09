@@ -11,7 +11,9 @@
 <title>컴퓨터 쇼핑몰의 최강자 DanaCom</title>
 <script type="text/javascript">
 	$(function() {
-
+		if("${login_chk_msg}"){
+			alert("${login_chk_msg}");
+		}
 	});
 	
 	function goProList(pro_pcl_no){
@@ -66,11 +68,11 @@
 		<c:if test="${login.cmd != 101}">
 			아이디 <input type="text" name="mem_id" size="12" maxlength="15" class="box_input_left4" />
 			비밀번호 <input type="password" name="mem_pass" size="12" maxlength="15" class="box_input_left4" />
-			<a href="javascript:goMemLoginChk();"><img src="<%=cp %>/img/btn_login_2.gif" style="vertical-align: -5px;" /></a>
+			<a href="javascript:goMemLoginChk();"><img src="<%=cp %>/img/btn_login_2.gif" style="vertical-align: -4px;" /></a>
 		</c:if>
 		<c:if test="${login.cmd == 101}">
-			<span style="color: #9933FF; font-size: 18px; font-weight: bold;">${login.mem_id }</span> 님이 로그인 하셨습니다.&nbsp;
-			<a href="javascript:goMemLoginOut();"><img src="<%=cp %>/img/btn_logout.gif" style="vertical-align: -5px;" /></a>
+			<span style="color: #9933FF; font-size: 18px; font-weight: bold;">${login.mem_name }</span> 님이 로그인 하셨습니다.&nbsp;
+			<a href="javascript:goMemLoginOut();"><img src="<%=cp %>/img/btn_logout.gif" style="vertical-align: -4px;" /></a>
 		</c:if>
 		</span>
 		</form>

@@ -44,7 +44,7 @@ public class LoginCommand implements BaseCommand {
 			login.setCmd(102);
 		}
 		if(login.getCmd() == 102){
-			request.setAttribute("login", login);
+			request.setAttribute("login_chk_msg", login.getMsg());
 		}
 		
 		return url;
