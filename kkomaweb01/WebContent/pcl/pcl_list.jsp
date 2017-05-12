@@ -15,8 +15,38 @@
 </style>
 <script type="text/javascript">
 	$(function() {
-
+		init();
+		
 	});
+	
+	function init(){
+		$.ajax({
+			url : "<%=cp %>/PclController",
+			type : "post",
+			data : {dana:'ajax_pcl_list',pcl_upperno:'NULL',insert:'y',step:1, pcl_old_upperno:'NO'},
+			dataType : "html",
+			success : function(data) {
+				$("#pclListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function goPclListNo(pcl_no, step, pcl_upperno){
+		$.ajax({
+			url : "<%=cp %>/PclController",
+			type : "post",
+			data : {dana:'ajax_pcl_list',pcl_upperno:pcl_no,insert:'y',step:step, pcl_old_upperno:pcl_upperno, pcl_session:'y'},
+			dataType : "html",
+			success : function(data) {
+				$("#pclListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -36,11 +66,13 @@
 	
 	<section id="admin_section">
 	
-	<div class="title_div1">
-		<span style="font-size: 5px;">&nbsp;</span><br/>
-		<span class="title_box1">☞ 상품분류 관리</span><br/>
-		<span style="font-size: 0px;">&nbsp;</span>
-	</div>		
+	<!-- pcl_insert -->
+	<div id="pclListDiv">
+	
+	<!-- ajax_pcl_list -->
+	
+	</div>
+	<!-- pcl_list -->
 	
 	</section>
 	

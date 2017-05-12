@@ -166,11 +166,24 @@ a:hover { text-decoration: none; color: black; }
 	margin-bottom: 10px;
 	border-bottom: #EF82FF 1px solid; 
 }
+.title_div2{
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #EF82FF; 
+}
 
 .box_input_left3{
 	border: #7DBFFE 1px solid;
 	padding: 3px;
 	text-align: left;
+}
+
+.box_button1 {
+	background-color: #FEC8FC;
+	border: #336699 1px solid;
+	padding: 3px;
+	text-align: center;
+	display: inline-block;
 }
 
 .box_button2 {
@@ -213,4 +226,36 @@ a:hover { text-decoration: none; color: black; }
 	border: 1px solid gray;
 	text-align: left;
 	padding-top: 4px;
+}
+
+.title_box2{
+	border: 1px solid gray;
+	padding: 1px 2px 1px 5px;
+	text-align: left;
+}
+
+.table_title{
+	border: gray 1px solid;
+	padding: 5px;
+	text-align: center;
+}
+
+.table_content1{
+	border-top: #7DBFFE 0px solid;
+	border-right: #7DBFFE 0px solid;
+	border-bottom: #7DBFFE 1px solid;
+	border-left: #7DBFFE 0px solid;
+	padding: 5px;
+	vertical-align: bottom;
+	text-align: left;
+}
+
+.table_content2{
+	border-top: #7DBFFE 0px solid;
+	border-right: #7DBFFE 0px solid;
+	border-bottom: #7DBFFE 1px solid;
+	border-left: #7DBFFE 0px solid;
+	padding: 5px;
+	vertical-align: bottom;
+	text-align: center;
 }

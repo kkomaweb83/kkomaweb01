@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
 import com.danacom.model.pcl.PclAdminListCommand;
+import com.danacom.model.pcl.PclAjaxAdminListCommand;
 
 @WebServlet("/PclController")
 public class PclController extends HttpServlet {
@@ -38,6 +39,8 @@ public class PclController extends HttpServlet {
 		
 		if("pcl_list".equals(dana)){
 			baseComm = new PclAdminListCommand();
+		}else if("ajax_pcl_list".equals(dana)){
+			baseComm = new PclAjaxAdminListCommand();
 		}
 		
 		path = baseComm.exec(request, response);

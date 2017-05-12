@@ -26,4 +26,8 @@ public class PclDao extends BaseDao {
 		return getSql().selectOne("mainPclName", pro_pcl_no);
 	}
 	
+	public static ProClassVo getPclVO(String pcl_upperno){
+		return getSql().selectOne("pclVO", pcl_upperno);
+	}
+	
 }
