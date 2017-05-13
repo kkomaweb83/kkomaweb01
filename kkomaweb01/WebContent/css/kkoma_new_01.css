@@ -157,7 +157,23 @@ a:hover { text-decoration: none; color: black; }
 	background: #8BBDFF;
 	color: white;
 }
-	
+
+.dana_button01 {
+	display : inline-block;
+	padding : 6px 7px 4px 7px;
+	border-radius : 0.5em;
+	color : #fff;
+	font-size : 12px;
+	font-weight : 500;
+	text-align : center;
+	text-decoration : none;
+	cursor: pointer;
+}
+.dana_button01 {
+	background-color : rgba(0,205,237,1);
+	box-shadow : 2px 2px 3px rgba(0,105,237,0.3);
+}
+
 
 /* old */
 .title_div1{
@@ -233,6 +249,12 @@ a:hover { text-decoration: none; color: black; }
 	padding: 1px 2px 1px 5px;
 	text-align: left;
 }
+.span_box2{
+	border: 1px solid gray;
+	padding: 6px 2px 3px 5px;
+	text-align: left;
+	display: block;
+}
 
 .table_title{
 	border: gray 1px solid;
@@ -258,4 +280,11 @@ a:hover { text-decoration: none; color: black; }
 	padding: 5px;
 	vertical-align: bottom;
 	text-align: center;
+}
+
+.box_input_left{
+	border: #7DBFFE 1px solid;
+	padding: 5px 4px 2px 3px;
+	vertical-align: middle;
+	text-align: left;
 }

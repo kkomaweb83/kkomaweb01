@@ -29,5 +29,24 @@ public class PclDao extends BaseDao {
 	public static ProClassVo getPclVO(String pcl_upperno){
 		return getSql().selectOne("pclVO", pcl_upperno);
 	}
+
+	public static String getMaxPclNo(String pcl_uppercode) {
+		return getSql().selectOne("pclAutoPclNo", pcl_uppercode);
+	}
+
+	public static void pclInsert(ProClassVo pclVO) {
+		getSql().insert("pclInsert", pclVO);
+		getSql().commit();
+	}
+	
+	public static void pclUpdate(ProClassVo pclVO) {
+		getSql().update("pclUpdate", pclVO);
+		getSql().commit();
+	}
+	
+	public static void pclDelete(String pcl_no) {
+		getSql().delete("pclDelete", pcl_no);
+		getSql().commit();
+	}
 	
 }

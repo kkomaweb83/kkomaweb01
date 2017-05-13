@@ -34,10 +34,119 @@
 		});
 	}
 	function goPclListNo(pcl_no, step, pcl_upperno){
+		if(step == "6"){
+			alert("분류단계는 5단계 까지만 가능합니다.");
+			return;
+		}
 		$.ajax({
 			url : "<%=cp %>/PclController",
 			type : "post",
 			data : {dana:'ajax_pcl_list',pcl_upperno:pcl_no,insert:'y',step:step, pcl_old_upperno:pcl_upperno, pcl_session:'y'},
+			dataType : "html",
+			success : function(data) {
+				$("#pclListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function goPclAutoNo(){
+		$("#dana").val("pcl_auto_no");
+		$.ajax({
+			url : "<%=cp %>/PclController",
+			type : "post",
+			data : $('#pcl_insert').serialize(),
+			dataType : "html",
+			success : function(data) {
+				$("#pclListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function chkPclList(obj, pcl_upperno, step){
+		$.ajax({
+			url : "<%=cp %>/PclController",
+			type : "post",
+			data : {dana:'ajax_pcl_list',pcl_upperno:obj.value,insert:'y',step:step, pcl_old_upperno:pcl_upperno, objsetp:step, pcl_session:'y'},
+			dataType : "html",
+			success : function(data) {
+				$("#pclListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function goPclListName(pcl_no, pcl_upperno){
+		$.ajax({
+			url : "<%=cp %>/PclController",
+			type : "post",
+			data : {dana:'pcl_preUpdate',pcl_no:pcl_no,pcl_upperno:pcl_upperno,insert:'n'},
+			dataType : "html",
+			success : function(data) {
+				$("#pclListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function doPclInsert(){
+		var re = null;	
+		re = new RegExp(/^[0-9]+$/);
+		if(!chkWan(re, $("#pcl_no"), "코드가 생성되지 않았습니다.")) return;
+		if ($("#pcl_name").val() == "")  {
+	        alert("상품분류명을 입력하세요!");
+	        $("#pcl_name").focus();
+	        return;
+	 	}
+		
+		$("#dana").val("pcl_insert");
+		$.ajax({
+			url : "<%=cp %>/PclController",
+			type : "post",
+			data : $('#pcl_insert').serialize(),
+			dataType : "html",
+			success : function(data) {
+				$("#pclListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function doPclUpdate(){
+		if ($("#pcl_name").val() == "")  {
+	        alert("상품분류명을 입력하세요!");
+	        $("#pcl_name").focus();
+	        return;
+	 	}
+		
+		$("#dana").val("pcl_update");
+		$("#insert","#pcl_insert").val("y");
+		$.ajax({
+			url : "<%=cp %>/PclController",
+			type : "post",
+			data : $('#pcl_insert').serialize(),
+			dataType : "html",
+			success : function(data) {
+				$("#pclListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function doPclDelete(){
+		$("#dana").val("pcl_delete");
+		$("#insert","#pcl_insert").val("y");
+		$.ajax({
+			url : "<%=cp %>/PclController",
+			type : "post",
+			data : $('#pcl_insert').serialize(),
 			dataType : "html",
 			success : function(data) {
 				$("#pclListDiv").html(data);

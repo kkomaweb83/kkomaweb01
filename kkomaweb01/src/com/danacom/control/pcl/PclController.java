@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.danacom.model.base.BaseCommand;
 import com.danacom.model.pcl.PclAdminListCommand;
 import com.danacom.model.pcl.PclAjaxAdminListCommand;
+import com.danacom.model.pcl.PclAutoNoCommand;
+import com.danacom.model.pcl.PclDeleteCommand;
+import com.danacom.model.pcl.PclInsertCommand;
+import com.danacom.model.pcl.PclPreUpdateCommand;
+import com.danacom.model.pcl.PclUpdateCommand;
 
 @WebServlet("/PclController")
 public class PclController extends HttpServlet {
@@ -31,6 +36,7 @@ public class PclController extends HttpServlet {
 		
 		String dana = "";
 		String path = "";
+		Boolean forward = true;
 		
 		RequestDispatcher rd = null;
 		BaseCommand baseComm = null;
@@ -41,12 +47,29 @@ public class PclController extends HttpServlet {
 			baseComm = new PclAdminListCommand();
 		}else if("ajax_pcl_list".equals(dana)){
 			baseComm = new PclAjaxAdminListCommand();
+		}else if("pcl_auto_no".equals(dana)){
+			baseComm = new PclAutoNoCommand();
+		}else if("pcl_preUpdate".equals(dana)){
+			baseComm = new PclPreUpdateCommand();
+		}else if("pcl_insert".equals(dana)){
+			baseComm = new PclInsertCommand();
+			forward = false;
+		}else if("pcl_update".equals(dana)){
+			baseComm = new PclUpdateCommand();
+			forward = false;
+		}else if("pcl_delete".equals(dana)){
+			baseComm = new PclDeleteCommand();
+			forward = false;
 		}
 		
 		path = baseComm.exec(request, response);
 		
-		rd = request.getRequestDispatcher(path);
-		rd.forward(request, response);
+		if(forward){
+			rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+		}else{
+			response.sendRedirect(path);
+		}
 	}
 
 }

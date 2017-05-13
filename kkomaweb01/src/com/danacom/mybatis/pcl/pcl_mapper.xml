@@ -34,4 +34,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE A.PCL_NO = #{pcl_upperno}
 	</select>
 	
+	<select id="pclAutoPclNo" resultType="String" parameterType="String">
+		SELECT     /* [danacom]_[pcl]_[PclAutoNoCommand.pclAutoPclNo]_kkomaweb_20170513 */  
+			TO_CHAR(MAX(TO_NUMBER(pcl_no))+1) pcl_no 
+		FROM PRO_CLASS
+		WHERE PCL_UPPERNO = #{pcl_upperno}
+	</select>
+	
+	<insert id="pclInsert" parameterType="com.danacom.mybatis.pcl.ProClassVo">
+		INSERT     /* [danacom]_[pcl]_[PclInsertCommand.pclInsert]_kkomaweb_20170513 */   
+		INTO PRO_CLASS
+		(PCL_NO, PCL_NAME, PCL_STEP, PCL_BASIS, PCL_UPPERNO)
+		VALUES
+		(#{pcl_no}, #{pcl_name}, #{pcl_step}, #{pcl_basis}, #{pcl_upperno})
+	</insert>
+	
+	<update id="pclUpdate" parameterType="com.danacom.mybatis.pcl.ProClassVo">
+		UPDATE     /* [danacom]_[pcl]_[PclUpdateCommand.pclUpdate]_kkomaweb_20170513 */   
+		PRO_CLASS SET
+			PCL_NAME = #{pcl_name}
+			, PCL_BASIS = #{pcl_basis}
+		WHERE PCL_NO = #{pcl_no}
+	</update>
+	
+	<delete id="pclDelete" parameterType="String">
+		DELETE     /* [danacom]_[pcl]_[PclDeleteCommand.pclDelete]_kkomaweb_20170513 */    
+		FROM PRO_CLASS
+		WHERE PCL_NO = #{pcl_no}
+	</delete>
+	
 </mapper>

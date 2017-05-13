@@ -2,6 +2,22 @@
  * 꼬마web 전용 자바스크립트
  */
 
+/**
+ * chk메소드
+ * 인자값 : (정규식, 검증대상 객체, 검증 실패시 보여 줄 메시지)
+ * 검증대상 객체는 반드시 input type = text 만 넣어주세요! 
+ */
+function chkWan(regex, obj, msg){
+	if(regex.test(obj.val())) return true;
+	else{
+		alert(msg);
+		obj.val("");
+		obj.focus();
+		obj.select();
+		return false;
+	}
+}
+
 //날짜점검
 function dateCheck(no){
     var form = document.search;

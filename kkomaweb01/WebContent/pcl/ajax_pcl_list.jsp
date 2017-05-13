@@ -13,9 +13,10 @@
 <body>
 
 <form method="post" id="pcl_insert">
-	<input name="insert" type="hidden" value="${insert }" />
+	<input name="insert" id="insert" type="hidden" value="${insert }" />
 	<input name="step" type="hidden" value="${pclVO.pcl_step }" />
 	<input name="pcl_old_upperno" type="hidden" value="${pclVO.pcl_upperno }" />
+	<input name="dana" id="dana" type="hidden" value="" />
 
 <div class="title_div1">
 	<span style="font-size: 5px;">&nbsp;</span><br/>
@@ -27,69 +28,68 @@
 <div class="title_div2">
 	<table style="width: 800px; padding: 0; border-spacing: 5px;">
 	<tr>
-	<td class="title_box2">분류코드</td>
+	<td><span class="span_box2">분류코드</span></td>
 	<td align="left" colspan="2">
-	<input type="text" name="pcl_no" id="pcl_no" class="box_input_left3" style="width: 250px;" 
+	<input type="text" name="pcl_no" id="pcl_no" class="box_input_left" style="width: 250px;" 
 	<c:if test="${insert == 'y'}"> value="${pcl_atuo_no }" </c:if>
 	<c:if test="${insert == 'n'}"> value="${pclVO.pcl_no }" </c:if>
 	readonly="readonly" />
 	<c:if test="${insert == 'y'}">
-	<a href="javascript:goPclAutoNo();" class="box_button1">코드생성</a>
+	<span onclick="javascript:goPclAutoNo();" class="dana_button01">코드생성</span>
 	</c:if>
 	</td>
 	<td align="right">
 		<table style="border-spacing: 3px;"><tr>
 		<c:if test="${insert == 'y'}">
-		<td class="box_button1"><a href="javascript:doPclInsert();">입력</a></td>
+		<td><span onclick="javascript:doPclInsert();" class="dana_button01">입력</span></td>
 		</c:if>
 		<c:if test="${insert == 'n'}">
-		<td class="box_button1"><a href="javascript:doPclUpdate();">수정</a></td>
-		<td class="box_button1"><a href="javascript:doPclDelete();">삭제</a></td>
+		<td><span onclick="javascript:doPclUpdate();" class="dana_button01">수정</span></td>
+		<td><span onclick="javascript:doPclDelete();" class="dana_button01">삭제</span></td>
 		</c:if>
 		</tr>
 		</table>
 	</td>
 	</tr>
 	<tr>
-	<td class="title_box2">분류명</td>
+	<td><span class="span_box2">분류명</span></td>
 	<td colspan="3" align="left" width="300">
 	<input type="text" name="pcl_name" id="pcl_name" class="box_input_left" 
 			style="width: 655px;" value="${pclVO.pcl_name }" /></td>
 	</tr>
 	<tr>
-	<td class="title_box2" width="100">기본여부</td>
+	<td><span class="span_box2">기본여부</span></td>
 	<td align="left" width="300">
 	<select name="pcl_basis" id="pcl_basis">
 		<option value="Y" <c:if test="${pclVO.pcl_basis == 'Y'}"> selected="selected" </c:if>>Y</option>
 		<option value="N" <c:if test="${pclVO.pcl_basis == 'N'}"> selected="selected" </c:if>>N</option>
 	</select></td>
-	<td class="title_box2" width="100">분류단계</td>
+	<td><span class="span_box2">분류단계</span></td>
 	<td align="left" width="300">
 	<input type="text" name="pcl_step" class="box_input_left" 
 				style="width: 250px;" readonly="readonly" value="${pclVO.pcl_step }"/></td>							
 	</tr>
 	<tr>
-	<td class="title_box2">상위 코드</td>
+	<td><span class="span_box2">상위 코드</span></td>
 	<td align="left">
 	<input type="text" name=pcl_upperno class="box_input_left" 
 				style="width: 250px;" readonly="readonly" value="${pclVO.pcl_upperno }" /></td>
-	<td class="title_box2">상위 분류명</td>
+	<td><span class="span_box2">상위 분류명</span></td>
 	<td align="left">
 	<input type="text" name=pa_pcl_name class="box_input_left" 
 				style="width: 250px;" readonly="readonly" value="${pclVO.pa_pcl_name }" /></td>			
 	</tr>
 	</table>
 </div>
-	<!-- 상품분류 입력, 수정 -->
+<!-- 상품분류 입력, 수정 -->
 
 <!-- pcl_insert -->
-
 
 <!-- pcl_list -->
 <div style="width: 800px;">
 
 	<div style="text-align: left; height: 30px;">
-		<a href="<%=cp %>/pcl/pcl_list.ama">최상위분류</a>
+		<a href="<%=cp %>/PclController?dana=pcl_list">최상위분류</a>
 		<c:if test="${!empty old_list}">
 		<c:forEach var="bean" items="${old_list}">
 			<span id="spcl_list_step"  style="display: inline;">
@@ -106,32 +106,36 @@
 	</div> 
 	
 	<table style="width: 800px;">
-	<tr>
-	<td class="table_title" width="150px">분류코드</td>
-	<td class="table_title" width="320px">분류명</td>
-	<td class="table_title" width="90px">분류단계</td>
-	<td class="table_title" width="90px">기본여부</td>
-	<td class="table_title" width="150px">상위분류명</td>
-	</tr>
+	<thead>
+		<tr>
+			<td class="table_title" width="150px">분류코드</td>
+			<td class="table_title" width="320px">분류명</td>
+			<td class="table_title" width="90px">분류단계</td>
+			<td class="table_title" width="90px">기본여부</td>
+			<td class="table_title" width="150px">상위분류명</td>
+		</tr>
+	</thead>
 	
-	<c:forEach var="bean" items="${pcllist}">
-	<tr>
-	<td class="table_content1">
-	<a href="javascript:goPclListNo('${bean.pcl_no }','${bean.pcl_step+1}','${bean.pcl_upperno }');">
-	${bean.pcl_no}</a></td>
-	<td class="table_content1">
-	<a href="javascript:goPclListName('${bean.pcl_no }','${bean.pcl_upperno }');">
-	${bean.pcl_name }</a></td>
-	<td class="table_content2">${bean.pcl_step}</td>
-	<td class="table_content2">${bean.pcl_basis}</td>
-	<td class="table_content2">${bean.pa_pcl_name}</td>
-	</tr>
-	</c:forEach>
-	
+	<tbody>
+		<c:forEach var="bean" items="${pcllist}">
+		<tr>
+			<td class="table_content1">
+			<a href="javascript:goPclListNo('${bean.pcl_no }','${bean.pcl_step+1}','${bean.pcl_upperno }');">
+			${bean.pcl_no}</a></td>
+			<td class="table_content1">
+			<a href="javascript:goPclListName('${bean.pcl_no }','${bean.pcl_upperno }');">
+			${bean.pcl_name }</a></td>
+			<td class="table_content2">${bean.pcl_step}</td>
+			<td class="table_content2">${bean.pcl_basis}</td>
+			<td class="table_content2">${bean.pa_pcl_name}</td>
+		</tr>
+		</c:forEach>
+	</tbody>
 	</table>	
 
 </div>
 
 </form>
+
 </body>
 </html>
