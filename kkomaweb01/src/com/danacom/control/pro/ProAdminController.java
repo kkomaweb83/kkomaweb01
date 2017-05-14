@@ -10,14 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
-import com.danacom.model.pcl.PclTopListCommand;
-import com.danacom.model.pro.ProTopSearchCommand;
+import com.danacom.model.pro.ProAdminListCommand;
 
-@WebServlet("/ProController")
-public class ProController extends HttpServlet {
+@WebServlet("/ProAdminController")
+public class ProAdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public ProController() {
+    public ProAdminController() {
         super();
     }
 
@@ -38,10 +37,8 @@ public class ProController extends HttpServlet {
 		
 		dana = request.getParameter("dana");
 		
-		if("pro_main_prelist".equals(dana)){
-			baseComm = new PclTopListCommand();  // 메인 상단 상품분류 조회
-		}else if("ajax_pro_topSearch".equals(dana)){
-			baseComm = new ProTopSearchCommand();
+		if("pro_admin_list".equals(dana)){
+			baseComm = new ProAdminListCommand();
 		}
 		
 		path = baseComm.exec(request, response);

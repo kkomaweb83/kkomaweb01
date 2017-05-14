@@ -51,6 +51,8 @@ public class ProductVo {
 	
 	private String searchKey;
 	private String searchValue;
+	
+	private int tot_cont;
 
 	public ProductVo() {
 	}
@@ -373,6 +375,14 @@ public class ProductVo {
 
 	public void setSearchValue(String searchValue) {
 		this.searchValue = searchValue;
+	}
+
+	public int getTot_cont() {
+		return tot_cont;
+	}
+
+	public void setTot_cont(int tot_cont) {
+		this.tot_cont = tot_cont;
 	}
 	
 }

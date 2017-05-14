@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.danacom.mybatis.pro.pro_mapper">
+	
+	<!-- 사용자 로그인 체크 -->
+	<select id="proAdminPclList" resultType="com.danacom.mybatis.pro.ProductVo" parameterType="hashmap">
+		SELECT 
+			*
+		FROM
+		(
+		SELECT 
+			T1.*
+			, ROWNUM rm
+		    , COUNT(PRO_NO) OVER() AS tot_cont
+		FROM
+		(
+			SELECT 
+				PRO_NO
+				, PRO_DISPRICE
+				, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
+				, PCL_NAME, PRO_PCL_NO, PRO_STOCKCOUNT
+				, RPAD(PRO_NAME, 60, ' ') AS PRO_NAME
+			FROM PRODUCT A
+			JOIN PRO_CLASS B ON A.PRO_PCL_NO = B.PCL_NO
+			<if test="pro_pcl_no != null">
+				<if test="pro_pcl_no != 'all'">
+				WHERE PRO_PCL_NO = #{pro_pcl_no}
+				</if>
+			</if>
+			ORDER BY PRO_NO DESC
+		) T1
+		) T2
+	</select>
+	
+</mapper>

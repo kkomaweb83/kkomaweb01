@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% String cp = request.getContextPath(); %>
 
 <!DOCTYPE html>
@@ -18,6 +19,10 @@
 	$(function() {
 
 	});
+	
+	function chkPclList(pro_pcl_no){
+		location.href = "<%=cp %>/ProAdminController?dana=pro_admin_list&pro_pcl_no="+pro_pcl_no.value;
+	}
 </script>
 </head>
 <body>
@@ -42,6 +47,57 @@
 		<span class="title_box1">☞ 상품 리스트</span><br/>
 		<span style="font-size: 0px;">&nbsp;</span>
 	</div>		
+	
+	<div class="box_button1" style="width: 70px; text-align: center; float: right;">
+	<a href="#">상품등록</a>
+	</div>
+	
+	<!-- pro_admin_list -->
+	<div style="width: 800px;">
+	
+	<div style="text-align: left; height: 30px;">
+	상품분류 선택
+	<span id="spcl_list_step"  style="display: inline;">
+	<select name="pcl_list_step" style="vertical-align: middle;" onchange="chkPclList(this);">
+	<option value="all">전체검색</option>
+	<c:forEach var="bean" items="${class_list}">
+	<option value="${bean.pcl_no }" disabled="disabled" class="select_title1">☞ ${bean.pcl_name }</option>
+	<c:forEach var="bean2" items="${bean.pcl_list}">
+	<option value="${bean2.pcl_no }" <c:if test="${param.pro_pcl_no == bean2.pcl_no}"> selected="selected" </c:if>>
+	${bean2.pcl_name }</option>
+	</c:forEach>
+	</c:forEach>
+	</select>
+	</span>
+	전체 갯수<span style="color: red;">${listTotCount }</span> 개
+	</div>
+	
+	<table style="width: 800px;">
+	<thead>
+		<tr>
+		<td class="table_title" width="80px">상품코드</td>
+		<td class="table_title" width="400px">상품명</td>
+		<td class="table_title" width="100px">판매가격</td>
+		<td class="table_title" width="100px">분류명</td>
+		<td class="table_title" width="70px">재고</td>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="bean" items="${pro_list}">
+		<tr>
+		<td class="table_content2">${bean.pro_no}</td>
+		<td class="table_content1">
+		<a href="#">${bean.pro_name }</a>
+		</td>
+		<td class="table_content2" style="text-align: right;">${bean.pro_ch_price}</td>
+		<td class="table_content2">${bean.pcl_name}</td>
+		<td class="table_content2">${bean.pro_stockcount}</td>
+		</tr>
+		</c:forEach>
+	</tbody>
+	</table>
+	 
+	</div>
 	
 	</section>
 	
