@@ -18,7 +18,7 @@
 <nav id="admin_menu_lnb">
 	<ul>
 		<li><a href="<%=cp %>/PclController?dana=pcl_list">- 상품분류 관리</a></li>
-		<li><a href="<%=cp %>/mkr/mkr_list.jsp">- 제조사 관리</a></li>
+		<li><a href="<%=cp %>/MkrController?dana=mkr_list&mkr_insert=y&mkr_pcl_no=0101">- 제조사 관리</a></li>
 		<li><a href="<%=cp %>/pro/pro_admin_list.jsp">- 상품 리스트</a></li>
 	</ul>
 </nav>
