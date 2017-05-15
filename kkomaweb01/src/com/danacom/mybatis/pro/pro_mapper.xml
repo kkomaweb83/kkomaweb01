@@ -32,6 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ORDER BY PRO_NO DESC
 		) T1
 		) T2
+		WHERE rm BETWEEN #{begin} AND #{end}
 	</select>
 	
 </mapper>

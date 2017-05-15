@@ -5,14 +5,13 @@
 <%@ attribute name="p_totalPage" required="true" type="java.lang.Integer" %>
 <%@ attribute name="p_list" required="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% String cp = request.getContextPath(); %>
 
 <%
 	int nowPage = 1; // 현재페이지
 	int pagePerBlock = p_pagePerBlock; // 블럭당 표현되는 페이지의 수
 	int totalPage = 0; // 전체 페이지의수
 	int totalBlock = 0; // 전체 블럭의 수
-	int begin = 0; // 시작번호
-	int end = 0;  // 끝번호
 	
 	// 1. 전체 페이지 설정
 	totalPage = p_totalPage;
@@ -33,31 +32,36 @@
 <c:set var="nowPage" value="<%= nowPage %>" />
 <c:set var="totalPage" value="<%= totalPage %>" />
 
-<ol class="paging">
+<!-- 가운데 페이징 -->
+<div style="text-align: center; height: 100px; margin-top: 20px;">
 	<c:choose>
 		<c:when test="${beginPage <= pagePerBlock}">
-		<li class="disable">이전으로9</li>
+		<img src="<%=cp %>/img/pg_newprev.gif" border="0" style="vertical-align: bottom;" />
 		</c:when>
 		<c:otherwise>
-		<li><a href="${p_list}&cPage=${beginPage-pagePerBlock}" >이전으로</a></li>
+		<a href="javascript:doList(${beginPage-1});">
+		<img src="<%=cp %>/img/pg_newprev.gif" border="0" style="vertical-align: bottom;" /></a>
 		</c:otherwise>
 	</c:choose>
 	<c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1" varStatus="vs">
 		<c:choose>
 			<c:when test="${i == nowPage}">
-			<li class="now">${i}</li>
+			<span style="border: 1px solid #F00F00; color: red; display: inline-block; margin-left: 4px; padding: 2px 5px;">${i }</span>
 			</c:when>
 			<c:otherwise>
-			<li><a href="${p_list}&cPage=${i}">${i}</a></li>
+			<span style="border: 1px solid #DDDDDD; display: inline-block; margin-left: 4px; padding: 2px 5px;">
+			<a href="javascript:doList(${i});">${i}</a>
+			</span>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
 	<c:choose>
 		<c:when test="${endPage >= totalPage}">
-		<li class="disable">다음으로9</li>
+		<img src="<%=cp %>/img/pg_newnext.gif" border="0" style="vertical-align: bottom;" />
 		</c:when>
 		<c:otherwise>
-		<li><a href="${p_list}&cPage=${beginPage+pagePerBlock}" >다음으로</a></li>
+		<a href="javascript:doList(${beginPage+pagePerBlock});">
+		<img src="<%=cp %>/img/pg_newnext.gif" border="0" style="vertical-align: bottom;" /></a>
 		</c:otherwise>
 	</c:choose>
-</ol>
+</div>

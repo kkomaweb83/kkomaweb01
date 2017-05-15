@@ -7,8 +7,8 @@ import com.danacom.mybatis.base.BaseDao;
 
 public class ProDao extends BaseDao {
 
-	public static List<ProductVo> getProAdminList(Map<String, String> proMap) {
-		return getSql().selectList("proAdminPclList", proMap);
+	public static List<ProductVo> getProAdminList(Map<String, Object> requestMap) {
+		return getSql().selectList("proAdminPclList", requestMap);
 	}
 
 }

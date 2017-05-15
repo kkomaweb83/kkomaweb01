@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="p" tagdir="/WEB-INF/tags" %>
 <% String cp = request.getContextPath(); %>
 
 <!DOCTYPE html>
@@ -22,6 +23,10 @@
 	
 	function chkPclList(pro_pcl_no){
 		location.href = "<%=cp %>/ProAdminController?dana=pro_admin_list&pro_pcl_no="+pro_pcl_no.value;
+	}
+	function doList(page){
+		var pcl_no = document.getElementsByName("pcl_list_step")[0].value;
+		location.href = "<%=cp %>/ProAdminController?dana=pro_admin_list&pro_pcl_no="+pcl_no+"&cPage="+page;
 	}
 </script>
 </head>
@@ -48,8 +53,8 @@
 		<span style="font-size: 0px;">&nbsp;</span>
 	</div>		
 	
-	<div class="box_button1" style="width: 70px; text-align: center; float: right;">
-	<a href="#">상품등록</a>
+	<div style="width: 70px; text-align: center; float: right;">
+	<span class="dana_button01">상품등록</span>
 	</div>
 	
 	<!-- pro_admin_list -->
@@ -69,7 +74,7 @@
 	</c:forEach>
 	</select>
 	</span>
-	전체 갯수<span style="color: red;">${listTotCount }</span> 개
+	전체 갯수<span style="color: red;">${total_cnt}</span> 개
 	</div>
 	
 	<table style="width: 800px;">
@@ -96,6 +101,8 @@
 		</c:forEach>
 	</tbody>
 	</table>
+	
+	<p:page p_totalPage="${p_totalPage}" p_nowPage="${p_nowPage}" p_list="${p_list}" p_pagePerBlock="${p_pagePerBlock}" />
 	 
 	</div>
 	
