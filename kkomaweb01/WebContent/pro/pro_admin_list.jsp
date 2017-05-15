@@ -28,6 +28,9 @@
 		var pcl_no = document.getElementsByName("pcl_list_step")[0].value;
 		location.href = "<%=cp %>/ProAdminController?dana=pro_admin_list&pro_pcl_no="+pcl_no+"&cPage="+page;
 	}
+	function doPreInsert(){
+		location.href = "<%=cp %>/ProAdminController?dana=pro_preInsert";
+	}
 </script>
 </head>
 <body>
@@ -54,7 +57,7 @@
 	</div>		
 	
 	<div style="width: 70px; text-align: center; float: right;">
-	<span class="dana_button01">상품등록</span>
+	<span onclick="javascript:doPreInsert();" class="dana_button01">상품등록</span>
 	</div>
 	
 	<!-- pro_admin_list -->

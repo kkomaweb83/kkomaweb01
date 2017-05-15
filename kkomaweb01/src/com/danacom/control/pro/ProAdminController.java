@@ -31,6 +31,7 @@ public class ProAdminController extends HttpServlet {
 		String dana = "";
 		String path = "";
 		Boolean forward = true;
+		Boolean exec_go = true;
 		
 		RequestDispatcher rd = null;
 		BaseCommand baseComm = null;
@@ -39,9 +40,14 @@ public class ProAdminController extends HttpServlet {
 		
 		if("pro_admin_list".equals(dana)){
 			baseComm = new ProAdminListCommand();
+		}else if("pro_preInsert".equals(dana)){
+			exec_go = false;
+			path = "pro/pro_preInsert.jsp";
 		}
 		
-		path = baseComm.exec(request, response);
+		if(exec_go){
+			path = baseComm.exec(request, response);
+		}
 		
 		if(forward){
 			rd = request.getRequestDispatcher(path);
