@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
 import com.danacom.model.pro.ProAdminListCommand;
+import com.danacom.model.pro.ProAdminViewCommand;
+import com.danacom.model.pro.ProInsertCommand;
+import com.danacom.model.pro.PropdtpreselCommand;
 
 @WebServlet("/ProAdminController")
 public class ProAdminController extends HttpServlet {
@@ -43,6 +46,13 @@ public class ProAdminController extends HttpServlet {
 		}else if("pro_preInsert".equals(dana)){
 			exec_go = false;
 			path = "pro/pro_preInsert.jsp";
+		}else if("propdtpresel".equals(dana)){
+			baseComm = new PropdtpreselCommand();
+		}else if("pro_insert".equals(dana)){
+			baseComm = new ProInsertCommand();
+			forward = false;
+		}else if("pro_admin_view".equals(dana)){
+			baseComm = new ProAdminViewCommand();
 		}
 		
 		if(exec_go){

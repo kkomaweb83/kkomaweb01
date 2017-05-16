@@ -95,7 +95,7 @@
 		<tr>
 		<td class="table_content2">${bean.pro_no}</td>
 		<td class="table_content1">
-		<a href="#">${bean.pro_name }</a>
+		<a href="<%=cp %>/ProAdminController?dana=pro_admin_view&pro_no=${bean.pro_no}&pro_pcl_no=${bean.pro_pcl_no}">${bean.pro_name }</a>
 		</td>
 		<td class="table_content2" style="text-align: right;">${bean.pro_ch_price}</td>
 		<td class="table_content2">${bean.pcl_name}</td>

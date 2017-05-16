@@ -110,7 +110,7 @@
 	
 	<div class="title_div1">
 		<span style="font-size: 5px;">&nbsp;</span><br/>
-		<span class="title_box1">☞ 상품 등록</span><br/>
+		<span class="title_box1">☞ 상품 변경</span><br/>
 		<span style="font-size: 0px;">&nbsp;</span>
 	</div>
 	
@@ -119,20 +119,8 @@
 	<tr>
 	<td><span class="span_box2">분류코드</span></td>
 	<td align="left" colspan="2">
-	<input type="text" name="pro_pcl_no" id="pro_pcl_no" class="box_input_left" value="${proCom.pro_pcl_no }" 
+	<input type="text" name="pro_pcl_no" id="pro_pcl_no" class="box_input_left" value="${proVo.pro_pcl_no }" 
 			style="width: 150px;" readonly="readonly" />							
-	
-	<span style="display: inline;">
-	<select style="vertical-align: middle;" onchange="selProPclList(this);">
-	<c:forEach var="bean" items="${class_list}">
-	<option value="${bean.pcl_no }" class="select_title1">☞ ${bean.pcl_name }</option>
-	<c:forEach var="bean2" items="${bean.pcl_list}">
-	<option value="${bean2.pcl_no }" <c:if test="${proCom.pro_pcl_no == bean2.pcl_no}"> selected="selected" </c:if>>
-	${bean2.pcl_name }</option>
-	</c:forEach>
-	</c:forEach>
-	</select>
-	</span>
 	</td>
 	
 	<td align="right">
@@ -141,10 +129,15 @@
 		<td width="70"><span class="span_box2">재고</span></td>
 		<td>
 		<input type="text" name="pro_stockcount" class="box_input_left changeAmount ar" style="width: 80px; ime-mode: disabled;"
-		       onfocus="this.select();" maxlength="13" onKeyDown="onOnlyNumber(this);" onkeyup="removeComma(this);insertComma(this);" value="0" />
+		       onfocus="this.select();" maxlength="13" onKeyDown="onOnlyNumber(this);" onkeyup="removeComma(this);insertComma(this);" value="${proVo.pro_stockcount }" />
 		</td>
-		<td width="50"></td>
-		<td><span onclick="javascript:goProInsert();" class="dana_button01">등록</span></td>
+		<td width="20"></td>
+		<td>
+			<span onclick="javascript:goProUpdate(1);" class="dana_button01">수정</span>
+		</td>
+		<td>
+			<span onclick="javascript:goProUpdate(2);" class="dana_button01">삭제</span>
+		</td>
 		</tr>
 		</table>
 	</td>
@@ -152,19 +145,20 @@
 	<tr>
 	<td><span class="span_box2">상품명</span></td>
 	<td align="left" colspan="3">
-	<input type="text" name="pro_name" class="box_input_left" style="width: 98%;" /></td>
+	<input type="text" name="pro_name" class="box_input_left" style="width: 98%;" value="${proVo.pro_name }" /></td>
 	</tr>
 	
 	<tr>
 	<td><span class="span_box2">제조사</span></td>
 	<td align="left" width="300">
-	<input type="text" name="pro_mkr_no" class="box_input_left" style="width: 150px;" readonly="readonly" />
+	<input type="text" name="pro_mkr_no" class="box_input_left" value="${mkrVo.mkr_no }" style="width: 150px;" readonly="readonly" />
 	
-	<c:if test="${!empty mkrList}">
+	<c:if test="${!empty mkrVo}">
 	<select onchange="selProMkr(this);">
 		<option value="">제조사 선택</option>
-		<c:forEach var="bean" items="${mkrList}">
-		<option value="${bean.mkr_no }">${bean.mkr_name }</option>
+		<c:forEach var="bean" items="${mkrVo.list}">
+		<option value="${bean.mkr_no }" <c:if test="${bean.mkr_no == mkrVo.mkr_no}"> selected="selected" </c:if>>
+		${bean.mkr_name }</option>
 		</c:forEach>
 	</select>
 	</c:if>
@@ -173,23 +167,23 @@
 	<td width="90"><span class="span_box2">판매가격</span></td>
 	<td align="left" width="300">
 	<input type="text" name="pro_disprice" class="box_input_left changeAmount ar" style="width: 95%; ime-mode: disabled;" 
-		   onfocus="this.select();" maxlength="13" onKeyDown="onOnlyNumber(this);" onkeyup="removeComma(this);insertComma(this);" value="0" />
+		   onfocus="this.select();" maxlength="13" onKeyDown="onOnlyNumber(this);" onkeyup="removeComma(this);insertComma(this);" value="${proVo.pro_disprice }" />
 	</td>
 	</tr>
 	<tr>
 	<td><span class="span_box2">요약정보</span></td>
 	<td align="left" colspan="3">
-	<textarea rows="3" name="psm_conent" class="box_input_left" style="width: 98%;"></textarea></td>
+	<textarea rows="3" name="psm_conent" class="box_input_left" style="width: 98%;">${proVo.psm_conent }</textarea></td>
 	</tr>
 	<tr>
 	<td><span class="span_box2">작은 이미지</span></td>
 	<td align="left" colspan="3">
-	<input type="file" name="pmg_file_s1" size="70" class="box_input_left" /></td>
+	<input type="file" name="pmg_file_s1" size="70" class="box_input_left" />${pmg_file_s }</td>
 	</tr>
 	<tr>
 	<td><span class="span_box2">큰 이미지</span></td>
 	<td align="left" colspan="3">
-	<input type="file" name="pmg_file_s2" size="70" class="box_input_left" /></td>
+	<input type="file" name="pmg_file_s2" size="70" class="box_input_left" />${pmg_file_b }</td>
 	</tr>
 	</table>
 	</div>
@@ -198,7 +192,7 @@
 		<c:forEach var="bean" items="${pclList}" varStatus="no">
 		<table>
 		<tr>
-			<td colspan="3">
+			<td colspan="3" style="height: 30px;">
 			<span class="box_button1">${bean.pcl_name }</span>
 			</td>
 		</tr>
@@ -210,13 +204,14 @@
 			<input type="hidden" name="pdt_step4_${no.count }_${no2.count }" value="${bean2.pcl_no }" />
 			</td>
 			<td>
-				<input type="text" name="pdt_step51_${no.count }_${no2.count }" class="box_input_left" value="NULL" style="width: 200px;" readonly="readonly" />
+				<input type="text" name="pdt_step51_${no.count }_${no2.count }" class="box_input_left" value="${bean2.pcl_next_no }" style="width: 200px;" readonly="readonly" />
 			</td>
 			<td>
 				<select name="pdt_step52_${no.count }_${no2.count }" onchange="selPdtStep(this, ${no.count}, ${no2.count })">
 					<option value="NULL">선택안함</option>
 					<c:forEach var="bean3" items="${bean2.pcl_list}">
-					<option value="${bean3.pcl_no }">${bean3.pcl_name }</option>
+					<option value="${bean3.pcl_no }" <c:if test="${bean2.pcl_next_no == bean3.pcl_no}"> selected="selected" </c:if>>
+					${bean3.pcl_name }</option>
 					</c:forEach>
 				</select>
 			</td>

@@ -63,4 +63,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE PCL_NO = #{pcl_no}
 	</delete>
 	
+	<select id="nextPclVo" parameterType="com.danacom.mybatis.pro.ProTempVo" resultType="com.danacom.mybatis.pro.ProTempVo">
+		SELECT 
+		PCL_NO AS PCL_NEXT_NO, PCL_NAME AS PCL_NEXT_NAME
+		FROM PRO_DET A
+		JOIN PRO_CLASS B ON A.PDT_CONENT = B.PCL_NO
+		WHERE PDT_PRO_NO = #{pdt_pro_no}
+		AND PDT_NAME = #{pdt_name}
+		AND ROWNUM = 1
+	</select>
+	
 </mapper>

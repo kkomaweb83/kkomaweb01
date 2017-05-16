@@ -35,4 +35,76 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE rm BETWEEN #{begin} AND #{end}
 	</select>
 	
+	<select id="proMaxNO" resultType="int">
+		SELECT NVL(MAX(PRO_NO), 0)+1 FROM PRODUCT
+	</select>
+	
+	<insert id="proInsert" parameterType="com.danacom.mybatis.pro.ProductVo">
+		INSERT 
+		INTO PRODUCT
+		(PRO_NO, PRO_NAME, PRO_REALPRICE, PRO_DISPRICE
+		, PRO_REGDATE, PRO_MILEGE, PRO_STOCKCOUNT
+		, PRO_PCL_NO, PRO_MKR_NO)
+		VALUES
+		(#{pro_no}
+		, #{pro_name}
+		, #{pro_disprice}, #{pro_disprice}, SYSDATE
+		, FLOOR(#{pro_disprice}*0.005) 
+		, #{pro_stockcount}, #{pro_pcl_no}, #{pro_mkr_no})
+	</insert>
+	
+	<insert id="psmInsert" parameterType="com.danacom.mybatis.pro.ProductVo">
+		INSERT 
+		INTO PRO_SUMM
+		(PSM_NO, PSM_CONENT, PSM_PRO_NO)
+		VALUES
+		((SELECT NVL(MAX(PSM_NO), 0)+1 FROM PRO_SUMM)
+		, #{psm_conent}
+		, #{pro_no})
+	</insert>
+	
+	<insert id="pmgInsert" parameterType="com.danacom.mybatis.pro.Pro_imgVo">
+		INSERT 
+		INTO PRO_IMG
+		(PMG_NO, PMG_FILE, PMG_PRO_NO, PMG_IDT_NO)
+		VALUES
+		((SELECT NVL(MAX(PMG_NO), 0)+1 FROM PRO_IMG)
+		, #{pmg_file}, #{pmg_pro_no}, #{pmg_idt_no})
+	</insert>
+	
+	<insert id="pdtInsert" parameterType="com.danacom.mybatis.pro.Pro_detVo">
+		INSERT 
+		INTO PRO_DET
+		(PDT_NO, PDT_NAME, PDT_CONENT, PDT_STEP, PDT_PRO_NO)
+		VALUES
+		((SELECT NVL(MAX(PDT_NO), 0)+1 FROM PRO_DET)
+        , #{pdt_name}, #{pdt_conent}, 5, #{pdt_pro_no})
+	</insert>
+	
+	<select id="proVo" resultType="com.danacom.mybatis.pro.ProductVo" parameterType="int">
+		SELECT 
+			PRO_NO, PRO_NAME, PRO_DISPRICE, PRO_REALPRICE, PRO_MILEGE
+			, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
+			, TO_CHAR(PRO_REGDATE, 'YYYY/MM/DD') PRO_REGDATE
+			, PSM_CONENT
+			, PMG_FILE
+            , MKR_NAME
+            , PRO_PCL_NO
+            , PRO_MKR_NO
+            , PRO_STOCKCOUNT
+		FROM PRODUCT
+		JOIN PRO_SUMM ON PRO_NO = PSM_PRO_NO
+		JOIN PRO_IMG ON PRO_NO = PMG_PRO_NO
+        JOIN MAKER ON PRO_MKR_NO = MKR_NO
+		WHERE PRO_NO = #{pro_no}
+		AND PMG_IDT_NO = 2
+	</select>
+	
+	<select id="pmgFile" resultType="string" parameterType="int">
+		SELECT 
+		PMG_FILE FROM PRO_IMG
+		WHERE PMG_PRO_NO = #{pro_no}
+		AND PMG_IDT_NO = #{idt_no}
+	</select>
+	
 </mapper>

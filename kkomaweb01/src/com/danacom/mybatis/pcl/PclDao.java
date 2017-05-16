@@ -3,6 +3,7 @@ package com.danacom.mybatis.pcl;
 import java.util.List;
 
 import com.danacom.mybatis.base.BaseDao;
+import com.danacom.mybatis.pro.ProTempVo;
 
 public class PclDao extends BaseDao {
 
@@ -47,6 +48,10 @@ public class PclDao extends BaseDao {
 	public static void pclDelete(String pcl_no) {
 		getSql().delete("pclDelete", pcl_no);
 		getSql().commit();
+	}
+
+	public static ProTempVo getNextPclVo(ProTempVo proTempVO) {
+		return getSql().selectOne("nextPclVo", proTempVO);
 	}
 	
 }
