@@ -23,10 +23,39 @@
 		$.ajax({
 			url : "<%=cp %>/ProController",
 			type : "post",
-			data : "dana=ajax_pro_topSearch&pro_pcl_no=${param.pro_pcl_no}",
+			data : {dana:'ajax_pro_topSearch',pro_pcl_no:'${param.pro_pcl_no}'},
 			dataType : "html",
 			success : function(data) {
 				$("#proTopSearchDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+		
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_pro_list',pro_pcl_no:'${param.pro_pcl_no}',proOrderCode:'1'},
+			dataType : "html",
+			success : function(data) {
+				$("#proListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function doList(page){
+		$("#cPage").val(page);
+		$("#dana").val("ajax_pro_list");
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : $('#pro_pclSearch').serialize(),
+			dataType : "html",
+			success : function(data) {
+				$("#proListDiv").html(data);
 			},
 			error : function() {
 				alert("실패");
@@ -74,16 +103,6 @@
 	
 	<!-- 리스트 -->
 	<div id="proListDiv">
-	
-	<nav id="pro_order_lnb">
-		<ul>
-			<li><a href="#">인기상품순</a></li>
-			<li><a href="#">신상품순</a></li>
-			<li><a href="#">낮은가격순</a></li>
-			<li><a href="#">높은가격순</a></li>
-			<li><span>&nbsp;</span></li>
-		</ul>
-	</nav>
 	
 	</div>
 	<!-- 리스트 -->

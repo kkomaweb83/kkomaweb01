@@ -6,8 +6,9 @@
 <form method="post" id="pro_pclSearch">
 	<input name="pro_pcl_no" type="hidden" value="${param.pro_pcl_no }" />
 	<input name="pdt_conent" type="hidden" value="" />
-	<input name="page" type="hidden" value="1" />
+	<input name="cPage" id="cPage" type="hidden" value="1" />
 	<input name="proOrderCode" type="hidden"  value="1"/>
+	<input name="dana" id="dana" type="hidden" value="" />
 
 <div style="text-align: left; border: #FF9900 1px solid; padding: 7px; width: 946px; margin-left: 5px;">
 

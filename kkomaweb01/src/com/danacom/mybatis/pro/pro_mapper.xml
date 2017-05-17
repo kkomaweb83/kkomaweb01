@@ -35,6 +35,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE rm BETWEEN #{begin} AND #{end}
 	</select>
 	
+	<select id="proMainList" resultType="com.danacom.mybatis.pro.ProductVo" parameterType="hashmap">
+		SELECT 
+			*
+		FROM
+		(
+		SELECT 
+			T1.*
+			, ROWNUM rm
+		    , COUNT(PRO_NO) OVER() AS tot_cont
+		FROM
+		(
+			SELECT 
+				PRO_NO, PRO_NAME, PRO_DISPRICE, PRO_REALPRICE
+				, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
+				, TO_CHAR(PRO_DISPRICE, '999,999,999,999') PRO_CH2_PRICE
+				, TO_CHAR(PRO_REGDATE, 'YYYY/MM/DD') PRO_REGDATE
+				, PSM_CONENT
+				, PMG_FILE
+				, PRO_PCL_NO
+				, PRO_MKR_NO
+				, PRO_NAME AS PPT_PRO_NAME
+			FROM PRODUCT, PRO_SUMM, PRO_IMG 
+			WHERE PRO_NO = PSM_PRO_NO 
+			AND PRO_NO = PMG_PRO_NO 
+			AND PRO_PCL_NO = #{pro_pcl_no}
+			AND PMG_IDT_NO = 1 
+			ORDER BY PRO_NO DESC
+		) T1
+		) T2
+		WHERE rm BETWEEN #{begin} AND #{end}
+	</select>
+	
 	<select id="proMaxNO" resultType="int">
 		SELECT NVL(MAX(PRO_NO), 0)+1 FROM PRODUCT
 	</select>

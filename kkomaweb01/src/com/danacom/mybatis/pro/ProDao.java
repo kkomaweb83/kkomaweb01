@@ -75,4 +75,8 @@ public class ProDao extends BaseDao {
 		getSql().delete("proDelete", proMaxNo);
 	}
 
+	public static List<ProductVo> getProMainList(Map<String, Object> requestMap) {
+		return getSql().selectList("proMainList", requestMap);
+	}
+
 }
