@@ -21,6 +21,8 @@ public class ProAjaxListCommand implements BaseCommand {
 		Map<String, Object> requestMap = new HashMap<>();
 		requestMap.put("pro_pcl_no", request.getParameter("pro_pcl_no"));
 		requestMap.put("proOrderCode", request.getParameter("proOrderCode"));
+		requestMap.put("mkr_no_sy", request.getParameterValues("mkr_no_sy"));
+		requestMap.put("pdt_step51_sy", request.getParameterValues("pdt_step51_sy"));
 		
 		CommonUtilsController.setPageSetting(requestMap, request); // 페이징1
 		List<ProductVo> pro_list = ProDao.getProMainList(requestMap);
@@ -33,6 +35,7 @@ public class ProAjaxListCommand implements BaseCommand {
 		
 		request.setAttribute("proMainList", pro_list);
 		request.setAttribute("total_cnt", total_cnt);
+		request.setAttribute("orderCode", request.getParameter("proOrderCode"));
 		
 		return "pro/ajax_pro_main_list.jsp";
 	}

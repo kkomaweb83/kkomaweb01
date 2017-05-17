@@ -45,6 +45,8 @@ public class ProController extends HttpServlet {
 			baseComm = new ProTopSearchCommand();
 		}else if("ajax_pro_list".equals(dana)){
 			baseComm = new ProAjaxListCommand();
+		}else if("ajax_pro_pclSearch".equals(dana)){
+			baseComm = new ProAjaxListCommand();
 		}
 		
 		path = baseComm.exec(request, response);

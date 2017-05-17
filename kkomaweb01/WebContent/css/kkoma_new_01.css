@@ -131,6 +131,10 @@ td.ar{padding-right:5px !important;}
 	background: #8BBDFF;
 	color: white;
 }
+#pro_order_lnb > ul > li > a.order {
+	background: #8BBDFF;
+	color: white;
+}
 #pro_order_lnb > ul > li > span {
 	display: block;
 	width: 600px;

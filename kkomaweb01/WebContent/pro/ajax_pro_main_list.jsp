@@ -15,10 +15,10 @@
 
 <nav id="pro_order_lnb">
 	<ul>
-		<li><a href="#">인기상품순</a></li>
-		<li><a href="#">신상품순</a></li>
-		<li><a href="#">낮은가격순</a></li>
-		<li><a href="#">높은가격순</a></li>
+		<li><a href="#" onclick="goMainTopChk(1);" <c:if test="${orderCode == 1}">class="order"</c:if>>인기상품순</a></li>
+		<li><a href="#" onclick="goMainTopChk(2);" <c:if test="${orderCode == 2}">class="order"</c:if>>신상품순</a></li>
+		<li><a href="#" onclick="goMainTopChk(3);" <c:if test="${orderCode == 3}">class="order"</c:if>>낮은가격순</a></li>
+		<li><a href="#" onclick="goMainTopChk(4);" <c:if test="${orderCode == 4}">class="order"</c:if>>높은가격순</a></li>
 		<li><span>
 			<span style="margin-left: 20px;">☞  상품 리스트 총 <span style="color: red;">${total_cnt}</span> 개</span>
 			</span>
@@ -29,7 +29,7 @@
 <c:forEach var="bean" items="${proMainList}" varStatus="no">
 <table style="width: 960px; padding: 0; border-spacing: 0; border-bottom: #336699 1px solid; padding-bottom: 5px; padding-top: 5px;">
 <tr>
-	<td width="50" align="center">
+	<td width="50" align="center" style="display: none;">
 		<input type="checkbox" name="" />
 	</td>
 	<td width="100" align="center">

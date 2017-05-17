@@ -56,12 +56,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				, PRO_PCL_NO
 				, PRO_MKR_NO
 				, PRO_NAME AS PPT_PRO_NAME
+				, 1 AS ODT_COUNT
 			FROM PRODUCT, PRO_SUMM, PRO_IMG 
 			WHERE PRO_NO = PSM_PRO_NO 
 			AND PRO_NO = PMG_PRO_NO 
 			AND PRO_PCL_NO = #{pro_pcl_no}
-			AND PMG_IDT_NO = 1 
-			ORDER BY PRO_NO DESC
+			AND PMG_IDT_NO = 1
+			
+			<if test="mkr_no_sy != null">
+				<foreach item="item" index="index" collection="mkr_no_sy" open="AND PRO_MKR_NO IN(" close=")" separator=",">
+				#{item}
+				</foreach>
+			</if>
+			<if test="pdt_step51_sy != null">
+				<foreach item="item" index="index" collection="pdt_step51_sy" 
+						open="AND PRO_NO IN(SELECT PDT_PRO_NO FROM PRO_DET WHERE PDT_CONENT IN(" close="))" separator=",">
+				#{item}
+				</foreach>
+			</if>
+			
+			<if test="proOrderCode != ''">
+				<if test='proOrderCode == "1"'>
+					ORDER BY ODT_COUNT DESC, PRO_NO
+				</if>
+				<if test='proOrderCode == "2"'>
+					ORDER BY PRO_NO DESC
+				</if>
+				<if test='proOrderCode == "3"'>
+					ORDER BY PRO_DISPRICE ASC
+				</if>
+				<if test='proOrderCode == "4"'>
+					ORDER BY PRO_DISPRICE DESC
+				</if>
+			</if>
 		) T1
 		) T2
 		WHERE rm BETWEEN #{begin} AND #{end}

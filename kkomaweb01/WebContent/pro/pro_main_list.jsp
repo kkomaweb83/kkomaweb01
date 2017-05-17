@@ -81,8 +81,24 @@
 		}
 	}
 	
-	function goMainTopChk(mkr_no){
-		
+	function goMainTopChk(proOrderCode){
+		if(proOrderCode != 0){
+			$("#proOrderCode").val(proOrderCode);
+		} 
+		$("#cPage").val(1);
+		$("#dana").val("ajax_pro_pclSearch");
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : $('#pro_pclSearch').serialize(),
+			dataType : "html",
+			success : function(data) {
+				$("#proListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});		
 	}
 </script>
 </head>
