@@ -21,7 +21,6 @@ public class DBService {
 			if("183.111.100.173".equals(ip.getHostAddress())){
 				config = "mysql_config.xml";
 			}
-			config = "mysql_config.xml";
 
 			factory = new SqlSessionFactoryBuilder().build(
 					Resources.getResourceAsReader("com/danacom/mybatis/base/"+config));
