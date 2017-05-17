@@ -47,4 +47,32 @@ public class ProDao extends BaseDao {
 		return getSql().selectOne("pmgFile", map);
 	}
 
+	public static void proUpdate(ProductVo proCommand) {
+		getSql().update("proUpdate", proCommand);
+	}
+
+	public static void psmUpdate(ProductVo proCommand) {
+		getSql().update("psmUpdate", proCommand);
+	}
+
+	public static void pmgUpdate(Pro_imgVo pmgCommand) {
+		getSql().update("pmgUpdate", pmgCommand);
+	}
+
+	public static void pdtDelete(int proMaxNo) {
+		getSql().delete("pdtDelete", proMaxNo);
+	}
+
+	public static void pmgDelete(int proMaxNo) {
+		getSql().delete("pmgDelete", proMaxNo);
+	}
+
+	public static void psmDelete(int proMaxNo) {
+		getSql().delete("psmDelete", proMaxNo);
+	}
+
+	public static void proDelete(int proMaxNo) {
+		getSql().delete("proDelete", proMaxNo);
+	}
+
 }

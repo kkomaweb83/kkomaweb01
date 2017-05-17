@@ -107,4 +107,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND PMG_IDT_NO = #{idt_no}
 	</select>
 	
+	<update id="proUpdate" parameterType="com.danacom.mybatis.pro.ProductVo">
+		UPDATE 
+		PRODUCT SET
+		PRO_NAME = #{pro_name}
+		, PRO_REALPRICE = #{pro_disprice}
+		, PRO_DISPRICE= #{pro_disprice}
+		, PRO_MILEGE = FLOOR(#{pro_disprice}*0.005) 
+		, PRO_MKR_NO = #{pro_mkr_no}
+		, PRO_STOCKCOUNT = #{pro_stockcount}
+		WHERE PRO_NO = #{pro_no}
+	</update>
+	
+	<update id="psmUpdate" parameterType="com.danacom.mybatis.pro.ProductVo">
+		UPDATE 
+		PRO_SUMM SET
+		PSM_CONENT = #{psm_conent}
+		WHERE PSM_PRO_NO = #{pro_no}
+	</update>
+	
+	<update id="pmgUpdate" parameterType="com.danacom.mybatis.pro.Pro_imgVo">
+		UPDATE 
+		PRO_IMG SET
+		PMG_FILE = #{pmg_file}
+		WHERE PMG_PRO_NO = #{pmg_pro_no} AND PMG_IDT_NO = #{pmg_idt_no}
+	</update>
+	
+	<delete id="pdtDelete" parameterType="int">
+		DELETE 
+		FROM PRO_DET
+		WHERE PDT_PRO_NO = #{proMaxNo}
+	</delete>
+	
+	<delete id="pmgDelete" parameterType="int">
+		DELETE 
+		FROM PRO_IMG
+		WHERE PMG_PRO_NO = #{proMaxNo}
+	</delete>
+	
+	<delete id="psmDelete" parameterType="int">
+		DELETE 
+		FROM PRO_SUMM
+		WHERE PSM_PRO_NO = #{proMaxNo}
+	</delete>
+	
+	<delete id="proDelete" parameterType="int">
+		DELETE 
+		FROM PRODUCT
+		WHERE PRO_NO = #{proMaxNo}
+	</delete>
+	
 </mapper>

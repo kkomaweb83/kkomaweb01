@@ -34,13 +34,13 @@
 		var a = document.getElementsByName("pdt_step51_" + i + "_" + j);
 		a[0].value = pdtStep.value;
 	}
-	function goProInsert(){
+	function goProUpdate(part){
 		if (document.pro_insert.pro_pcl_no.value == "")  {
 	        alert("분류코드를 선택하세요!");
 	        document.pro_insert.pro_pcl_no.focus();
 	        return;
 	 	}
-
+	 	
 		if (document.pro_insert.pro_stockcount.value == "")  {
 	        alert("재고수량을 입력하세요!");
 	        document.pro_insert.pro_stockcount.focus();
@@ -70,22 +70,11 @@
 	        document.pro_insert.psm_conent.focus();
 	        return;
 	 	}
-
-	 	if (document.getElementsByName("pmg_file_s1")[0].value == "")  {
-	        alert("작은이미지를 선택하세요!");
-	        document.getElementsByName("pmg_file_s1")[0].focus();
-	        return;
-	 	}
-
-	 	if (document.getElementsByName("pmg_file_s2")[0].value == "")  {
-	        alert("큰이미지를 선택하세요!");
-	        document.getElementsByName("pmg_file_s2")[0].focus();
-	        return;
-	 	}
 	 	
 	 	removeCommaAll();
 
-		document.pro_insert.action = "<%=cp %>/ProAdminController?dana=pro_insert";
+		if(part == 1) document.pro_insert.action = "<%=cp %>/ProAdminController?dana=pro_update";
+		else if(part == 2) document.pro_insert.action = "<%=cp %>/ProAdminController?dana=pro_delete";
 		document.pro_insert.submit();
 	}
 </script>
@@ -107,6 +96,7 @@
 	
 	<section id="admin_section">
 	<form method="post" name="pro_insert" enctype="multipart/form-data">
+		<input type="hidden" name="pro_no" value="${proVo.pro_no }" />
 	
 	<div class="title_div1">
 		<span style="font-size: 5px;">&nbsp;</span><br/>

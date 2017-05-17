@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.danacom.model.base.BaseCommand;
 import com.danacom.model.pro.ProAdminListCommand;
 import com.danacom.model.pro.ProAdminViewCommand;
+import com.danacom.model.pro.ProDeleteCommand;
 import com.danacom.model.pro.ProInsertCommand;
+import com.danacom.model.pro.ProUpdateCommand;
 import com.danacom.model.pro.PropdtpreselCommand;
 
 @WebServlet("/ProAdminController")
@@ -53,6 +55,12 @@ public class ProAdminController extends HttpServlet {
 			forward = false;
 		}else if("pro_admin_view".equals(dana)){
 			baseComm = new ProAdminViewCommand();
+		}else if("pro_update".equals(dana)){
+			baseComm = new ProUpdateCommand();
+			forward = false;
+		}else if("pro_delete".equals(dana)){
+			baseComm = new ProDeleteCommand();
+			forward = false;
 		}
 		
 		if(exec_go){
