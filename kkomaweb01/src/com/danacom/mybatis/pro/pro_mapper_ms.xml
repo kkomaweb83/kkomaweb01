@@ -11,16 +11,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 		SELECT 
 			T1.*
-			, ROWNUM rm
-		    , COUNT(PRO_NO) OVER() AS tot_cont
+		    , 20 AS tot_cont
 		FROM
 		(
 			SELECT 
 				PRO_NO
 				, PRO_DISPRICE
-				, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
+				, FORMAT(PRO_DISPRICE, 0)||'원' PRO_CH_PRICE
 				, PCL_NAME, PRO_PCL_NO, PRO_STOCKCOUNT
-				, RPAD(PRO_NAME, 60, ' ') AS PRO_NAME
+				, PRO_NAME
 			FROM PRODUCT A
 			JOIN PRO_CLASS B ON A.PRO_PCL_NO = B.PCL_NO
 			<if test="pro_pcl_no != null">
@@ -31,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ORDER BY PRO_NO DESC
 		) T1
 		) T2
-		WHERE rm BETWEEN #{begin} AND #{end}
+		ORDER BY PRO_NO DESC LIMIT #{begin},5 
 	</select>
 	
 	<select id="proMainList" resultType="com.danacom.mybatis.pro.ProductVo" parameterType="hashmap">
@@ -41,15 +40,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 		SELECT 
 			T1.*
-			, ROWNUM rm
-		    , COUNT(PRO_NO) OVER() AS tot_cont
+		    , 20 AS tot_cont
 		FROM
 		(
 			SELECT 
 				PRO_NO, PRO_NAME, PRO_DISPRICE, PRO_REALPRICE
-				, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
-				, TO_CHAR(PRO_DISPRICE, '999,999,999,999') PRO_CH2_PRICE
-				, TO_CHAR(PRO_REGDATE, 'YYYY/MM/DD') PRO_REGDATE
+				, FORMAT(PRO_DISPRICE, 0)||'원' PRO_CH_PRICE
+				, FORMAT(PRO_DISPRICE, 0) PRO_CH2_PRICE
+				, DATE_FORMAT(PRO_REGDATE, '%Y/%M/%D') PRO_REGDATE
 				, PSM_CONENT
 				, PMG_FILE
 				, PRO_PCL_NO
@@ -90,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		) T1
 		) T2
-		WHERE rm BETWEEN #{begin} AND #{end}
+		ORDER BY PRO_NO DESC LIMIT #{begin},5 
 	</select>
 	
 	<select id="proMaxNO" resultType="int">

@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver"/>  
-    			<property name="url" value="jdbc:mysql://127.0.0.1:3306/kkomaweb"/>
+    			<property name="url" value="jdbc:mysql://kkomaweb.pe.kr:3306/kkomaweb"/>
 				<property name="username" value="kkomaweb" />
 				<property name="password" value="ts591dyo" />
 			</dataSource>
@@ -18,5 +18,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/danacom/mybatis/pcl/pcl_mapper_ms.xml" />
 		<mapper resource="com/danacom/mybatis/mkr/mkr_mapper_ms.xml" />
 		<mapper resource="com/danacom/mybatis/pro/login_mapper_ms.xml" />
+		<mapper resource="com/danacom/mybatis/pro/pro_mapper_ms.xml" />
 	</mappers>
 </configuration>
