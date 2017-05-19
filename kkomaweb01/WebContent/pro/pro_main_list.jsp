@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% String cp = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,11 @@
 <script type="text/javascript" src="<%=cp %>/js/kkoma01.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=cp %>/css/kkoma_new_01.css" />
 <style type="text/css">
-
+#wrapMiniTex {
+	position: fixed;
+	bottom: 0pt;
+	z-index: 99;
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -45,6 +50,21 @@
 				alert("실패");
 			}
 		});
+		
+		<c:if test="${login.cmd == 101}">
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_sct_list',sct_mem_no:'${login.mem_no }',sct_part:1},
+			dataType : "html",
+			success : function(data) {
+				$("#miniSctListDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+		</c:if>
 	}
 	function doList(page){
 		$("#cPage").val(page);
@@ -134,6 +154,21 @@
 		});
 		
 	}
+	
+	function wrapShow(part){
+		var area = document.getElementById("wrapMiniTex");
+		var area1 = document.getElementById("miniTex_top_clearfix");
+		var area2 = document.getElementById("miniTex_body");
+		if(part == 1){
+			area.style.height = "225px";
+			area2.style.display = "inline";
+			area1.innerHTML = '<a href="javascript:wrapShow(2);" style="color: white;">장바구니 ▼</a>';
+		}else{
+			area.style.height = "32px";
+			area2.style.display = "none";
+			area1.innerHTML = '<a href="javascript:wrapShow(1);" style="color: white;">장바구니 ▲</a>';
+		}
+	}
 </script>
 </head>
 <body>
@@ -160,7 +195,22 @@
 	</div>
 	<!-- 리스트 -->
 	
+	<div style="height: 200px;"></div>
+	
 	</div>
+	
+	<c:if test="${login.cmd == 101}">
+	<!-- 하단 장바구니 -->
+	<div id="wrapMiniTex">
+		<div id="miniTex_top_clearfix"><a href="javascript:wrapShow(1);" style="color: white;">장바구니 ▲</a></div>
+	<div id="miniTex_body">
+		<div id="miniSctListDiv">
+		<!-- 하단 장바구니 -->
+		</div>
+	</div>
+	</div>
+	<!-- 하단 장바구니 -->
+	</c:if>
 	
 	</div>
 	

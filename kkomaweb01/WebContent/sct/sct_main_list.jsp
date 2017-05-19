@@ -33,6 +33,59 @@
 			}
 		});
 	}
+	function sct_count_ch(sct_no, part, mem_no, prono, sct_part){
+		var cnt = document.getElementsByName("cnt_"+prono);
+		var temp = 0;
+
+		if(part == "PLUS"){
+			temp = parseInt(cnt[0].value);
+			temp = temp+1;
+		}else if(part == "MINUS"){
+			temp = parseInt(cnt[0].value);
+			if(temp > 1) temp = temp-1;
+		}
+		
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_sct_update',sct_no:sct_no, sct_count: temp, sct_mem_no: mem_no, sct_part:sct_part},
+			dataType : "html",
+			success : function(data) {
+				$("#proMainViewDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function goSctDelete(sct_no, mem_no, sct_part){
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_sct_delete',sct_no:sct_no, sct_mem_no: mem_no, sct_part:sct_part},
+			dataType : "html",
+			success : function(data) {
+				$("#proMainViewDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function goSctAllDelete(mem_no, sct_part){
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_sct_alldelete',sct_mem_no: mem_no, sct_part:sct_part},
+			dataType : "html",
+			success : function(data) {
+				$("#proMainViewDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
 </script>
 </head>
 <body>

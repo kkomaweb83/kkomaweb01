@@ -79,7 +79,7 @@
 		</li>
 		<li><a href="#">회원가입</a></li>
 		<li>
-		<c:if test="${login.cmd != 101}">장바구니</c:if>
+		<c:if test="${login.cmd != 101}"><a href="#">장바구니</a></c:if>
 		<c:if test="${login.cmd == 101}"><a href="<%=cp %>/ProController?dana=sct_main_prelist">장바구니</a></c:if>
 		</li>
 		<li><a href="#">마이페이지</a></li>

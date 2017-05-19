@@ -14,8 +14,11 @@ import com.danacom.model.pcl.PclTopListCommand;
 import com.danacom.model.pro.ProAjaxListCommand;
 import com.danacom.model.pro.ProAjaxViewCommand;
 import com.danacom.model.pro.ProTopSearchCommand;
+import com.danacom.model.pro.SctAjaxAllDeleteCommand;
+import com.danacom.model.pro.SctAjaxDeleteCommand;
 import com.danacom.model.pro.SctAjaxInsertCommand;
 import com.danacom.model.pro.SctAjaxListCommand;
+import com.danacom.model.pro.SctAjaxUpdateCommand;
 
 @WebServlet("/ProController")
 public class ProController extends HttpServlet {
@@ -60,6 +63,12 @@ public class ProController extends HttpServlet {
 			baseComm = new SctAjaxListCommand();
 		}else if("ajax_sct_insert".equals(dana)){
 			baseComm = new SctAjaxInsertCommand();
+		}else if("ajax_sct_update".equals(dana)){
+			baseComm = new SctAjaxUpdateCommand();
+		}else if("ajax_sct_delete".equals(dana)){
+			baseComm = new SctAjaxDeleteCommand();
+		}else if("ajax_sct_alldelete".equals(dana)){
+			baseComm = new SctAjaxAllDeleteCommand();
 		}
 		
 		if(exec_go){

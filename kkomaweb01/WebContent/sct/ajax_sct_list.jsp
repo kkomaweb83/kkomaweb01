@@ -36,7 +36,7 @@
 				 	text-align: left;
 				 	color: #000000;">
 
-<table style="width: 960px; padding: 0; border-spacing: 0; padding-bottom: 5px; padding-top: 5px;">
+<table style="width: 940px; padding: 0; border-spacing: 0; padding-bottom: 5px; padding-top: 5px;">
 
 <tr style="background-color: #6699FF;">
 <td></td>
@@ -72,7 +72,7 @@ ${bean.sct_proVO.pro_ch_price }
 <td width="90" align="center" style="border-bottom: gray 1px dotted;">
 
 <input name="cnt_${bean.sct_proVO.pro_no}" value="${bean.sct_count }" size="2" type="text" readonly="readonly">
-<img src="<%=cp%>/img/btn_cnt.gif" usemap="#MAP_BtnCnt_${bean.sct_proVO.pro_no}" hspace="1">
+<img src="<%=cp%>/img/btn_cnt.gif" usemap="#MAP_BtnCnt_${bean.sct_proVO.pro_no}" style="vertical-align: -5px;" />
 <map name="MAP_BtnCnt_${bean.sct_proVO.pro_no}">
 <area shape="rect" coords="0,0,9,10" 
 	href="javascript:sct_count_ch(${bean.sct_no},'PLUS',${login.mem_no},${bean.sct_proVO.pro_no},0);">

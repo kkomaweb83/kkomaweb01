@@ -184,6 +184,45 @@ td.ar{padding-right:5px !important;}
 	box-shadow : 2px 2px 3px rgba(0,105,237,0.3);
 }
 
+#mini_sct_tot{
+	width:155px; 
+	height: 170px; 
+	float: left; 
+	text-align: right;
+}
+#mini_sct_tot > span{
+	display: block;
+	padding: 3px;
+}
+
+#wrapMiniTex{
+	width: 960px; 
+	height: 32px; 
+	display: inline;
+}
+#miniTex_top_clearfix{
+	padding: 9px 12px 8px 12px; 
+	width: 100px; 
+	text-align:center; 
+	background-color: #8BBDFF; 
+	border: 1px solid #3163C9;
+	border-bottom: 0px;
+}
+#miniTex_body{
+	display: none; 
+	background-color: #ffffff; 
+	color: #000000; 
+	border: 1px solid #3163C9; 
+	position: absolute;
+}
+#miniSctListDiv{
+	background-color: #FDF2FF; 
+	width: 940px; 
+	height: 225px; 
+	padding: 10px; 
+	text-align: left;
+}
+
 
 /* old */
 .title_div1{

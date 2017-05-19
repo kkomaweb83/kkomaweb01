@@ -25,29 +25,22 @@ public class SctAjaxListCommand implements BaseCommand {
 		int tempPrice = 0;
 		for(int i = 0; i<sctList.size(); i++){
 			Shop_cart temp = (Shop_cart) sctList.get(i);
-			if(temp.getSct_pro_part() == 1){
-				temp.setSct_proVO(SctDao.getSctProVo(temp));
-				tempPrice = sctTotPrivceVo.getSct_tot_milege() +  temp.getSct_proVO().getPro_tot_milege();
-				sctTotPrivceVo.setSct_tot_milege(tempPrice);
-				tempPrice = 0;
-				tempPrice = sctTotPrivceVo.getSct_tot_disprice() + temp.getSct_proVO().getPro_tot_price();
-				sctTotPrivceVo.setSct_tot_disprice(tempPrice);
-				tempPrice = 0;
-			}
-			else if(temp.getSct_pro_part() == 2){
-				temp.setSct_proVO(SctDao.getSctPptVo(temp));
-				tempPrice = sctTotPrivceVo.getSct_tot_milege() +  temp.getSct_proVO().getPro_tot_milege();
-				sctTotPrivceVo.setSct_tot_milege(tempPrice);
-				tempPrice = 0;
-				tempPrice = sctTotPrivceVo.getSct_tot_disprice() + temp.getSct_proVO().getPro_tot_price();
-				sctTotPrivceVo.setSct_tot_disprice(tempPrice);
-				tempPrice = 0;
-			}
+			
+			temp.setSct_proVO(SctDao.getSctProVo(temp));
+			tempPrice = sctTotPrivceVo.getSct_tot_milege() +  temp.getSct_proVO().getPro_tot_milege();
+			sctTotPrivceVo.setSct_tot_milege(tempPrice);
+			tempPrice = 0;
+			tempPrice = sctTotPrivceVo.getSct_tot_disprice() + temp.getSct_proVO().getPro_tot_price();
+			sctTotPrivceVo.setSct_tot_disprice(tempPrice);
+			tempPrice = 0;
 		}
 		sctTotPrivceVo = SctDao.getSctTotPrice(sctTotPrivceVo);
 		
-		String returnUrl = "sct/sct_main_list.jsp";
+		String returnUrl = "sct/ajax_sct_list.jsp";
 		if(sct_part != null && sct_part.equals("1")) returnUrl = "sct/mini_sct_list.jsp";
+		
+		request.setAttribute("sctList", sctList);
+		request.setAttribute("sctTotPrivceVo", sctTotPrivceVo);
 		
 		return returnUrl;
 	}

@@ -33,5 +33,21 @@ public class SctDao extends BaseDao {
 	public static void sctCountUpdate(Shop_cart sctCommand) {
 		getSql().update("countUpdate", sctCommand);
 	}
+	
+	public static void sctUpdate(Shop_cart sctCommand) {
+		getSql().update("sctUpdate", sctCommand);
+	}
+	
+	public static void sctDelete(int sct_no) {
+		getSql().delete("sctDelete", sct_no);
+	}
+	
+	public static void sctAllDelete(int sct_mem_no) {
+		getSql().delete("sctAllDelete", sct_mem_no);
+	}
+	
+	public static void commit(){
+		getSql().commit();
+	}
 
 }

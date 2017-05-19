@@ -42,10 +42,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="sctInsert" parameterType="com.danacom.mybatis.pro.Shop_cart">
 		INSERT 
 		INTO SHOP_CART
-		(SCT_NO, SCT_PRO_NO, SCT_COUNT, SCT_MEM_NO, SCT_PRO_PART)
+		(SCT_NO, SCT_PRO_NO, SCT_COUNT, SCT_MEM_NO)
 		VALUES
 		((SELECT NVL(MAX(SCT_NO), 0)+1 FROM SHOP_CART)
-		, #{sct_pro_no}, #{sct_count}, #{sct_mem_no}, #{sct_pro_part})
+		, #{sct_pro_no}, #{sct_count}, #{sct_mem_no})
 	</insert>
 	
 	<update id="sctUpdate" parameterType="com.danacom.mybatis.pro.Shop_cart">
@@ -72,7 +72,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			COUNT(SCT_NO) 
 		FROM SHOP_CART
 		WHERE SCT_MEM_NO = #{sct_mem_no}
-		AND SCT_PRO_PART = #{sct_pro_part}
 		AND SCT_PRO_NO = #{sct_pro_no}
 		AND ROWNUM = 1
 	</select>
@@ -82,7 +81,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SHOP_CART SET
 			SCT_COUNT = SCT_COUNT + #{sct_count}
 		WHERE SCT_MEM_NO = #{sct_mem_no}
-		AND SCT_PRO_PART = #{sct_pro_part}
 		AND SCT_PRO_NO = #{sct_pro_no}
 	</update>
 	
