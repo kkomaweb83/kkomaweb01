@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.danacom.model.base.BaseCommand;
 import com.danacom.model.pcl.PclTopListCommand;
 import com.danacom.model.pro.ProAjaxListCommand;
+import com.danacom.model.pro.ProAjaxViewCommand;
 import com.danacom.model.pro.ProTopSearchCommand;
 
 @WebServlet("/ProController")
@@ -47,6 +48,8 @@ public class ProController extends HttpServlet {
 			baseComm = new ProAjaxListCommand();
 		}else if("ajax_pro_pclSearch".equals(dana)){
 			baseComm = new ProAjaxListCommand();
+		}else if("ajax_pro_mainView".equals(dana)){
+			baseComm = new ProAjaxViewCommand();
 		}
 		
 		path = baseComm.exec(request, response);

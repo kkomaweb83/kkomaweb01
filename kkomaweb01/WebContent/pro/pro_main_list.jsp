@@ -100,6 +100,21 @@
 			}
 		});		
 	}
+	
+	function goProMainView(pro_no, pro_pcl_no){
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_pro_mainView',pro_no:pro_no, pro_pcl_no:pro_pcl_no},
+			dataType : "html",
+			success : function(data) {
+				$("#proMainViewDiv").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -110,6 +125,9 @@
 	</header>
 	
 	<div id="content">
+	
+	<!-- 전체 -->
+	<div id="proMainViewDiv" style="width: 960px; margin: 0 auto;">
 	
 	<!-- 검색 -->
 	<div id="proTopSearchDiv" style="margin-top: 0px;">
@@ -122,6 +140,8 @@
 	
 	</div>
 	<!-- 리스트 -->
+	
+	</div>
 	
 	</div>
 	

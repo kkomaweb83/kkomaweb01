@@ -10,6 +10,9 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <title>Insert title here</title>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 

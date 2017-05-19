@@ -344,3 +344,20 @@ a.box_button7:hover {color: #fff;}
 	text-align: center;
 	color: #000000; 	
 }
+
+.main_box_viewt{
+	color: blue;
+	border-bottom: gray 1px dotted; 
+	padding-top: 5px;
+	padding-bottom: 3px; 
+	margin-bottom: 3px;
+	height: 23px; 
+}
+
+.main_box_view1{
+	border-bottom: gray 1px dotted; 
+	padding-top: 5px;
+	padding-bottom: 3px; 
+	margin-bottom: 3px; 
+	height: 23px; 
+}
