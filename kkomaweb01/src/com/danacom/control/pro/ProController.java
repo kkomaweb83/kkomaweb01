@@ -14,6 +14,8 @@ import com.danacom.model.pcl.PclTopListCommand;
 import com.danacom.model.pro.ProAjaxListCommand;
 import com.danacom.model.pro.ProAjaxViewCommand;
 import com.danacom.model.pro.ProTopSearchCommand;
+import com.danacom.model.pro.SctAjaxInsertCommand;
+import com.danacom.model.pro.SctAjaxListCommand;
 
 @WebServlet("/ProController")
 public class ProController extends HttpServlet {
@@ -34,6 +36,7 @@ public class ProController extends HttpServlet {
 		String dana = "";
 		String path = "";
 		Boolean forward = true;
+		Boolean exec_go = true;
 		
 		RequestDispatcher rd = null;
 		BaseCommand baseComm = null;
@@ -50,9 +53,18 @@ public class ProController extends HttpServlet {
 			baseComm = new ProAjaxListCommand();
 		}else if("ajax_pro_mainView".equals(dana)){
 			baseComm = new ProAjaxViewCommand();
+		}else if("sct_main_prelist".equals(dana)){
+			exec_go = false;
+			path = "sct/sct_main_list.jsp";
+		}else if("ajax_sct_list".equals(dana)){
+			baseComm = new SctAjaxListCommand();
+		}else if("ajax_sct_insert".equals(dana)){
+			baseComm = new SctAjaxInsertCommand();
 		}
 		
-		path = baseComm.exec(request, response);
+		if(exec_go){
+			path = baseComm.exec(request, response);
+		}
 		
 		if(forward){
 			rd = request.getRequestDispatcher(path);

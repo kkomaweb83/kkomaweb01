@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.danacom.mybatis.pro.sct_mapper">
+		
+	<select id="sctList" resultType="com.danacom.mybatis.pro.Shop_cart" parameterType="int">
+		SELECT * 
+		FROM SHOP_CART
+		WHERE SCT_MEM_NO = #{sct_mem_no}
+		ORDER BY SCT_NO DESC
+	</select>
+	
+	<select id="sctProVo" resultType="com.danacom.mybatis.pro.Shop_proVO" parameterType="com.danacom.mybatis.pro.Shop_cart">
+		SELECT 
+			PRO_NO, PRO_DISPRICE, PRO_MILEGE
+			, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
+            , TO_CHAR(PRO_MILEGE, '999,999,999,999')||'원' PRO_CH_MILEGE
+            , PRO_PCL_NO
+            , PRO_NAME
+            , PMG_FILE
+            , PCL_NAME
+            , TO_CHAR(PRO_DISPRICE*#{sct_count}, '999,999,999,999')||'원' pro_tot_ch_price
+            , PRO_DISPRICE*#{sct_count} pro_tot_price
+            , PRO_MILEGE*#{sct_count} pro_tot_milege
+		FROM PRODUCT
+        JOIN PRO_IMG ON PRO_NO = PMG_PRO_NO
+        JOIN PRO_CLASS ON PRO_PCL_NO = PCL_NO
+        WHERE PRO_NO = #{sct_pro_no}
+        AND PMG_IDT_NO = 1
+	</select>
+	
+	<select id="sctTotPrice" resultType="com.danacom.mybatis.pro.SctTotPriceVO" parameterType="com.danacom.mybatis.pro.SctTotPriceVO">
+		SELECT 
+			TO_CHAR(#{sct_tot_disprice}, '999,999,999,999')||'원' AS sct_tot_ch_disprice
+            , TO_CHAR(#{sct_tot_milege}, '999,999,999,999')||'원' AS sct_tot_ch_milege
+            , #{sct_tot_disprice} AS sct_tot_disprice
+            , #{sct_tot_milege} AS sct_tot_milege
+        FROM DUAL
+	</select>
+	
+	<insert id="sctInsert" parameterType="com.danacom.mybatis.pro.Shop_cart">
+		INSERT 
+		INTO SHOP_CART
+		(SCT_NO, SCT_PRO_NO, SCT_COUNT, SCT_MEM_NO, SCT_PRO_PART)
+		VALUES
+		((SELECT NVL(MAX(SCT_NO), 0)+1 FROM SHOP_CART)
+		, #{sct_pro_no}, #{sct_count}, #{sct_mem_no}, #{sct_pro_part})
+	</insert>
+	
+	<update id="sctUpdate" parameterType="com.danacom.mybatis.pro.Shop_cart">
+		UPDATE 
+		SHOP_CART SET
+		SCT_COUNT = #{sct_count}
+		WHERE SCT_NO = #{sct_no}
+	</update>
+	
+	<delete id="sctDelete" parameterType="int">
+		DELETE 
+		FROM SHOP_CART
+		WHERE SCT_NO = #{sct_no}
+	</delete>
+	
+	<delete id="sctAllDelete" parameterType="int">
+		DELETE 
+		FROM SHOP_CART
+		WHERE SCT_MEM_NO = #{sct_mem_no}
+	</delete>
+	
+	<select id="insertChk" resultType="int" parameterType="com.danacom.mybatis.pro.Shop_cart">
+		SELECT 
+			COUNT(SCT_NO) 
+		FROM SHOP_CART
+		WHERE SCT_MEM_NO = #{sct_mem_no}
+		AND SCT_PRO_PART = #{sct_pro_part}
+		AND SCT_PRO_NO = #{sct_pro_no}
+		AND ROWNUM = 1
+	</select>
+	
+	<update id="countUpdate" parameterType="com.danacom.mybatis.pro.Shop_cart">
+		UPDATE 
+		SHOP_CART SET
+			SCT_COUNT = SCT_COUNT + #{sct_count}
+		WHERE SCT_MEM_NO = #{sct_mem_no}
+		AND SCT_PRO_PART = #{sct_pro_part}
+		AND SCT_PRO_NO = #{sct_pro_no}
+	</update>
+	
+	<select id="memMilege" resultType="com.danacom.mybatis.pro.SctTotPriceVO" parameterType="string">
+		SELECT  
+			MEM_MIL 
+			, TO_CHAR(MEM_MIL, '999,999,999,999')||'원' MEM_CH_MIL
+		FROM MEMBER
+		WHERE MEM_NO = #{mem_no}	
+	</select>
+	
+</mapper>

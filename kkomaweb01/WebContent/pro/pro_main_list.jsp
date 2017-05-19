@@ -105,7 +105,7 @@
 		$.ajax({
 			url : "<%=cp %>/ProController",
 			type : "post",
-			data : {dana:'ajax_pro_mainView',pro_no:pro_no, pro_pcl_no:pro_pcl_no},
+			data : {dana:'ajax_pro_mainView',pro_no:pro_no,pro_pcl_no:pro_pcl_no},
 			dataType : "html",
 			success : function(data) {
 				$("#proMainViewDiv").html(data);
@@ -114,6 +114,25 @@
 				alert("실패");
 			}
 		});
+	}
+	
+	function goShopCart(pro_no, mem_no, sct_pro_part, sct_part){
+		var sctDiv = "proMainViewDiv";
+		if(sct_part == 1) sctDiv = "miniSctListDiv"; 
+		
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_sct_insert',sct_pro_no:pro_no,sct_mem_no:mem_no,sct_pro_part:sct_pro_part,sct_part:sct_part},
+			dataType : "html",
+			success : function(data) {
+				$("#"+sctDiv).html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+		
 	}
 </script>
 </head>
