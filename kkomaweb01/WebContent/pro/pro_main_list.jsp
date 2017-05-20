@@ -9,7 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <title>컴퓨터 쇼핑몰의 최강자 DanaCom</title>
 <script type="text/javascript" src="<%=cp %>/js/jquery-3.2.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="<%=cp %>/js/kkoma01.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <link rel="stylesheet" type="text/css" href="<%=cp %>/css/kkoma_new_01.css" />
 <style type="text/css">
 #wrapMiniTex {
@@ -91,12 +93,12 @@
 		if(part == 1){
 			area2.style.display = "none";
 			strHtml += '<a href="javascript:proListPclWrap(2);">';
-			strHtml += '<img src="<%=cp %>/img/open_btn.gif" border="0"></a>';
+			strHtml += '<img src="<%=cp %>/img/open_btn.gif" /></a>';
 			area.innerHTML = strHtml;
 		}else{
 			area2.style.display = "inline";
 			strHtml += '<a href="javascript:proListPclWrap(1);">';
-			strHtml += '<img src="<%=cp %>/img/close_btn.gif" border="0"></a>';
+			strHtml += '<img src="<%=cp %>/img/close_btn.gif" /></a>';
 			area.innerHTML = strHtml;
 		}
 	}
@@ -153,6 +155,10 @@
 			}
 		});
 		
+		if(sct_part != 1){
+			var area = document.getElementById("wrapMiniTex");
+			area.style.display = "none";
+		}
 	}
 	
 	function wrapShow(part){
@@ -162,12 +168,93 @@
 		if(part == 1){
 			area.style.height = "225px";
 			area2.style.display = "inline";
-			area1.innerHTML = '<a href="javascript:wrapShow(2);" style="color: white;">장바구니 ▼</a>';
+			area1.innerHTML = '<a href="javascript:wrapShow(2);">장바구니 ▼</a>';
 		}else{
-			area.style.height = "32px";
+			area.style.height = "35px";
 			area2.style.display = "none";
-			area1.innerHTML = '<a href="javascript:wrapShow(1);" style="color: white;">장바구니 ▲</a>';
+			area1.innerHTML = '<a href="javascript:wrapShow(1);">장바구니 ▲</a>';
 		}
+	}
+	function chZindex(no, part){
+		var area3 = document.getElementById(no);
+		area3.style.zIndex=199;
+		
+		var area = document.getElementById("wrapMiniTex");
+		var area1 = document.getElementById("miniTex_top_clearfix");
+		var area2 = document.getElementById("miniTex_body");
+		if(part == 1){
+			area.style.height = "225px";
+			area2.style.display = "inline";
+			area1.innerHTML = '<a href="javascript:wrapShow(2);">장바구니 ▼</a>';
+		}else{
+			area.style.height = "35px";
+			area2.style.display = "none";
+			area1.innerHTML = '<a href="javascript:wrapShow(1);">장바구니 ▲</a>';
+		}
+	}
+	
+	function sct_count_ch(sct_no, part, mem_no, prono, sct_part){
+		var cnt = document.getElementsByName("cnt_"+prono);
+		var temp = 0;
+		var sctDiv = "proMainViewDiv";
+		if(sct_part == 1) sctDiv = "miniSctListDiv"; 
+
+		if(part == "PLUS"){
+			temp = parseInt(cnt[0].value);
+			temp = temp+1;
+		}else if(part == "MINUS"){
+			temp = parseInt(cnt[0].value);
+			if(temp > 1) temp = temp-1;
+		}
+		
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_sct_update',sct_no:sct_no, sct_count: temp, sct_mem_no: mem_no, sct_part:sct_part},
+			dataType : "html",
+			success : function(data) {
+				$("#"+sctDiv).html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+
+	function goSctDelete(sct_no, mem_no, sct_part){
+		var sctDiv = "proMainViewDiv";
+		if(sct_part == 1) sctDiv = "miniSctListDiv";
+		
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_sct_delete',sct_no:sct_no, sct_mem_no: mem_no, sct_part:sct_part},
+			dataType : "html",
+			success : function(data) {
+				$("#"+sctDiv).html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+
+	function goSctAllDelete(mem_no, sct_part){
+		var sctDiv = "proMainViewDiv";
+		if(sct_part == 1) sctDiv = "miniSctListDiv";
+		
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_sct_alldelete',sct_mem_no: mem_no, sct_part:sct_part},
+			dataType : "html",
+			success : function(data) {
+				$("#"+sctDiv).html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
 	}
 </script>
 </head>
@@ -202,7 +289,7 @@
 	<c:if test="${login.cmd == 101}">
 	<!-- 하단 장바구니 -->
 	<div id="wrapMiniTex">
-		<div id="miniTex_top_clearfix"><a href="javascript:wrapShow(1);" style="color: white;">장바구니 ▲</a></div>
+		<div id="miniTex_top_clearfix"><a href="javascript:wrapShow(1);">장바구니 ▲</a></div>
 	<div id="miniTex_body">
 		<div id="miniSctListDiv">
 		<!-- 하단 장바구니 -->

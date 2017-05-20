@@ -8,6 +8,17 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <title>Insert title here</title>
+<style type="text/css">
+.mini_sct_ellip{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	padding: 3px 2px;
+	background:#fff;
+	width: 130px;
+	display: inline-block;
+}
+</style>
 </head>
 <body>
 
@@ -28,8 +39,8 @@
 </tr>
 <tr>
 	<td align="center" style="color: #FF3333; font-size: 9pt;">${bean.sct_proVO.pro_ch_price }
-		<input name="cnt_${bean.sct_proVO.pro_no}" value="${bean.sct_count }" size="2" type="text" readonly="readonly" />
-		<img src="<%=cp%>/img/btn_cnt.gif" usemap="#MAP_BtnCnt_${bean.sct_proVO.pro_no}" />
+		<input name="cnt_${bean.sct_proVO.pro_no}" value="${bean.sct_count }" size="1" type="text" readonly="readonly" class="iar" />
+		<img src="<%=cp%>/img/btn_cnt.gif" usemap="#MAP_BtnCnt_${bean.sct_proVO.pro_no}" style="vertical-align: -5px;" />
 		<map name="MAP_BtnCnt_${bean.sct_proVO.pro_no}">
 		<area shape="rect" coords="0,0,9,10" 
 			href="javascript:sct_count_ch(${bean.sct_no},'PLUS',${login.mem_no},${bean.sct_proVO.pro_no},1);">
@@ -38,7 +49,7 @@
 		</map>
 	</td>
 </tr>
-<tr><td align="center">${bean.sct_proVO.pro_name.substring(0,12)}</td></tr>
+<tr><td align="center"><span class="mini_sct_ellip" title="${bean.sct_proVO.pro_name}">${bean.sct_proVO.pro_name}</span></td></tr>
 <tr>
 	<td align="center">
 	적립금 : <span style="color: red;">${bean.sct_proVO.pro_ch_milege }</span>

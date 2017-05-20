@@ -21,6 +21,7 @@ td.al{padding-left:5px !important;}
 .ac{text-align:center !important;}
 .ar{text-align:right !important;}
 td.ar{padding-right:5px !important;}
+.iar{text-align:right !important; padding-right:5px !important;}
 
 #content, #admin_content {
 	width: 960px;
@@ -197,32 +198,41 @@ td.ar{padding-right:5px !important;}
 
 #wrapMiniTex{
 	width: 960px; 
-	height: 32px; 
+	height: 35px; 
 	display: inline;
 }
 #miniTex_top_clearfix{
 	padding: 9px 12px 8px 12px; 
 	width: 100px; 
 	text-align:center; 
-	background-color: #8BBDFF; 
-	border: 1px solid #3163C9;
+	border-radius : 0.5em;
+	border: 1px solid rgb(0,123,140);
 	border-bottom: 0px;
 }
+#miniTex_top_clearfix {
+	background-color : rgba(0,205,237,1);
+	box-shadow : 2px 2px 3px rgba(0,105,237,0.3);
+}
+#miniTex_top_clearfix > a{
+	color: #fff;
+	font-weight : 800;
+	font-size : 14px;
+}
+
 #miniTex_body{
 	display: none; 
 	background-color: #ffffff; 
 	color: #000000; 
-	border: 1px solid #3163C9; 
+	border: 1px solid rgb(0,123,140); 
 	position: absolute;
 }
 #miniSctListDiv{
-	background-color: #FDF2FF; 
+	background-color: rgb(220,240,255); 
 	width: 940px; 
 	height: 225px; 
 	padding: 10px; 
 	text-align: left;
 }
-
 
 /* old */
 .title_div1{

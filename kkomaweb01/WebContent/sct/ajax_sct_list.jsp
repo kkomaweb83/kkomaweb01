@@ -71,7 +71,7 @@ ${bean.sct_proVO.pro_ch_price }
 </td>
 <td width="90" align="center" style="border-bottom: gray 1px dotted;">
 
-<input name="cnt_${bean.sct_proVO.pro_no}" value="${bean.sct_count }" size="2" type="text" readonly="readonly">
+<input name="cnt_${bean.sct_proVO.pro_no}" value="${bean.sct_count }" size="1" type="text" readonly="readonly" class="iar">
 <img src="<%=cp%>/img/btn_cnt.gif" usemap="#MAP_BtnCnt_${bean.sct_proVO.pro_no}" style="vertical-align: -5px;" />
 <map name="MAP_BtnCnt_${bean.sct_proVO.pro_no}">
 <area shape="rect" coords="0,0,9,10" 
@@ -109,7 +109,7 @@ ${bean.sct_proVO.pro_ch_milege }
 </div>
 
 <div style="text-align: right; padding-right: 10px; height: 70px;">
-<a href="<%=cp %>/main.ama"> 
+<a href="<%=cp %>/ProController?dana=pro_main_prelist&pro_pcl_no=0101"> 
 <img src="<%=cp %>/img/btn_shoppingContinue.gif" style="border: 0px;"></a>&nbsp;
 
 <c:if test="${not empty sctList}">

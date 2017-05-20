@@ -11,7 +11,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <title>Insert title here</title>
 <script type="text/javascript">
-
+	$(function() {
+		<c:forEach var="bean" items="${proMainList}" varStatus="no">
+		$("#"+"${bean.pro_no}").draggable({revert:"invalid",helper:"clone"});
+		</c:forEach>
+		$("#miniSctListDiv").droppable({
+			drop: function(event, ui){
+				var src = ui.draggable.attr('id');
+				goShopCart(src, '${login.mem_no}', 1, 1);
+			}
+		});
+	});
 </script>
 </head>
 <body>
@@ -36,7 +46,7 @@
 		<input type="checkbox" name="" />
 	</td>
 	<td width="100" align="center">
-		<img id="${bean.pro_no }" src="<%=cp %>/product_img/${bean.pmg_file}" style="width: 80px; height: 80px; cursor: move;">
+		<img id="${bean.pro_no }" src="<%=cp %>/product_img/${bean.pmg_file}" style="width: 80px; height: 80px; cursor: move;" onmousedown="chZindex(${bean.pro_no }, 1);">
 	</td>
 	<td width="570">
 		<table>

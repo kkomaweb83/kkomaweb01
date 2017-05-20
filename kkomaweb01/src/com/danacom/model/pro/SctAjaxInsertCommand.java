@@ -12,6 +12,8 @@ public class SctAjaxInsertCommand implements BaseCommand {
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		
+		String sct_part = request.getParameter("sct_part");
+		
 		Shop_cart sctCommand = new Shop_cart();
 		sctCommand.setSct_count(1);
 		sctCommand.setSct_pro_no(Integer.parseInt(request.getParameter("sct_pro_no")));
@@ -24,7 +26,10 @@ public class SctAjaxInsertCommand implements BaseCommand {
 		
 		SctDao.commit();
 		
-		return "ProController?dana=sct_main_prelist";
+		String returnUrl = "ProController?dana=sct_main_prelist";
+		if(sct_part != null && sct_part.equals("1")) returnUrl = "ProController?dana=ajax_sct_list";
+		
+		return returnUrl;
 	}
 
 }
