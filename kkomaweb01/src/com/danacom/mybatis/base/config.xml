@@ -20,5 +20,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/danacom/mybatis/pro/login_mapper.xml" />
 		<mapper resource="com/danacom/mybatis/pro/pro_mapper.xml" />
 		<mapper resource="com/danacom/mybatis/pro/sct_mapper.xml" />
+		<mapper resource="com/danacom/mybatis/vbl/vbl_mapper.xml" />
 	</mappers>
 </configuration>

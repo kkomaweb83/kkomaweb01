@@ -184,6 +184,9 @@ td.ar{padding-right:5px !important;}
 	background-color : rgba(0,205,237,1);
 	box-shadow : 2px 2px 3px rgba(0,105,237,0.3);
 }
+.vbl_btn01 .dana_button01 {
+	margin-top: 15px;
+}
 
 #mini_sct_tot{
 	width:155px; 
@@ -409,4 +412,13 @@ a.box_button7:hover {color: #fff;}
 	padding-bottom: 3px; 
 	margin-bottom: 3px; 
 	height: 23px; 
+}
+
+.title_box1{
+	background-color: #DFEFFE;
+	border: #336699 1px solid;
+	padding: 5px 10px;
+	text-align: center;
+	color: #336699;
+	display: inline-block;
 }

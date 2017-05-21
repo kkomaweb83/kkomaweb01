@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.danacom.mybatis.vbl.vbl_mapper">
+	
+	<select id="vblList" resultType="com.danacom.mybatis.vbl.VirBillVo" parameterType="hashmap">
+		SELECT 
+			t2.*
+		FROM
+		(
+		SELECT 
+			t1.*
+			, ROWNUM rm
+			, COUNT(VBL_NO) OVER() AS tot_cont
+		FROM
+		(
+			SELECT 
+				VBL_NO
+				, VBL_MEM_NO
+				, VBL_BOR_ANSWER
+				, VBL_TITLE
+				, TO_CHAR(VBL_DATE, 'YYYY/MM/DD') VBL_DATE
+			FROM VIR_BILL
+			WHERE VBL_MEM_NO = #{vbl_mem_no}
+			ORDER BY VBL_NO DESC
+		) t1
+		) t2
+		WHERE rm BETWEEN #{begin} AND #{end}
+	</select>	
+	
+</mapper>
