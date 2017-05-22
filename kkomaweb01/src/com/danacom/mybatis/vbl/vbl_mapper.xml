@@ -27,6 +27,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) t1
 		) t2
 		WHERE rm BETWEEN #{begin} AND #{end}
-	</select>	
+	</select>
+	
+	<select id="vblMaxNo" resultType="int">
+		SELECT NVL(MAX(VBL_NO), 0)+1 FROM VIR_BILL
+	</select>
+	
+	<insert id="vblInsert" parameterType="com.danacom.mybatis.vbl.VirBillVo">
+		INSERT 
+		INTO VIR_BILL
+		(VBL_NO, VBL_MEM_NO, VBL_BOR_ANSWER, VBL_TITLE, VBL_DATE)
+		VALUES
+		(#{vbl_no}, #{vbl_mem_no}, #{vbl_bor_answer}, #{vbl_title}, SYSDATE)
+	</insert>	
+	
+	<insert id="vdtInsert" parameterType="com.danacom.mybatis.vbl.VblDetVo">
+		INSERT 
+		INTO VBL_DET
+		(VDT_NO, VDT_VBL_NO, VDT_QUANTITY, VDT_PRO_NO)
+		VALUES
+		((SELECT NVL(MAX(VDT_NO), 0)+1 FROM VBL_DET)
+		, #{vdt_vbl_no}, #{vdt_quantity}, #{vdt_pro_no})
+	</insert>
+	
+	<select id="vblVo" resultType="com.danacom.mybatis.vbl.VirBillVo" parameterType="int">
+		SELECT 
+			VBL_NO, VBL_MEM_NO, VBL_BOR_ANSWER
+			, VBL_TITLE
+			, TO_CHAR(VBL_DATE, 'YYYY/MM/DD') VBL_DATE
+		FROM VIR_BILL
+		WHERE VBL_NO = #{vbl_no}
+		AND ROWNUM = 1
+	</select>
+	
+	<select id="vblProVo" resultType="com.danacom.mybatis.pro.ProductVo" parameterType="com.danacom.mybatis.pcl.ProClassVo">
+		SELECT 
+			PRO_NO, PRO_DISPRICE
+			, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
+			, TO_CHAR(PRO_DISPRICE, '999,999,999,999') PRO_CH2_PRICE
+			, PRO_PCL_NO
+			, PRO_NAME
+			, VDT_QUANTITY AS PST_QUANTITY
+		FROM PRODUCT, VBL_DET 
+		WHERE VDT_PRO_NO = PRO_NO AND VDT_VBL_NO = #{ppt_no} 
+		AND PRO_NO IN (SELECT VDT_PRO_NO FROM VBL_DET WHERE VDT_VBL_NO = #{ppt_no}) 
+		AND PRO_PCL_NO = #{pcl_no} 
+	</select> 	
 	
 </mapper>

@@ -13,7 +13,9 @@ import com.danacom.model.base.BaseCommand;
 import com.danacom.model.pro.ProAdminListCommand;
 import com.danacom.model.vbl.VblAjaxMkrPclCommand;
 import com.danacom.model.vbl.VblAjaxProListCommand;
+import com.danacom.model.vbl.VblInsertCommand;
 import com.danacom.model.vbl.VblListCommand;
+import com.danacom.model.vbl.VblViewCommand;
 
 @WebServlet("/VblController")
 public class VblController extends HttpServlet {
@@ -53,6 +55,11 @@ public class VblController extends HttpServlet {
 			baseComm = new VblAjaxMkrPclCommand();
 		}else if("ajax_vbl_inProList".equals(dana)){
 			baseComm = new VblAjaxProListCommand();
+		}else if("ajax_vbl_insert".equals(dana)){
+			baseComm = new VblInsertCommand();
+			forward = false;
+		}else if("vbl_view".equals(dana)){
+			baseComm = new VblViewCommand();
 		}
 		
 		if(exec_go){

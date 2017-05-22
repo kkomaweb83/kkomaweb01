@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="p" tagdir="/WEB-INF/tags" %>
 <% String cp = request.getContextPath(); %>
 
@@ -260,12 +261,23 @@
 	<div class="title_div1">
 		<div style="float: left;" >
 			<span style="font-size: 5px;">&nbsp;</span><br/>
-			<span class="title_box1">☞ 가상견적서</span>
+			<span class="title_box1">☞ 가상견적서 관리</span>
 			<span style="margin-right: 20px;">&nbsp;</span>
 		</div>	
 		
-		<div style="width: 70px; text-align: center; float: right;" class="vbl_btn01">
-			<span onclick="javascript:goPptInsert();" class="dana_button01"><span>등록</span></span>
+		<div style="text-align: center; float: right; margin-left: 4px;" class="vbl_btn01">
+			<span onclick="javascript:goVblDelete();" class="dana_button01"><span>삭제</span></span>
+		</div>
+		<div style="text-align: center; float: right; margin-left: 4px;" class="vbl_btn01">
+			<span onclick="javascript:goVblUpdate();" class="dana_button01"><span>수정</span></span>
+		</div>
+		<div style="text-align: center; float: right; margin-left: 4px;" class="vbl_btn01">
+			<c:if test="${vblVo.vbl_bor_answer == 'N'}">
+			<span onclick="javascript:goVbbInsert();" class="dana_button01"><span>공유</span></span>
+			</c:if>
+			<c:if test="${vblVo.vbl_bor_answer == 'Y'}">
+			<span class="dana_button01"><span>공유 되었습니다</span></span>
+			</c:if>
 		</div>
 	</div>
 	
@@ -274,7 +286,7 @@
 		<tr>
 		<td width="110"><span class="title_box2_o">가상견적서 제목</span></td>
 		<td align="left">
-		<input type="text" name="vbl_title" class="box_input_left" style="width: 97%;" /></td>
+		<input type="text" name="vbl_title" class="box_input_left" style="width: 97%;" value="${vblVo.vbl_title }"  /></td>
 		</tr>
 		</table>
 	</div>
@@ -308,7 +320,9 @@
 		<div style="padding: 7px 0pt 5pt 5px; float: left;">
 			<img src="<%=cp %>/img/plus_icon.gif" style="width: 6px; height: 6px;" /><b>총합 : </b>
 		</div>
-		<div style="padding: 7px 15px 5pt 5px; float: right; color: rgb(245, 98, 0);" id="LAY_TotalPrice"><b>0 원</b></div>
+		<div style="padding: 7px 15px 5pt 5px; float: right; color: rgb(245, 98, 0);" id="LAY_TotalPrice">
+		<b><fmt:formatNumber value="${totPrice}" pattern="###,###,###,###" /> 원</b>
+		</div>
 		</td>
 	</tr>
 	</tbody>
@@ -316,7 +330,7 @@
 	<!-- 가격 총합계 -->
 	<!-- 선택된 상품 -->
 	<div style="width: 396px; height: 455px; overflow-y: scroll; overflow-x: hidden; " id="LAY_Right">
-		<c:forEach var="bean" items="${class_list}" varStatus="class9">
+		<c:forEach var="bean" items="${pptPclList}" varStatus="class9">
 		<table style="width: 396px; padding: 0; border-spacing: 0;">
 		<tbody>
 		<tr>
@@ -349,7 +363,34 @@
 					</td>
 					<td style="border-bottom: 1px solid #cfd2d7; width: 317px; text-align: left;">
 						<div style="display: block; visibility: visible;" id="LAY_MSG_${bean2.pcl_no }">
+						
+						<c:if test="${empty bean2.proVO }">
 						<span style="color: #999999">☜ 항목을 클릭하세요.</span>
+						</c:if>
+						<c:if test="${!empty bean2.proVO }">
+							<table style="width: 307px; padding: 0; border-spacing: 0;">
+							<tbody>
+							<tr>
+							<td style="width: 164px;">
+							<a href="javascript:goProDlgView(${bean2.proVO.pro_no }, '${bean2.proVO.pro_pcl_no }', 1);">${bean2.proVO.pro_name}</a>
+							<input name="pst_pro_no" value="${bean2.proVO.pro_no}" type="hidden">
+							<input name="pro_disprice" value="${bean2.proVO.pro_disprice}" type="hidden">
+							</td>
+							<td style="width:53px; background-color: #fff; text-align:center; border-left: 1px solid #cfd2d7; border-right: 1px solid #cfd2d7;">
+							<input name="cnt_${bean2.proVO.pro_no}" value="${bean2.proVO.pst_quantity }" type="text" readonly="readonly" style="width:20px;" />
+							<img src="<%=cp%>/img/btn_cnt.gif" usemap="#MAP_BtnCnt_${bean2.proVO.pro_no}" style="vertical-align: -6px; margin-left:2px;" />
+							<map name="MAP_BtnCnt_${bean2.proVO.pro_no}">
+							<area shape="rect" coords="0,0,9,10" href="javascript:count_change(${bean2.proVO.pro_no},'PLUS')">
+							<area shape="rect" coords="0,10,9,20" href="javascript:count_change(${bean2.proVO.pro_no},'MINUS')"></map>
+							</td>
+							<td style="width:88px;text-align:right;">${bean2.proVO.pro_ch2_price} 
+							<a href="javascript:row_Delete('${bean2.proVO.pro_pcl_no}')">
+							<img src="<%=cp%>/img/btn_del.gif" style="vertical-align: -5px; margin-left: 1px; margin-right: 3px;" /></a>&nbsp;</td>
+							</tr>
+							</tbody>
+							</table>						
+						</c:if>
+						
 						</div>
 					</td>
 				</tr>
