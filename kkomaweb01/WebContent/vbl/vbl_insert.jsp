@@ -49,6 +49,150 @@
 			}
 		});
 	}
+	
+	function goPptProChk(object){
+		document.getElementsByName("cPage")[0].value = 1;
+		
+		$("#dana").val("ajax_vbl_inProList");
+		$.ajax({
+			url : "<%=cp %>/VblController",
+			type : "post",
+			data : $('#vblPro_Search').serialize(),
+			dataType : "html",
+			success : function(data) {
+				$("#LAY_OnlyProdList").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function goMainProOrder(main_order){
+		document.getElementsByName("cPage")[0].value = 1;
+		document.getElementsByName("proOrderCode")[0].value = main_order.value;
+		
+		$("#dana").val("ajax_vbl_inProList");
+		$.ajax({
+			url : "<%=cp %>/VblController",
+			type : "post",
+			data : $('#vblPro_Search').serialize(),
+			dataType : "html",
+			success : function(data) {
+				$("#LAY_OnlyProdList").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	
+	function row_tgl(pro_no, pro_pcl_no){
+		var prono = document.getElementsByName("prono_"+pro_no)[0].value;
+		var pname = document.getElementsByName("pname_"+pro_no)[0].value;
+		var price = document.getElementsByName("price_"+pro_no)[0].value;
+		var pricech = document.getElementsByName("pricech_"+pro_no)[0].value;
+		var pcl_no = document.getElementById("LAY_MSG_"+pro_pcl_no);
+		var div_totalPrice = document.getElementById("LAY_TotalPrice");
+		
+		var strHtml = '<table cellspacing="0" cellpadding="0" border="0" width="307">';
+			strHtml += '<tbody>';
+			strHtml += '<tr id="ROW_832058">';
+			strHtml += '<td width="164">';
+			strHtml += '<a href="javascript:goProDlgView('+prono+',\''+pro_pcl_no+'\', 1);">';
+			strHtml += pname+'</a>';
+			strHtml += '<input name="pst_pro_no" value="'+prono+'" type="hidden">';
+			strHtml += '<input name="pro_disprice" value="'+price+'" type="hidden">';
+			strHtml += '</td>';
+			strHtml += '<td width="1" bgcolor="#cfd2d7"></td>';
+			strHtml += '<td width="53" align="center">';
+			strHtml += '<input name="cnt_'+prono+'" value="1" size="2" type="text" readonly="readonly">';
+			strHtml += '<img src="<%=cp%>/img/btn_cnt.gif" usemap="#MAP_BtnCnt_'+prono+'"'; 
+			strHtml += ' hspace="1" />';
+			strHtml += '<map name="MAP_BtnCnt_'+prono+'">';
+			strHtml += '<area shape="rect" coords="0,0,9,10" href="javascript:count_change('+prono+','+"'PLUS'"+')">';
+			strHtml += '<area shape="rect" coords="0,10,9,20" href="javascript:count_change('+prono+','+"'MINUS'"+')">	</map>';
+			strHtml += '</td>';
+			strHtml += '<td width="1" bgcolor="#cfd2d7"></td>';
+			strHtml += '<td width="88" align="right">'+pricech; 
+			strHtml += '<a href="javascript:row_Delete('+"'"+pro_pcl_no+"'"+')">';
+			strHtml += '<img src="<%=cp%>/img/btn_del.gif" /></a>';
+			strHtml += '&nbsp;</td></tr></tbody>';
+			strHtml += '</table>';
+		pcl_no.innerHTML = strHtml;
+
+		var price = document.getElementsByName("pro_disprice");
+		var pst_pro_no = document.getElementsByName("pst_pro_no");
+		var temp = 0;
+		var cnt = 1;
+		var temp_prono = "";
+		for(var i =0; i<price.length; i++){
+			temp_prono = pst_pro_no[i].value;
+			cnt = document.getElementsByName("cnt_"+temp_prono)[0].value;
+			temp += parseInt(price[i].value)*cnt; 
+		}
+		div_totalPrice.innerHTML= '<b>'+commaNum(temp)+' 원</b>';
+		
+	}
+
+	function row_Delete(pro_pcl_no){
+		var pcl_no = document.getElementById("LAY_MSG_"+pro_pcl_no);
+		
+		pcl_no.innerHTML = '<span style="color: #999999">☜ 항목을 클릭하세요.</span>';
+
+		pstProTotal();
+	}
+
+	function count_change(prono, part){
+		var cnt = document.getElementsByName("cnt_"+prono);
+		var temp = 0;
+
+		if(part == "PLUS"){
+			temp = parseInt(cnt[0].value);
+			cnt[0].value = temp+1;
+		}else if(part == "MINUS"){
+			temp = parseInt(cnt[0].value);
+			if(temp > 1) cnt[0].value = temp-1;
+		}
+
+		pstProTotal();
+	}
+
+	function pstProTotal(){
+		var div_totalPrice = document.getElementById("LAY_TotalPrice");
+		var price = document.getElementsByName("pro_disprice");
+		var pst_pro_no = document.getElementsByName("pst_pro_no");
+		var temp = 0;
+		var cnt = 1;
+		var temp_prono = "";
+		for(var i =0; i<price.length; i++){
+			temp_prono = pst_pro_no[i].value;
+			cnt = document.getElementsByName("cnt_"+temp_prono)[0].value;
+			temp += parseInt(price[i].value)*cnt; 
+		}
+		div_totalPrice.innerHTML= '<b>'+commaNum(temp)+' 원</b>';
+	}
+
+	function commaNum(num) {  
+	    if (num < 0) { num *= -1; var minus = true} 
+	    else var minus = false      
+	    var dotPos = (num+"").split(".")
+	    var dotU = dotPos[0] 
+	    var dotD = dotPos[1] 
+	    var commaFlag = dotU.length%3 
+
+	    if(commaFlag) { 
+	            var out = dotU.substring(0, commaFlag)  
+	            if (dotU.length > 3) out += "," 
+	    } 
+	    else var out = "" 
+	    for (var i=commaFlag; i < dotU.length; i+=3) { 
+	            out += dotU.substring(i, i+3)  
+	            if( i < dotU.length-3) out += "," 
+	    } 
+	    if(minus) out = "-" + out 
+	    if(dotD) return out + "." + dotD 
+	    else return out 
+	}
 </script>
 </head>
 <body>
@@ -74,6 +218,7 @@
 		<input type="hidden" name="sct_pro_part" value="1" />
 		<input type="hidden" name="sct_pro_muti" value="3" />
 		<input name="proOrderCode" type="hidden" value="1" />
+		<input name="dana" id="dana" type="hidden" value="" />
 
 	<div class="title_div1">
 		<div style="float: left;" >

@@ -17,7 +17,7 @@
 <div style="width: 390px; background-color: #8BBDFF; padding: 7px 12px 5px 12px;">
 <span style="color: #ffffff; font-size: 15px; ">☆ ${mainPclName}
 	<input type="hidden" name="pcl_no" value="${mainPclNo }" />
-	<input type="hidden" name="page" value="1" />
+	<input type="hidden" name="cPage" value="1" />
 </span>
 </div>
 
