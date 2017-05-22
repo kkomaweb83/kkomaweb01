@@ -49,6 +49,24 @@
 			}
 		});
 	}
+	function doList(page){
+		document.getElementsByName("cPage")[0].value = page;
+		
+		$("#dana").val("ajax_vbl_inProList");
+		$.ajax({
+			url : "<%=cp %>/VblController",
+			type : "post",
+			data : $('#vblPro_Search').serialize(),
+			dataType : "html",
+			success : function(data) {
+				$("#LAY_OnlyProdList").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+		
+	}
 	
 	function goPptProChk(object){
 		document.getElementsByName("cPage")[0].value = 1;
@@ -94,28 +112,26 @@
 		var pcl_no = document.getElementById("LAY_MSG_"+pro_pcl_no);
 		var div_totalPrice = document.getElementById("LAY_TotalPrice");
 		
-		var strHtml = '<table cellspacing="0" cellpadding="0" border="0" width="307">';
+		var strHtml = '<table style="width: 307px; padding: 0; border-spacing: 0;">';
 			strHtml += '<tbody>';
-			strHtml += '<tr id="ROW_832058">';
-			strHtml += '<td width="164">';
+			strHtml += '<tr>';
+			strHtml += '<td style="width: 164px;">';
 			strHtml += '<a href="javascript:goProDlgView('+prono+',\''+pro_pcl_no+'\', 1);">';
 			strHtml += pname+'</a>';
-			strHtml += '<input name="pst_pro_no" value="'+prono+'" type="hidden">';
-			strHtml += '<input name="pro_disprice" value="'+price+'" type="hidden">';
+			strHtml += '<input name="pst_pro_no" value="'+prono+'" type="hidden" />';
+			strHtml += '<input name="pro_disprice" value="'+price+'" type="hidden" />';
 			strHtml += '</td>';
-			strHtml += '<td width="1" bgcolor="#cfd2d7"></td>';
-			strHtml += '<td width="53" align="center">';
-			strHtml += '<input name="cnt_'+prono+'" value="1" size="2" type="text" readonly="readonly">';
+			strHtml += '<td style="width:53px; background-color: #fff; text-align:center; border-left: 1px solid #cfd2d7; border-right: 1px solid #cfd2d7;">';
+			strHtml += '<input name="cnt_'+prono+'" value="1" type="text" readonly="readonly" style="width:20px;"" />';
 			strHtml += '<img src="<%=cp%>/img/btn_cnt.gif" usemap="#MAP_BtnCnt_'+prono+'"'; 
-			strHtml += ' hspace="1" />';
+			strHtml += ' style="vertical-align: -6px; margin-left:2px;" />';
 			strHtml += '<map name="MAP_BtnCnt_'+prono+'">';
 			strHtml += '<area shape="rect" coords="0,0,9,10" href="javascript:count_change('+prono+','+"'PLUS'"+')">';
 			strHtml += '<area shape="rect" coords="0,10,9,20" href="javascript:count_change('+prono+','+"'MINUS'"+')">	</map>';
 			strHtml += '</td>';
-			strHtml += '<td width="1" bgcolor="#cfd2d7"></td>';
-			strHtml += '<td width="88" align="right">'+pricech; 
+			strHtml += '<td style="width:88px;text-align:center;">'+pricech; 
 			strHtml += '<a href="javascript:row_Delete('+"'"+pro_pcl_no+"'"+')">';
-			strHtml += '<img src="<%=cp%>/img/btn_del.gif" /></a>';
+			strHtml += '<img src="<%=cp%>/img/btn_del.gif" style="vertical-align: -5px;margin-left:2px;" /></a>';
 			strHtml += '&nbsp;</td></tr></tbody>';
 			strHtml += '</table>';
 		pcl_no.innerHTML = strHtml;
@@ -244,10 +260,10 @@
 	
 	<div style="width: 800px;">
 	
-	<table style="width: 800px; padding: 0; border-spacing: 0; border-top: 1px solid black;">
+	<table style="width: 800px; padding: 0; border-spacing: 0; border-top: 1px solid black; border-bottom: 1px solid #cfd2d7;">
 	<tbody>
 	<tr>
-	<td style="width: 390px; background-color: #f3f3f3; vertical-align: top;">
+	<td style="width: 390px; background-color: #F8FFFF; vertical-align: top;">
 		<!-- 왼쪽 검색 -->
 		<div style="border: 0px solid rgb(204, 204, 204); width: 390px;" id="LAY_TopPart">
 			
@@ -259,76 +275,70 @@
 		<!-- 상품 리스트 -->
 	</td>
 	<!-- 왼쪽 끝 -->
-	<td style="width: 4px; background-color: #f3f3f3;"/>
 	
 	<!-- 오른쪽 시작 -->
 	<td style="width: 396px; vertical-align: top;">
 	<div id="LAY_ChangeB">
 	<!-- 가격 총합계 -->
 	<table style="width: 396px; padding: 0; border-spacing: 0;">
-	<tbody><tr height="3">
-	<td bgcolor="#cfd2d7" width="1"/>
-	<td bgcolor="#4a4a4a" width=394/>
-	<td bgcolor="#cfd2d7" width="1"/>
+	<tbody>
+	<tr>
+		<td style="width: 396px; background-color: #f6f6f6;">
+		<div style="padding: 7px 0pt 5pt 5px; float: left;">
+			<img src="<%=cp %>/img/plus_icon.gif" style="width: 6px; height: 6px;" /><b>총합 : </b>
+		</div>
+		<div style="padding: 7px 15px 5pt 5px; float: right; color: rgb(245, 98, 0);" id="LAY_TotalPrice"><b>0 원</b></div>
+		</td>
 	</tr>
-	<tr height="3">
-	<td bgcolor="#cfd2d7" width="1"/>
-	<td height="30" bgcolor="#f6f6f6" width="396">
-	<div style="padding: 7px 0pt 0pt 5px; float: left; height: 30px;">
-	<img height="6" width="6" src="<%=cp %>/img/plus_icon.gif"/>
-	<b>총합 : </b>
-	</div>
-	<div style="padding: 7px 27px 0pt 5px; float: right; height: 30px; color: rgb(245, 98, 0);" id="LAY_TotalPrice"><b>0 원</b></div>
-	</td>
-	<td bgcolor="#cfd2d7" width="1"/>
-	</tr>
-	<tr height="1">
-	<td bgcolor="#cfd2d7" width="1"/>
-	<td bgcolor="#cfd2d7" width="394"/>
-	<td bgcolor="#cfd2d7" width="1"/>
-	</tr>
-	</tbody></table>
+	</tbody>
+	</table>
 	<!-- 가격 총합계 -->
 	<!-- 선택된 상품 -->
-	<div style="height: 443px; overflow-y: scroll; overflow-x: hidden; " id="LAY_Right">
+	<div style="width: 396px; height: 455px; overflow-y: scroll; overflow-x: hidden; " id="LAY_Right">
 		<c:forEach var="bean" items="${class_list}" varStatus="class9">
 		<table style="width: 396px; padding: 0; border-spacing: 0;">
-		<tbody><tr>
-		<td colspan="3">
-		<table style="width: 394px; padding: 0; border-spacing: 0;">
-		<tbody><tr height="39" bgcolor="#254284">
-		<td class="title1"><span style="color: #ffffff; padding-left: 5px;">${bean.pcl_name }</span></td>
-		</tr>	</tbody></table>
+		<tbody>
+		<tr>
+		<td>
+			<table style="width: 394px; padding: 0; border-spacing: 0;">
+			<tbody>
+			<tr style="background-color: #254284; height: 39px;">
+			<td>
+			<span style="color: #ffffff; padding-left: 5px;">${bean.pcl_name }</span>
+			</td>
+			</tr>
+			</tbody>
+			</table>
 		</td>
 		</tr>
-		</tbody></table>
+		</tbody>
+		</table>
 		
 		<div id="LAY_VH_${class9.count }">
 		<table style="width: 394px; padding: 0; border-spacing: 0;">
-		<tbody>	<tr>
-		<td bgcolor="#cfd2d7" width="1"/>
-		<td bgcolor="#ffffff" width="394">
-		<table style="width: 394px; padding: 0; border-spacing: 0;">
-		<tbody>
-			<c:forEach var="bean2" items="${bean.pcl_list}" varStatus="class2">
-			<tr height="30">
-			<td bgcolor="#f1f4f9" align="center" width="77">
-			<a href="javascript:init('${bean2.pcl_no }')">${bean2.pcl_name }</a>
+		<tbody>	
+		<tr>
+			<td bgcolor="#ffffff" width="394">
+			<table style="width: 394px; padding: 0; border-spacing: 0;">
+			<tbody>
+				<c:forEach var="bean2" items="${bean.pcl_list}" varStatus="class2">
+				<tr style="height: 30px;">
+					<td style="background-color: #F8FFFF; width: 77px; text-align: center; border-bottom: 1px solid #cfd2d7; border-right: 1px solid #cfd2d7;">
+						<a href="javascript:init('${bean2.pcl_no }')">${bean2.pcl_name }</a>
+					</td>
+					<td style="border-bottom: 1px solid #cfd2d7; width: 317px; text-align: left;">
+						<div style="display: block; visibility: visible;" id="LAY_MSG_${bean2.pcl_no }">
+						<span style="color: #999999">☜ 항목을 클릭하세요.</span>
+						</div>
+					</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+			</table>
 			</td>
-			<td bgcolor="#cfd2d7" width="1"/>
-			<td width="317" align="left">
-			<div style="display: block; visibility: visible;" id="LAY_MSG_${bean2.pcl_no }">
-			<span style="color: #999999">☜ 항목을 클릭하세요.</span>
-			</div>
-			</td>
-			</tr>
-			<tr height="1" bgcolor="#cfd2d7"><td colspan="3"/></tr>
-			</c:forEach>
+		</tr>
 		</tbody>
 		</table>
-		</td>
-		<td bgcolor="#cfd2d7" width="1"/>
-		</tr></tbody></table>
 		</div>
 	</c:forEach>	
 	
@@ -339,11 +349,8 @@
 	</td>
 	<!-- 오른쪽 끝 -->
 	
-	<td bgcolor="#f3f3f3" width="5"/>
 	</tr>	
 	
-	<tr><td height="4" bgcolor="#f3f3f3" colspan="5"/></tr>
-	<tr><td height="1" bgcolor="#cacaca" colspan="5"/></tr>
 	</tbody>
 	</table>
 	

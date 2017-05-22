@@ -24,67 +24,63 @@
 	<c:if test="${orderCode == 4}">checked="checked"</c:if> />높은가격순
 </div>
 
-<div style="height: 23px; background-color: #b6d0e8; padding-left: 5px; padding-top: 5px;">
+<div style="height: 20px; background-color: #b6d0e8; padding-left: 5px; padding-top: 8px;">
 <span style="margin-right: 10px;">☞  상품 리스트</span>
 총 (<span style="color: red;">${total_cnt}</span>) 개 상품 
 </div>
 
-<div style="border: 1px solid rgb(204, 204, 204); height: 297px; overflow-y: scroll; overflow-x: hidden;">
+<div style="border: 1px solid rgb(204, 204, 204); height: 290px; overflow-y: scroll; overflow-x: hidden;">
 
-<table style="border-spacing: 0; padding: 0; background-color:white; width: 97%; border: 0;" id="TABLE_ProdInfo">
+<table style="border-spacing: 0; padding: 0; background-color:white; width: 99%; border: 0;" id="TABLE_ProdInfo">
 <tr>
-<td bgcolor="#cfd2d7" width="1"/>
 <td>
-<table style="border-spacing: 0; padding: 0; width: 100%;">
-<tbody>
+	<table style="border-spacing: 0; padding: 0; width: 100%;">
+	<tbody>
 	<c:forEach var="bean" items="${proMainList}">
 	<tr id="${bean.pro_no }">
-	<td width="56">
-	<table style="border-spacing: 0; padding: 0; width: 100%;">
-	<tbody><tr>
-	<td width="2"/>
-	<td>
-	<a href="javascript:goProDlgView(${bean.pro_no }, '${bean.pro_pcl_no }', 1);">
-	<img height="50" width="50" src="<%=cp %>/product_img/${bean.pmg_file }" border="0"/></a></td>
-	<td width="2"/>
-	</tr>
-	</tbody></table>
-	</td>
-	
-	<td>
+	<td style="border-bottom: 1px solid #cfd2d7; width: 56px;">
 		<table style="border-spacing: 0; padding: 0; width: 100%;">
 		<tbody>
-		<tr><td align="left">
+		<tr>
+		<td>
+		<a href="javascript:goProDlgView(${bean.pro_no }, '${bean.pro_pcl_no }', 1);">
+		<img height="50" width="50" src="<%=cp %>/product_img/${bean.pmg_file }" border="0"/></a></td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+	<td style="border-bottom: 1px solid #cfd2d7;">
+		<table style="border-spacing: 0; padding: 0; width: 100%;">
+		<tbody>
+		<tr>
+		<td style="text-align: left;">
 		<a href="javascript:goProDlgView(${bean.pro_no }, '${bean.pro_pcl_no }', 1);">
 		${bean.ppt_pro_name}</a><br />
 		<span style="display: inline; color: red; padding-left: 10px;">${bean.pro_ch_price}</span>
 		<span style="display: none;">${bean.pro_disprice}</span>
-		</td>	</tr>
+		</td>
+		</tr>
 		</tbody></table>
 	</td>
-	
-	<td align="right">
-	<input type="hidden" value="${bean.pro_disprice}" name="price_${bean.pro_no}"/>
-	<input type="hidden" value="${bean.pro_ch2_price}" name="pricech_${bean.pro_no}"/>
-	<input type="hidden" value="${bean.ppt_pro_name }" name="pname_${bean.pro_no }"/>
-	<input type="hidden" value="${bean.pro_no }" name="prono_${bean.pro_no }"/>
-	
-	<a href="javascript:row_tgl(${bean.pro_no }, '${bean.pro_pcl_no }')">
-	<img border="0" vspace="2" src="<%=cp %>/img/btn_choice.gif" /></a> 
+	<td style="border-bottom: 1px solid #cfd2d7; text-align: right;">
+		<input type="hidden" value="${bean.pro_disprice}" name="price_${bean.pro_no}"/>
+		<input type="hidden" value="${bean.pro_ch2_price}" name="pricech_${bean.pro_no}"/>
+		<input type="hidden" value="${bean.ppt_pro_name }" name="pname_${bean.pro_no }"/>
+		<input type="hidden" value="${bean.pro_no }" name="prono_${bean.pro_no }"/>
+		<a href="javascript:row_tgl(${bean.pro_no }, '${bean.pro_pcl_no }')">
+		<img border="0" vspace="2" src="<%=cp %>/img/btn_choice.gif" /></a> 
 	</td>
 	</tr>
-	<tr><td height="1" bgcolor="#cfd2d7" colspan="3"/></tr>
 	</c:forEach>
-</tbody>
-</table>
+	</tbody>
+	</table>
 </td>
-<td bgcolor="#cfd2d7" width="1"/>
 </tr>
 </table>
 
 </div>
 
-<div style="height: 20px; text-align: center; padding-top: 5px;">
+<div style="height: 25px; text-align: center; padding-top: 0px; padding-bottom: 5px;">
 
 <p:page p_totalPage="${p_totalPage}" p_nowPage="${p_nowPage}" p_list="${p_list}" p_pagePerBlock="${p_pagePerBlock}" />
 

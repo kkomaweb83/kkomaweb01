@@ -33,7 +33,7 @@
 <c:set var="totalPage" value="<%= totalPage %>" />
 
 <!-- 가운데 페이징 -->
-<div style="text-align: center; height: 100px; margin-top: 20px;">
+<div style="text-align: center; height: 100px; margin-top: 10px;">
 	<c:choose>
 		<c:when test="${beginPage <= pagePerBlock}">
 		<img src="<%=cp %>/img/pg_newprev.gif" border="0" style="vertical-align: bottom;" />
