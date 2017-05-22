@@ -72,6 +72,71 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE VDT_PRO_NO = PRO_NO AND VDT_VBL_NO = #{ppt_no} 
 		AND PRO_NO IN (SELECT VDT_PRO_NO FROM VBL_DET WHERE VDT_VBL_NO = #{ppt_no}) 
 		AND PRO_PCL_NO = #{pcl_no} 
-	</select> 	
+	</select>
+	
+	<update id="vblUpdate" parameterType="com.danacom.mybatis.vbl.VirBillVo">
+		UPDATE 
+		VIR_BILL SET
+			VBL_TITLE = #{vbl_title}
+			, VBL_BOR_ANSWER = #{vbl_bor_answer}
+		WHERE VBL_NO = #{vbl_no}	
+	</update> 	
+	
+	<delete id="vdtDelete" parameterType="int">
+		DELETE 
+		FROM VBL_DET 
+		WHERE VDT_VBL_NO = #{vblMaxNo}
+	</delete>
+	
+	<delete id="vblDelete" parameterType="int">
+		DELETE 
+		FROM VIR_BILL
+		WHERE VBL_NO = #{vblMaxNo}
+	</delete>
+	
+	<select id="vbbMaxNo" resultType="int">
+		SELECT NVL(MAX(VBB_NO), 0)+1 FROM VIR_BILL_BOARD
+	</select>
+	
+	<insert id="vbbInsert" parameterType="com.danacom.mybatis.vbl.VirBillVo">
+		INSERT 
+		INTO VIR_BILL_BOARD
+		(VBB_NO, VBB_CONTENT, VBB_MEM_NO, VBB_DATE, VBB_RECOMM
+		, VBB_COUNT, VBB_BTR_ANSWER, VBB_TITLE)
+		VALUES
+		(#{vbb_no}, #{vbl_title}, #{vbl_mem_no}, SYSDATE, 0, 0, 'n', #{vbl_title})
+	</insert>
+	
+	<insert id="vdsInsert" parameterType="com.danacom.mybatis.vbl.VblDetVo">
+		INSERT 
+		INTO VBL_DET_SHARE
+		(VDS_NO, VDS_VBB_NO, VDS_QUANTITY, VDS_PRO_NO)
+		VALUES
+		((SELECT NVL(MAX(VDS_NO), 0)+1 FROM VBL_DET_SHARE)
+		, #{vds_vbb_no}, #{vdt_quantity}, #{vdt_pro_no})
+	</insert>
+	
+	<select id="vbbList" resultType="com.danacom.mybatis.vbl.VbbVo" parameterType="hashmap">
+		SELECT 
+			t2.*
+		FROM
+		(
+		SELECT 
+			t1.*
+			, ROWNUM rm
+			, COUNT(vbb_no) OVER() AS tot_cont
+		FROM
+		(
+			select 
+				vbb.vbb_no, vbb.vbb_content, mem.mem_id,
+				to_char(vbb.vbb_date, 'yyyy-mm-dd') as vbb_date,
+				vbb.vbb_recomm, vbb.vbb_count, vbb.vbb_btr_answer, vbb.vbb_title
+			from vir_bill_board vbb, mem_com mem 
+			where vbb.vbb_mem_no = mem.mem_no
+			order by vbb.vbb_no desc
+		) t1
+		) t2
+		WHERE rm BETWEEN #{begin} AND #{end}
+	</select>
 	
 </mapper>

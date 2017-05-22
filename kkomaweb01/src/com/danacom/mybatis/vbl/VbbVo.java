@@ -19,8 +19,18 @@ public class VbbVo{
 	private String vbr_title;
 	// 회원
 	private String mem_id;
-	private String mem_no;	
+	private String mem_no;
 	
+	private int tot_cont;
+	
+	public int getTot_cont() {
+		return tot_cont;
+	}
+
+	public void setTot_cont(int tot_cont) {
+		this.tot_cont = tot_cont;
+	}
+
 	public VbbVo() {
 	}
 

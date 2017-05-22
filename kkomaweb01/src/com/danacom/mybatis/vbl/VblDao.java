@@ -43,4 +43,32 @@ public class VblDao extends BaseDao {
 		getSql().commit();
 	}
 
+	public static void vblUpdate(VirBillVo vblCommand) {
+		getSql().update("vblUpdate", vblCommand);
+	}
+
+	public static void vdtDelete(int vblMaxNo) {
+		getSql().delete("vdtDelete", vblMaxNo);
+	}
+
+	public static void vblDelete(int vblMaxNo) {
+		getSql().delete("vblDelete", vblMaxNo);
+	}
+
+	public static int getVbbMaxNo() {
+		return getSql().selectOne("vbbMaxNo");
+	}
+
+	public static void vbbInsert(VirBillVo vblCommand) {
+		getSql().insert("vbbInsert", vblCommand);
+	}
+
+	public static void vdsInsert(VblDetVo vdtCommand) {
+		getSql().insert("vdsInsert", vdtCommand);
+	}
+
+	public static List<VbbVo> getVbbList(Map<String, Object> requestMap) {
+		return getSql().selectList("vbbList", requestMap);
+	}
+
 }

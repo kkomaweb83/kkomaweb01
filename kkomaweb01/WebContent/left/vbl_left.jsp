@@ -18,7 +18,7 @@
 <nav id="admin_menu_lnb">
 	<ul>
 		<li><a href="<%=cp %>/VblController?dana=vbl_main_prelist">- 가상견적서 리스트</a></li>
-		<li><a href="<%=cp %>/VblController?dana=vbb_main_prelist">- 공유견적서 리스트</a></li>
+		<li><a href="<%=cp %>/VblController?dana=vbb_prelist">- 공유견적서 리스트</a></li>
 		<li><a href="<%=cp %>/VblController?dana=btl_main_prelist">- 베틀견적서 리스트</a></li>
 	</ul>
 </nav>

@@ -211,7 +211,7 @@
 	    else return out 
 	}
 	
-	function goPptInsert(){
+	function goVblUpdate(){
 		if (document.vblPro_Search.vbl_title.value == "")  {
 	        alert("가상견적서 제목을 입력하세요!");
 	        document.vblPro_Search.vbl_title.focus();
@@ -222,11 +222,38 @@
 	        alert("견적서 부품을 1개 이상 선택하세요!");
 	         return;
 	 	}
-
-	 	$("#dana").val("ajax_vbl_insert");
 	 	
+	 	$("#dana").val("ajax_vbl_update");
+
 		document.vblPro_Search.action = "<%=cp %>/VblController";
 		document.vblPro_Search.submit();
+		
+	}
+
+	function goVblDelete(){
+		
+		$("#dana").val("ajax_vbl_delete");
+		
+		document.vblPro_Search.action = "<%=cp %>/VblController";
+		document.vblPro_Search.submit();
+	}
+
+	function goVbbInsert(){
+		if (document.vblPro_Search.vbl_title.value == "")  {
+	        alert("가상견적서 제목을 입력하세요!");
+	        document.vblPro_Search.vbl_title.focus();
+	        return;
+	 	}
+
+	 	if (!document.getElementsByName("pst_pro_no")[0])  {
+	        alert("견적서 부품을 1개 이상 선택하세요!");
+	         return;
+	 	}
+	 	
+	 	$("#dana").val("ajax_vbb_insert");
+	 	
+		document.vblPro_Search.action = "<%=cp %>/VblController";
+		document.vblPro_Search.submit();	
 	}
 	function search_keyword(){
 		
@@ -251,8 +278,8 @@
 	<section id="admin_section">
 	
 	<form method="post" id="vblPro_Search" name="vblPro_Search">
+		<input type="hidden" name="vbl_no" value="${vblVo.vbl_no}" />
 		<input type="hidden" name="vbl_mem_no" value="${login.mem_no}" />
-		<input type="hidden" name="vbl_bor_answer" value="N" />
 		<input type="hidden" name="sct_pro_part" value="1" />
 		<input type="hidden" name="sct_pro_muti" value="3" />
 		<input name="proOrderCode" type="hidden" value="1" />

@@ -11,10 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
 import com.danacom.model.pro.ProAdminListCommand;
+import com.danacom.model.vbl.VbbInsertCommand;
+import com.danacom.model.vbl.VbbListCommand;
 import com.danacom.model.vbl.VblAjaxMkrPclCommand;
 import com.danacom.model.vbl.VblAjaxProListCommand;
+import com.danacom.model.vbl.VblDeleteCommand;
 import com.danacom.model.vbl.VblInsertCommand;
 import com.danacom.model.vbl.VblListCommand;
+import com.danacom.model.vbl.VblUpdateCommand;
 import com.danacom.model.vbl.VblViewCommand;
 
 @WebServlet("/VblController")
@@ -60,6 +64,20 @@ public class VblController extends HttpServlet {
 			forward = false;
 		}else if("vbl_view".equals(dana)){
 			baseComm = new VblViewCommand();
+		}else if("ajax_vbl_update".equals(dana)){
+			baseComm = new VblUpdateCommand();
+			forward = false;
+		}else if("ajax_vbl_delete".equals(dana)){
+			baseComm = new VblDeleteCommand();
+			forward = false;
+		}else if("ajax_vbb_insert".equals(dana)){
+			baseComm = new VbbInsertCommand();
+			forward = false;
+		}else if("vbb_prelist".equals(dana)){
+			exec_go = false;
+			path = "vbl/vbb_list.jsp";
+		}else if("ajax_vbb_list".equals(dana)){
+			baseComm = new VbbListCommand();
 		}
 		
 		if(exec_go){
