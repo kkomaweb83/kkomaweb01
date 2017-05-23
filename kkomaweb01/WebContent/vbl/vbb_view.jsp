@@ -114,9 +114,12 @@
 	</c:forEach>
 </form>
 
-<div class="title_div1"><span style="font-size: 5px;">&nbsp;</span><br />
-<span class="title_box1">☞ 견적서 읽기</span><br /><br />
-<span style="font-size: 0px;">&nbsp;</span>
+<div class="title_div1">
+	<div style="float: left;" >
+		<span style="font-size: 5px;">&nbsp;</span><br/>
+		<span class="title_box1">☞ 공유견적서 관리</span>
+		<span style="margin-right: 20px;">&nbsp;</span>
+	</div>	
 </div>
 
 <table class="lngTable2" style="width: 100%;">
@@ -128,7 +131,7 @@
 		<th>조회수</th>
 		<th>배틀등록여부</th>
 	</tr>
-	<tr>
+	<tr class="vbb_tr">
 		<td>${vbbContent.vbb_no}</td>
 		<td>${vbbContent.mem_id}</td>
 		<td>${vbbContent.vbb_date}</td>
@@ -140,31 +143,27 @@
 		<th>제목</th>
 		<td colspan="5" align="left">${vbbContent.vbb_title}</td>
 	</tr>
-	<tr>
-		<th colspan="1">글 내용</th>
-		<td colspan="5" align="left"><pre>${vbbContent.vbb_content }</pre></td>
-	</tr>
 </table>
 
 <div class="title_div3">
-<div style="float: left; padding-top: 10px;" >
-<span class="title_box1_o">
-<c:if test="${login.mem_id != vbbContent.mem_id}">
-<a href="javascript:goMyVblInsert();">
-내 가상견적서에 담기</a>
-</c:if>
-<c:if test="${login.mem_id == vbbContent.mem_id}">
-${vbbContent.mem_id}님이  등록한 가상견적서 입니다.
-</c:if>
-</span>
-</div>
+	<div style="float: left; padding-top: 10px;" >
+		<span class="title_box1_o">
+		<c:if test="${login.mem_id != vbbContent.mem_id}">
+		<a href="javascript:goMyVblInsert();">
+		내 가상견적서에 담기</a>
+		</c:if>
+		<c:if test="${login.mem_id == vbbContent.mem_id}">
+		${vbbContent.mem_id}님이  등록한 가상견적서 입니다.
+		</c:if>
+		</span>
+	</div>
 
-<div style="float: right;">
-<a href="javascript:goSctOdr();">	
-<img src="<%=cp %>/img/btn_buy.gif" border="0"></a>&nbsp;
-<a href="javascript:goSctmultiInsert();">
-<img src="<%=cp %>/img/btn_cart.gif" border="0"></a>
-</div>
+	<div style="float: right;">
+		<a href="javascript:goSctOdr();">	
+		<img src="<%=cp %>/img/btn_buy.gif" border="0"></a>&nbsp;
+		<a href="javascript:goSctmultiInsert();">
+		<img src="<%=cp %>/img/btn_cart.gif" border="0"></a>
+	</div>
 </div>
 
 
@@ -173,45 +172,28 @@ ${vbbContent.mem_id}님이  등록한 가상견적서 입니다.
 </div>
 
 <c:forEach var="vbbPro" items="${vbbProList}">
-
-	<table width="100%" align="center" cellpadding="0" cellspacing="0" 
-				style="border-bottom: #336699 1px solid; padding-bottom: 5px; padding-top: 5px;">
+	<table style="border-bottom: #336699 1px solid; padding-bottom: 5px; padding-top: 5px; width: 100%; border-spacing: 0; text-align: center;">
 		<tr>
-			<td width="50" align="left">
-				${vbbPro.pcl_name }
-			</td>
-			<td width="100" align="center">
+			<td style="text-align: left; width: 50px;">${vbbPro.pcl_name }</td>
+			<td style="text-align: center; width: 100px;">
 				<a href="javascript:goProDlgView(${vbbPro.pro_no }, '${vbbPro.pcl_no }', 1);">
 				<img src="<%=cp %>/product_img/${vbbPro.pmg_file }" style="width: 60px; height: 60px; border: 0px;" /></a>
 			</td>
-			<td width="500">
-				<table align="left">
+			<td style="width: 500px;">
+				<table style="text-align: left;">
 					<tr>
 						<td style="font-weight: bold;" align="left">
 							<a href="javascript:goProDlgView(${vbbPro.pro_no }, '${vbbPro.pcl_no }', 1);">
 							${vbbPro.pro_name }</a>
 						</td>
 					</tr>
-					<%--
 					<tr>
-						<td style="color: #999999;" align="left">
-							${vbbPro.psm_conent }
-						</td>
-					</tr>
-					 --%>
-					<tr>
-						<td style="color: #6666CC;" align="left">
-							등록일 : ${vbbPro.pro_regdate }
-						</td>
+						<td style="color: #6666CC;" align="left">등록일 : ${vbbPro.pro_regdate }</td>
 					</tr>
 				</table>
 			</td>
-			<td>
-				${vbbPro.vds_quantity }개 
-			</td>
-			<td width="100" align="right" style="color: #FF3333; font-size: 11pt; font-weight: bold;">
-				${vbbPro.pro_disprice }
-			</td>
+			<td>${vbbPro.vds_quantity }개</td>
+			<td style="color: #FF3333; font-size: 11pt; font-weight: bold; width: 100px; text-align: right;">${vbbPro.pro_disprice }</td>
 		</tr>
 	</table>
 </c:forEach>
@@ -219,7 +201,7 @@ ${vbbContent.mem_id}님이  등록한 가상견적서 입니다.
 <table class="lngTable" style="width: 100%;">
 	<tr>
 		<th width="10%">내용</th>
-		<td><textarea rows="10" cols="10" name="vbr_content"></textarea></td>
+		<td><textarea rows="3" name="vbr_content"></textarea></td>
 		<td width="10%" style="vertical-align: middle;">
 			<input type="image" src="<%=cp %>/img/btn_nl_ok.gif" value="댓글 등록" />
 		</td>
@@ -251,7 +233,7 @@ ${vbbContent.mem_id}님이  등록한 가상견적서 입니다.
 		<c:if test="${login.mem_id == vbr.mem_id}">
 			<tr>
 				<td style="text-align: center;vertical-align: middle;">${vbr.vbr_no}</td>
-				<td><textarea name="vbr_content" style="height: 100px;">${vbr.vbr_content}</textarea></td>
+				<td><textarea rows="3" name="vbr_content">${vbr.vbr_content}</textarea></td>
 				<td style="vertical-align: middle;">
 					${vbr.mem_id}<br />
 					<a href="<%=cp %>/vbb/replyDelete.ama?vbr_no=${vbr.vbr_no}&vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_delete.gif" border=0 /></a>

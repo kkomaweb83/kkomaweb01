@@ -41,10 +41,12 @@ public class VbbInsertCommand implements BaseCommand {
 			vdtCommand.setVdt_pro_no(Integer.parseInt(pst_pro_no));
 			vdtCommand.setVdt_quantity(Integer.parseInt(pst_quantity));
 			vdtCommand.setVdt_vbl_no(vblMaxNo);
-			vdtCommand.setVds_vbb_no(vblMaxNo);
-			VblDao.vdtInsert(vdtCommand);
-			VblDao.vdsInsert(vdtCommand);
-		}
+			vdtCommand.setVds_vbb_no(vbbMaxNo);
+			int res = VblDao.vdtInsert(vdtCommand);
+			int res2 =VblDao.vdsInsert(vdtCommand);
+			System.out.println(">>>>>>>>>>>>> res : " + res);
+			System.out.println(">>>>>>>>>>>>> res2 : " + res2);
+		} 
 		
 		VblDao.commit();
 		

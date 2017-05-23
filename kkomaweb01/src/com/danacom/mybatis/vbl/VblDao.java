@@ -27,8 +27,8 @@ public class VblDao extends BaseDao {
 		getSql().insert("vblInsert", vblCommand);
 	}
 
-	public static void vdtInsert(VblDetVo vdtCommand) {
-		getSql().insert("vdtInsert", vdtCommand);
+	public static int vdtInsert(VblDetVo vdtCommand) {
+		return getSql().insert("vdtInsert", vdtCommand);
 	}
 
 	public static VirBillVo getVblVo(int vbl_no) {
@@ -63,8 +63,8 @@ public class VblDao extends BaseDao {
 		getSql().insert("vbbInsert", vblCommand);
 	}
 
-	public static void vdsInsert(VblDetVo vdtCommand) {
-		getSql().insert("vdsInsert", vdtCommand);
+	public static int vdsInsert(VblDetVo vdtCommand) {
+		return getSql().insert("vdsInsert", vdtCommand);
 	}
 
 	public static List<VbbVo> getVbbList(Map<String, Object> requestMap) {
