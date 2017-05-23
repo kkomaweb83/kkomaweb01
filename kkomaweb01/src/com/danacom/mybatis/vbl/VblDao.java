@@ -71,4 +71,20 @@ public class VblDao extends BaseDao {
 		return getSql().selectList("vbbList", requestMap);
 	}
 
+	public static void countUpVbbContent(VbbVo vbb_Command) {
+		getSql().update("countUpVbbContent", vbb_Command);
+	}
+
+	public static VbbVo getVbbContent(VbbVo vbb_Command) {
+		return getSql().selectOne("getVbbContent", vbb_Command);
+	}
+
+	public static List<VbsVo> getVbbContentPro(VbbVo vbb_Command) {
+		return getSql().selectList("getVbbContentPro", vbb_Command);
+	}
+
+	public static List<VbbVo> getVbrList(VbbVo vbb_Command) {
+		return getSql().selectList("getVbrList", vbb_Command);
+	}
+
 }

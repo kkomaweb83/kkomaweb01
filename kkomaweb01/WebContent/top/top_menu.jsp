@@ -58,7 +58,7 @@
 		<c:if test="${login.cmd != 101}"><a href="#">가상견적서</a></c:if>
 		<c:if test="${login.cmd == 101}"><a href="<%=cp %>/VblController?dana=vbl_main_prelist">가상견적서</a></c:if>
 		</li>
-		<li><a href="#">공유견적서</a></li>
+		<li><a href="<%=cp %>/VblController?dana=vbb_prelist">공유견적서</a></li>
 		<li><a href="#">베틀견적서</a></li>
 	</ul>
 </nav>

@@ -139,4 +139,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE rm BETWEEN #{begin} AND #{end}
 	</select>
 	
+	<update id="countUpVbbContent" parameterType="com.danacom.mybatis.vbl.VbbVo">
+		update 
+		vir_bill_board
+		set
+			vbb_count = vbb_count + 1
+		where vbb_no = #{vbb_no}
+	</update>
+	
+	<select id="getVbbContent" resultType="com.danacom.mybatis.vbl.VbbVo" parameterType="com.danacom.mybatis.vbl.VbbVo">
+		select
+			vbb.vbb_no,
+			vbb.vbb_content,
+			mem.mem_id,
+			to_char(vbb.vbb_date, 'yyyy-mm-dd') as vbb_date,
+			vbb.vbb_recomm,
+			vbb.vbb_count,
+			vbb.vbb_btr_answer,
+			vbb.vbb_title
+		from vir_bill_board vbb
+			join mem_com mem on vbb.vbb_mem_no = mem.mem_no
+		where vbb.vbb_no = #{vbb_no}
+		order by vbb.VBB_NO desc
+	</select>
+	
+	<select id="getVbbContentPro" resultType="com.danacom.mybatis.vbl.VbsVo" parameterType="com.danacom.mybatis.vbl.VbbVo">
+		select 
+			VDS.VDS_NO,
+			VDS.VDS_QUANTITY,
+			PRO.PRO_NO,
+			PRO.PRO_NAME,
+			TO_CHAR(PRO.PRO_DISPRICE,'L9,999,999') PRO_DISPRICE,
+			PRO.PRO_MILEGE,
+			to_char(PRO.PRO_REGDATE, 'yyyy-mm-dd') pro_regdate,
+			MKR.MKR_NAME,
+			PCL.PCL_NAME,
+			PCL.PCL_NO,
+			PSM.PSM_CONENT,
+			PMG.PMG_FILE
+		FROM VBL_DET_SHARE VDS
+			JOIN PRODUCT PRO ON VDS.VDS_PRO_NO = PRO.PRO_NO
+			JOIN MAKER MKR ON PRO.PRO_MKR_NO = MKR.MKR_NO
+			JOIN PRO_CLASS PCL ON PRO.PRO_PCL_NO = PCL.PCL_NO
+			JOIN PRO_SUMM PSM ON PRO.PRO_NO = PSM.PSM_PRO_NO
+			JOIN PRO_IMG PMG ON PRO.PRO_NO = PMG.PMG_PRO_NO
+		where vds_vbb_no = #{vbb_no}
+			and pmg.pmg_idt_no = 1
+		order by pcl.pcl_no
+	</select>
+	
+	<select id="getVbrList" resultType="com.danacom.mybatis.vbl.VbbVo" parameterType="com.danacom.mybatis.vbl.VbbVo">
+		select 
+			vbr.VBR_NO,
+			vbr.VBR_CONTENT,
+			to_char(vbr.VBR_RDATE, 'yyyy-mm-dd') VBR_RDATE,
+			vbr.VBR_TITLE,
+			mem.mem_id
+		from vbb_reply vbr
+		join mem_com mem on vbr.vbr_mem_no = mem.mem_no 
+		where VBR_VBB_NO = #{vbb_no}
+		order by vbr.vbr_no desc
+	</select>
+	
 </mapper>

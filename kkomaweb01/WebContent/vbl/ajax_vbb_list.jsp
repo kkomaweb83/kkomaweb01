@@ -24,13 +24,13 @@
 	<table style="width: 800px;">
 	<thead>
 		<tr>
-		<td class="table_title" width="80px">번호</td>
-		<td class="table_title" width="400px">제목</td>
-		<td class="table_title" width="90px">글쓴이</td>
-		<td class="table_title" width="110px">날짜</td>
-		<td class="table_title" width="60px">조회</td>
-		<td class="table_title" width="60px">추천</td>
-		<td class="table_title" width="60px">베틀</td>
+		<th class="table_title" width="5%">번호</th>
+		<th class="table_title" width="53%">제목</th>
+		<th class="table_title" width="11%">글쓴이</th>
+		<th class="table_title" width="10%">날짜</th>
+		<th class="table_title" width="8%">추천수</th>
+		<th class="table_title" width="8%">조회수</th>
+		<th class="table_title" width="5%">배틀</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -38,7 +38,7 @@
 		<tr>
 		<td class="table_content2">${no.count+(5*(p_nowPage-1))}</td>
 		<td class="table_content1">
-			<a href="<%=cp %>/VblController?dana=vbl_view&vbl_no=${bean.vbb_no}">${bean.vbb_title }</a>
+			<a href="<%=cp %>/VblController?dana=vbb_view&vbb_no=${bean.vbb_no}">${bean.vbb_title }</a>
 		</td>
 		<td class="table_content2">${bean.mem_id}</td>
 		<td class="table_content2">${bean.vbb_date}</td>

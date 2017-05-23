@@ -13,6 +13,7 @@ import com.danacom.model.base.BaseCommand;
 import com.danacom.model.pro.ProAdminListCommand;
 import com.danacom.model.vbl.VbbInsertCommand;
 import com.danacom.model.vbl.VbbListCommand;
+import com.danacom.model.vbl.VbbViewCommand;
 import com.danacom.model.vbl.VblAjaxMkrPclCommand;
 import com.danacom.model.vbl.VblAjaxProListCommand;
 import com.danacom.model.vbl.VblDeleteCommand;
@@ -78,6 +79,8 @@ public class VblController extends HttpServlet {
 			path = "vbl/vbb_list.jsp";
 		}else if("ajax_vbb_list".equals(dana)){
 			baseComm = new VbbListCommand();
+		}else if("vbb_view".equals(dana)){
+			baseComm = new VbbViewCommand();
 		}
 		
 		if(exec_go){
