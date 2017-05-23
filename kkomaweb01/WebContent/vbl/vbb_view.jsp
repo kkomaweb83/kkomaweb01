@@ -10,27 +10,17 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <title>공유견적서 관리</title>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="<%=cp %>/js/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="<%=cp %>/js/kkoma01.js"></script>
+<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=cp %>/css/kkoma_new_01.css" />
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 <style type="text/css">
 
 </style>
 <script type="text/javascript">
 	$(function() {
-		$( "#proViewDlg" ).dialog({
-			autoOpen: false,
-	      	show: {
-	        	effect: "blind",
-	        	duration: 1000
-	      	},
-	      	hide: {
-	        	effect: "explode",
-	        	duration: 1000
-	      	}
-		});
+
 	});
 	
 	function goSctOdr(){
@@ -64,23 +54,44 @@
 		document.vblPro_Search.action = "<%=cp %>/sct/ajax_sct_multiInsert.ama";
 		document.vblPro_Search.submit();	
 	}
+	function goSctmultiInsert(){
+		if (!document.getElementsByName("pst_pro_no")[0])  {
+	        alert("장바구니에 담을 부품을 1개 이상 선택하세요!");
+	         return;
+	 	}
+		
+		$("#dana").val("ajax_sct_multi_insert");
+	 	
+		document.vblPro_Search.action = "<%=cp %>/ProController";
+		document.vblPro_Search.submit();	
+	}
 
-	function goProDlgView( pro_no, pro_pcl_no, sct_pro_part){
-		if(sct_pro_part == 1){
-			var url1 = '<%=cp %>/pro/ajax_pro_mainView.ama';
-			new Ajax.Updater('proViewDlg', url1, 
-					{	parameters:
-						{pro_no:pro_no, pro_pcl_no:pro_pcl_no, view_area:2},
-						evalScripts:true
-					});
-		}else if(sct_pro_part == 2){	
-			var url2 = '<%=cp %>/ppt/ajax_ppt_mainView.ama';
-			new Ajax.Updater('proViewDlg', url2, 
-					{	parameters:
-						{ppt_no:pro_no, view_area:2},
-						evalScripts:true
-					});
-		}
+	function goProDlgView(pro_no, pro_pcl_no, sct_pro_part){
+		$("#dialog").dialog({ 
+            autoOpen:true, //자동으로 열리지않게
+			width:600,
+			height:500,
+			modal:false, //모달대화상자
+            resizable:false, //크기 조절 못하게
+			show : 'slide', hide : 'slide',
+			position : [500, 500]
+		});
+		
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_pro_mainView',pro_no:pro_no, pro_pcl_no:pro_pcl_no, view_area:2},
+			dataType : "html",
+			success : function(data) {
+				$("#dialog").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	function goVbbRecomm(){
+		location.href = "<%=cp %>/VblController?dana=vbb_recomm&vbb_no=${vbbContent.vbb_no}";
 	}
 </script>	
 </head>
@@ -103,6 +114,7 @@
 	<section id="admin_section">
 
 <form method="post" id="vblPro_Search" name="vblPro_Search">
+	<input name="dana" id="dana" type="hidden" value="" />
 	<input type="hidden" name="vbl_mem_no" value="${login.mem_no}" />
 	<input type="hidden" name="sct_pro_part" value="1" />
 	<input type="hidden" name="sct_pro_muti" value="3" />
@@ -119,6 +131,10 @@
 		<span style="font-size: 5px;">&nbsp;</span><br/>
 		<span class="title_box1">☞ 공유견적서 관리</span>
 		<span style="margin-right: 20px;">&nbsp;</span>
+	</div>
+	
+	<div style="text-align: center; float: right; margin-left: 4px;" class="vbl_btn01">
+		<span onclick="javascript:goVbbRecomm();" class="dana_button01"><span>추천</span></span>
 	</div>	
 </div>
 
@@ -197,7 +213,7 @@
 		</tr>
 	</table>
 </c:forEach>
-<form action="<%=cp %>/vbb/replyInsert.ama?vbb_no=${vbbContent.vbb_no}" method="post">
+<form action="<%=cp %>/VblController?dana=vbb_reply_insert&vbb_no=${vbbContent.vbb_no}" method="post">
 <table class="lngTable" style="width: 100%;">
 	<tr>
 		<th width="10%">내용</th>
@@ -221,7 +237,7 @@
 	</tr>
 	</c:if>
 	<c:forEach var="vbr" items="${vbrList}">
-		<form action="<%=cp %>/vbb/replyUpdate.ama?vbr_no=${vbr.vbr_no}&vbb_no=${vbbContent.vbb_no}" method="post">
+		<form action="<%=cp %>/VblController?dana=vbb_reply_update&vbr_no=${vbr.vbr_no}&vbb_no=${vbbContent.vbb_no}" method="post">
 		<c:if test="${login.mem_id != vbr.mem_id}">
 			<tr>
 				<td style="text-align: center; vertical-align: middle;">${vbr.vbr_no}</td>
@@ -236,7 +252,7 @@
 				<td><textarea rows="3" name="vbr_content">${vbr.vbr_content}</textarea></td>
 				<td style="vertical-align: middle;">
 					${vbr.mem_id}<br />
-					<a href="<%=cp %>/vbb/replyDelete.ama?vbr_no=${vbr.vbr_no}&vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_delete.gif" border=0 /></a>
+					<a href="<%=cp %>/VblController?dana=vbb_reply_delete&vbr_no=${vbr.vbr_no}&vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_delete.gif" border=0 /></a>
 					<input type="image" src="<%=cp %>/img/btn_update.gif"/>
 				</td>
 				<td style="vertical-align: middle;">${vbr.vbr_rdate}</td>
@@ -245,12 +261,12 @@
 		</form>
 	</c:forEach>
 </table>
-<div style="text-align: center;">
+<div style="text-align: center; display: none;">
 <a href="<%=cp %>/vbb/list.ama"><img src="<%=cp %>/img/btn_list.gif" border=0 /></a>
-<a href="<%=cp %>/vbb/recomm.ama?vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_good.gif" border=0 /></a>
+<a href="<%=cp %>/VblController?dana=vbb_recomm&vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_good.gif" border=0 /></a>
 <c:if test="${login.mem_id == vbbContent.mem_id}">
-	<a href="<%=cp %>/vbb/preupdate.ama?vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_update.gif" border="0"/></a>
-	<a href="<%=cp %>/vbb/delete.ama?vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_delete.gif" border=0 /></a>
+	<a href="<%=cp %>/VblController?dana=vbb_preupdate&vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_update.gif" border="0"/></a>
+	<a href="<%=cp %>/VblController?dana=vbb_delete&vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_delete.gif" border=0 /></a>
 </c:if>
 </div>
 
@@ -261,8 +277,8 @@
 	<footer>
 	
 	</footer>
-
+	
 <!-- 상세보기 dlg -->
-<div id="proViewDlg"></div>
+<div id="dialog"></div>	
 </body>
 </html>

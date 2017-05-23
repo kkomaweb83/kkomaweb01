@@ -256,6 +256,30 @@
 			}
 		});
 	}
+	function goProDlgView(pro_no, pro_pcl_no, sct_pro_part){
+		$("#dialog").dialog({ 
+            autoOpen:true, //자동으로 열리지않게
+			width:600,
+			height:500,
+			modal:false, //모달대화상자
+            resizable:false, //크기 조절 못하게
+			show : 'slide', hide : 'slide',
+			position : [500, 500]
+		});
+		
+		$.ajax({
+			url : "<%=cp %>/ProController",
+			type : "post",
+			data : {dana:'ajax_pro_mainView',pro_no:pro_no, pro_pcl_no:pro_pcl_no, view_area:2},
+			dataType : "html",
+			success : function(data) {
+				$("#dialog").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -304,5 +328,7 @@
 	<footer>
 	
 	</footer>
+<!-- 상세보기 dlg -->
+<div id="dialog"></div>			
 </body>
 </html>

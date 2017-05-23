@@ -258,6 +258,17 @@
 	function search_keyword(){
 		
 	}
+	function goSctmultiInsert(){
+		if (!document.getElementsByName("pst_pro_no")[0])  {
+	        alert("장바구니에 담을 부품을 1개 이상 선택하세요!");
+	         return;
+	 	}
+		
+		$("#dana").val("ajax_sct_multi_insert");
+	 	
+		document.vblPro_Search.action = "<%=cp %>/ProController";
+		document.vblPro_Search.submit();	
+	}
 </script>
 </head>
 <body>

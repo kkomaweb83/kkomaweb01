@@ -18,6 +18,7 @@ import com.danacom.model.pro.SctAjaxAllDeleteCommand;
 import com.danacom.model.pro.SctAjaxDeleteCommand;
 import com.danacom.model.pro.SctAjaxInsertCommand;
 import com.danacom.model.pro.SctAjaxListCommand;
+import com.danacom.model.pro.SctAjaxMutiInsertCommand;
 import com.danacom.model.pro.SctAjaxUpdateCommand;
 
 @WebServlet("/ProController")
@@ -69,6 +70,9 @@ public class ProController extends HttpServlet {
 			baseComm = new SctAjaxDeleteCommand();
 		}else if("ajax_sct_alldelete".equals(dana)){
 			baseComm = new SctAjaxAllDeleteCommand();
+		}else if("ajax_sct_multi_insert".equals(dana)){
+			baseComm = new SctAjaxMutiInsertCommand();
+			forward = false;
 		}
 		
 		if(exec_go){
