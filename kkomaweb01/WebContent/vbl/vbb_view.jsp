@@ -41,8 +41,10 @@
 	         return;
 	 	}
 	 	
-		document.vblPro_Search.action = "<%=cp %>/vbl/ajax_vbl_insert.ama";
-		document.vblPro_Search.submit();	
+		$("#dana").val("ajax_vbl_insert");
+	 	
+		document.vblPro_Search.action = "<%=cp %>/VblController";
+		document.vblPro_Search.submit();
 	}
 
 	function goSctmultiInsert(){
@@ -140,7 +142,7 @@
 
 <table class="lngTable2" style="width: 100%;">
 	<tr>
-		<th>번호	</th>
+		<th>번호</th>
 		<th>글쓴이</th>
 		<th>날짜</th>
 		<th>추천수</th>
@@ -190,7 +192,7 @@
 <c:forEach var="vbbPro" items="${vbbProList}">
 	<table style="border-bottom: #336699 1px solid; padding-bottom: 5px; padding-top: 5px; width: 100%; border-spacing: 0; text-align: center;">
 		<tr>
-			<td style="text-align: left; width: 50px;">${vbbPro.pcl_name }</td>
+			<td style="text-align: left; width: 70px;">${vbbPro.pcl_name }</td>
 			<td style="text-align: center; width: 100px;">
 				<a href="javascript:goProDlgView(${vbbPro.pro_no }, '${vbbPro.pcl_no }', 1);">
 				<img src="<%=cp %>/product_img/${vbbPro.pmg_file }" style="width: 60px; height: 60px; border: 0px;" /></a>
@@ -217,7 +219,7 @@
 <table class="lngTable" style="width: 100%;">
 	<tr>
 		<th width="10%">내용</th>
-		<td><textarea rows="3" name="vbr_content"></textarea></td>
+		<td><textarea rows="5" name="vbr_content"></textarea></td>
 		<td width="10%" style="vertical-align: middle;">
 			<input type="image" src="<%=cp %>/img/btn_nl_ok.gif" value="댓글 등록" />
 		</td>
@@ -249,7 +251,7 @@
 		<c:if test="${login.mem_id == vbr.mem_id}">
 			<tr>
 				<td style="text-align: center;vertical-align: middle;">${vbr.vbr_no}</td>
-				<td><textarea rows="3" name="vbr_content">${vbr.vbr_content}</textarea></td>
+				<td><textarea rows="5" name="vbr_content">${vbr.vbr_content}</textarea></td>
 				<td style="vertical-align: middle;">
 					${vbr.mem_id}<br />
 					<a href="<%=cp %>/VblController?dana=vbb_reply_delete&vbr_no=${vbr.vbr_no}&vbb_no=${vbbContent.vbb_no}"><img src="<%=cp %>/img/btn_delete.gif" border=0 /></a>

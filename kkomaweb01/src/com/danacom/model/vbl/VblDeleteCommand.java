@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
 import com.danacom.mybatis.vbl.VblDao;
-import com.danacom.mybatis.vbl.VblDetVo;
 import com.danacom.mybatis.vbl.VirBillVo;
 
 public class VblDeleteCommand implements BaseCommand {

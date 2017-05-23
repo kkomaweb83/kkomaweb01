@@ -36,14 +36,14 @@
 	<tbody>
 		<c:forEach var="bean" items="${pro_list}" varStatus="no">
 		<tr>
-		<td class="table_content2">${no.count+(5*(p_nowPage-1))}</td>
+		<td class="table_content2">${bean.vbb_no}</td>
 		<td class="table_content1">
 			<a href="<%=cp %>/VblController?dana=vbb_view&vbb_no=${bean.vbb_no}">${bean.vbb_title }</a>
 		</td>
 		<td class="table_content2">${bean.mem_id}</td>
 		<td class="table_content2">${bean.vbb_date}</td>
-		<td class="table_content2">${bean.vbb_count}</td>
 		<td class="table_content2">${bean.vbb_recomm}</td>
+		<td class="table_content2">${bean.vbb_count}</td>
 		<td class="table_content2">${bean.vbb_btr_answer}</td>
 		</tr>
 		</c:forEach>

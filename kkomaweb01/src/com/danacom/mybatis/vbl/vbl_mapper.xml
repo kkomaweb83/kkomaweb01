@@ -201,4 +201,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by vbr.vbr_no desc
 	</select>
 	
+	<update id="recommVbbContent" parameterType="com.danacom.mybatis.vbl.VbbVo">
+		update 
+		vir_bill_board
+		set
+			vbb_recomm = vbb_recomm + 1
+		where vbb_no = #{vbb_no}
+	</update>
+	
+	<insert id="replyInsert" parameterType="com.danacom.mybatis.vbl.VbbVo">
+		insert 
+		into VBB_REPLY
+			(vbr_no
+			,vbr_content
+			,vbr_rdate
+			,vbr_vbb_no
+			,vbr_mem_no
+			,vbr_title)
+		values
+			((select nvl(max(vbr_no),0)+1 from vbb_reply)
+			,#{vbr_content}
+			,sysdate
+			,#{vbb_no}
+			,#{mem_no}
+			,'사용안함')
+	</insert>
+	
+	<delete id="replyDelete" parameterType="com.danacom.mybatis.vbl.VbbVo">
+		delete 
+		from vbb_reply
+		where vbr_no=#{vbr_no}
+	</delete>
+	
+	<update id="replyUpdate" parameterType="com.danacom.mybatis.vbl.VbbVo">
+		update 
+		vbb_reply set
+			vbr_content = #{vbr_content}
+		where vbr_no=#{vbr_no}
+	</update>
+	
 </mapper>

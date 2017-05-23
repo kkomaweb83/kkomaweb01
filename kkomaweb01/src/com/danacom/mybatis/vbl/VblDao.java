@@ -87,4 +87,20 @@ public class VblDao extends BaseDao {
 		return getSql().selectList("getVbrList", vbb_Command);
 	}
 
+	public static void recommVbbContent(VbbVo vbb_Command) {
+		getSql().update("recommVbbContent", vbb_Command);
+	}
+
+	public static void replyInsert(VbbVo vbb_Command) {
+		getSql().insert("replyInsert", vbb_Command);
+	}
+
+	public static void replyUpdate(VbbVo vbb_Command) {
+		getSql().update("replyUpdate", vbb_Command);
+	}
+
+	public static void replyDelete(VbbVo vbb_Command) {
+		getSql().delete("replyDelete", vbb_Command);
+	}
+
 }
