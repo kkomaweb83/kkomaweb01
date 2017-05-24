@@ -240,4 +240,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where vbr_no=#{vbr_no}
 	</update>
 	
+	<select id="btlList" resultType="com.danacom.mybatis.vbl.BtlVo" parameterType="hashmap">
+		SELECT 
+			t2.*
+		FROM
+		(
+		SELECT 
+			t1.*
+			, ROWNUM rm
+			, COUNT(btl_no) OVER() AS tot_cont
+		FROM
+		(
+			select
+				btl_no,
+				to_char(BTL_SDATE, 'yyyy-mm-dd') as BTL_SDATE,
+				to_char(BTL_cDATE, 'yyyy-mm-dd') as BTL_cDATE,
+				btl_title
+			from battle
+			order by btl_no desc
+		) t1
+		) t2
+		WHERE rm BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<insert id="btlInsert" parameterType="com.danacom.mybatis.vbl.BtlVo">
+		insert 
+		into battle
+			(BTL_NO
+			,BTL_SDATE
+			,BTL_CDATE
+			,BTL_CONTENT
+			,BTL_TITLE
+			)
+		values
+			((select nvl(max(btl_no),0)+1 from battle)
+			,to_date(#{btl_sdate},'YYYY/MM/DD')
+			,to_date(#{btl_cdate},'YYYY/MM/DD')
+			,#{btl_content}
+			,#{btl_title}
+			)
+	</insert>
+	
+	<select id="getBtlView" resultType="com.danacom.mybatis.vbl.BtlVo" parameterType="com.danacom.mybatis.vbl.BtlVo">
+		select
+			btl_no,
+			to_char(btl_sdate, 'yyyy/mm/dd') btl_sdate,
+			to_char(btl_cdate, 'yyyy/mm/dd') btl_cdate,
+			btl_content,
+			btl_title
+		from battle
+		where btl_no = #{btl_no}
+		and rownum = 1
+	</select>
+	
+	<select id="getBtlDetList" resultType="com.danacom.mybatis.vbl.BtlVo" parameterType="com.danacom.mybatis.vbl.BtlVo">
+		select
+			vbj.vbj_no,
+			vbj.vbj_title,
+			vbj.vbj_grade,
+			mem.mem_id,
+			(select sum(pro.pro_disprice * vbd.vbd_quantity)
+            	from vbj_det vbd
+            	join product pro on vbd.vbd_pro_no = pro.pro_no) totdisprice
+		from vbl_btl_join vbj
+			join mem_com mem on vbj.vbj_mem_no = mem.mem_no
+        where vbj.vbj_btl_no = #{btl_no}
+		order by vbj.vbj_grade desc
+	</select>
+	
 </mapper>

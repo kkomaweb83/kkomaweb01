@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
+import com.danacom.model.vbl.BtlAdminInsertCommand;
+import com.danacom.model.vbl.BtlAdminListCommand;
+import com.danacom.model.vbl.BtlDetListCommand;
 import com.danacom.model.vbl.VbbInsertCommand;
 import com.danacom.model.vbl.VbbListCommand;
 import com.danacom.model.vbl.VbbRecommCommand;
@@ -92,6 +95,15 @@ public class VblController extends HttpServlet {
 			baseComm = new VbbReplyDeleteCommand();
 		}else if("vbb_recomm".equals(dana)){
 			baseComm = new VbbRecommCommand();
+		}else if("btl_admin_list".equals(dana)){
+			baseComm = new BtlAdminListCommand();
+		}else if("btl_admin_preInsert".equals(dana)){
+			exec_go = false;
+			path = "vbl/btl_admin_insert.jsp";
+		}else if("btl_admin_insert".equals(dana)){
+			baseComm = new BtlAdminInsertCommand();
+		}else if("btlDetList".equals(dana)){
+			baseComm = new BtlDetListCommand();
 		}
 			
 		

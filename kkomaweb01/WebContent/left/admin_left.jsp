@@ -40,7 +40,7 @@
 <span class="box_button2">☞ 베틀관리</span>
 <nav id="admin_menu_lnb">
 	<ul>
-		<li><a href="#">- 베틀 리스트</a></li>
+		<li><a href="<%=cp %>/VblController?dana=btl_admin_list">- 베틀 리스트</a></li>
 	</ul>
 </nav>
 

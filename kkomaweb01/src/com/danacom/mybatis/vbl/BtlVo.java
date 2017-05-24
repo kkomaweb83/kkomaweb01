@@ -37,6 +37,7 @@ public class BtlVo {
 	// vir_bill_board
 	private String vbb_no;
 	
+	private int tot_cont;
 	
 	public String getVbb_no() {
 		return vbb_no;
@@ -212,5 +213,11 @@ public class BtlVo {
 	}
 	public void setBtl_content(String btl_content) {
 		this.btl_content = btl_content;
+	}
+	public int getTot_cont() {
+		return tot_cont;
+	}
+	public void setTot_cont(int tot_cont) {
+		this.tot_cont = tot_cont;
 	}
 }

@@ -102,5 +102,21 @@ public class VblDao extends BaseDao {
 	public static void replyDelete(VbbVo vbb_Command) {
 		getSql().delete("replyDelete", vbb_Command);
 	}
+	
+	public static List<BtlVo> getBtlList(Map<String, Object> requestMap) {
+		return getSql().selectList("btlList", requestMap);
+	}
+
+	public static void btlInsert(BtlVo btl_Command) {
+		getSql().insert("btlInsert", btl_Command);
+	}
+
+	public static BtlVo getBtlView(BtlVo btl_Command) {
+		return getSql().selectOne("getBtlView", btl_Command);
+	}
+
+	public static List<BtlVo> getBtlDetList(BtlVo btl_Command) {
+		return getSql().selectList("getBtlDetList", btl_Command);
+	}
 
 }
