@@ -17,6 +17,8 @@ public class VbbListCommand implements BaseCommand {
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		
+		String reurl = request.getParameter("reurl");
+		
 		int total_cnt = 0;
 		Map<String, Object> requestMap = new HashMap<>();
 		
@@ -32,7 +34,10 @@ public class VbbListCommand implements BaseCommand {
 		request.setAttribute("pro_list", vbb_list);
 		request.setAttribute("total_cnt", total_cnt);
 		
-		return "vbl/ajax_vbb_list.jsp";
+		String returnUrl = "vbl/ajax_vbb_list.jsp";
+		if(reurl != null && reurl.equals("admin")) returnUrl = "vbl/ajaxVbbList.jsp";
+		
+		return returnUrl;
 	}
 
 }

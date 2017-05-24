@@ -13,6 +13,7 @@ import com.danacom.model.base.BaseCommand;
 import com.danacom.model.vbl.BtlAdminInsertCommand;
 import com.danacom.model.vbl.BtlAdminListCommand;
 import com.danacom.model.vbl.BtlDetListCommand;
+import com.danacom.model.vbl.BtlDetPreJoinCommand;
 import com.danacom.model.vbl.VbbInsertCommand;
 import com.danacom.model.vbl.VbbListCommand;
 import com.danacom.model.vbl.VbbRecommCommand;
@@ -103,6 +104,12 @@ public class VblController extends HttpServlet {
 		}else if("btl_admin_insert".equals(dana)){
 			baseComm = new BtlAdminInsertCommand();
 		}else if("btlDetList".equals(dana)){
+			baseComm = new BtlDetListCommand();
+		}else if("btlDetPrejoin".equals(dana)){
+			baseComm = new BtlDetPreJoinCommand();
+		}else if("ajaxVbbList".equals(dana)){
+			baseComm = new VbbListCommand();
+		}else if("ajaxBtlDetList".equals(dana)){
 			baseComm = new BtlDetListCommand();
 		}
 			

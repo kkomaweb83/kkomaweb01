@@ -66,30 +66,24 @@
 	
 	<table style="width: 800px;" class="lngTable">
 	<tr>
-		<th>번호</th>
-		<th>배틀명</th>
-		<th>배틀 시작일</th>
-		<th>배틀 마감일</th>
-		<th>관리</th>
-		<th>수정</th>
-		<th>삭제</th>
+		<th style="width:7%;">번호</th>
+		<th style="width:57%;">배틀명</th>
+		<th style="width:11%;">배틀 시작일</th>
+		<th style="width:11%;">배틀 마감일</th>
+		<th style="width:7%;">관리</th>
+		<th style="width:7%;">수정</th>
 	</tr>
 	<c:forEach var="btl" items="${btlList}">
 	<tr>
 		<td>${btl.btl_no}</td>
-		<td>
-		<a href="<%=cp %>/VblController?dana=btlDetList&btl_no=${btl.btl_no}">${btl.btl_title}</a>
-		</td>
+		<td><%-- <a href="/VblController?dana=btlDetList&btl_no=${btl.btl_no}"> --%>${btl.btl_title}</td>
 		<td>${btl.btl_sdate}</td>
 		<td>${btl.btl_cdate}</td>
 		<td>
 		<a href="<%=cp %>/VblController?dana=btlDetPrejoin&btl_no=${btl.btl_no}"><img src="<%=cp %>/img/btn_manage.jpg" /></a>
 		</td>
 		<td>
-		<a href="<%=cp %>/VblController?dana=groundPreupdate&btl_no=${btl.btl_no}"><img src="<%=cp %>/img/cpmodify.jpg" /></a>
-		</td>
-		<td>
-		<a href="<%=cp %>/VblController?dana=groundDelete&btl_no=${btl.btl_no}"><img src="<%=cp %>/img/cpdelete.jpg" /></a>
+		<a href="#"><img src="<%=cp %>/img/cpmodify.jpg" /></a>
 		</td>
 	</tr>
 	</c:forEach>
