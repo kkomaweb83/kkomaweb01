@@ -32,7 +32,9 @@
 	});
 </script>
 
-<input type="hidden" name="vbl_mem_no" value="${login.mem_no}" />
+	<input name="sct_pro_no" type="hidden" value="0" />
+	<input type="hidden" name="vbl_mem_no" value="${login.mem_no}" />
+	<input type="hidden" name="sct_mem_no" value="${login.mem_no}" />
 	<input type="hidden" name="sct_pro_part" value="1" />
 	<input type="hidden" name="sct_pro_muti" value="3" />
 	<input type="hidden" name="vbl_title" value="${btlJoinContent.vbj_title}" />

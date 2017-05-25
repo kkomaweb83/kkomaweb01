@@ -47,7 +47,7 @@
 		<img src="<%=cp %>/img/btn_buy.gif" border="0">
 		</c:if>
 		<c:if test="${login.cmd == 101}">
-		<a href="<%=cp %>/sct/sct_odr_doc.ama?sct_pro_no=${proVo.pro_no }
+		<a href="<%=cp %>/ProController?dana=sct_odr_doc&sct_pro_no=${proVo.pro_no }
 																&sct_pro_part=1
 																&sct_pro_muti=2
 																&sct_mem_no=${login.mem_no }">

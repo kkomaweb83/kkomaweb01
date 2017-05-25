@@ -20,6 +20,7 @@ import com.danacom.model.pro.SctAjaxInsertCommand;
 import com.danacom.model.pro.SctAjaxListCommand;
 import com.danacom.model.pro.SctAjaxMutiInsertCommand;
 import com.danacom.model.pro.SctAjaxUpdateCommand;
+import com.danacom.model.pro.SctOdrDocCommand;
 
 @WebServlet("/ProController")
 public class ProController extends HttpServlet {
@@ -73,6 +74,8 @@ public class ProController extends HttpServlet {
 		}else if("ajax_sct_multi_insert".equals(dana)){
 			baseComm = new SctAjaxMutiInsertCommand();
 			forward = false;
+		}else if("sct_odr_doc".equals(dana)){
+			baseComm = new SctOdrDocCommand();
 		}
 		
 		if(exec_go){

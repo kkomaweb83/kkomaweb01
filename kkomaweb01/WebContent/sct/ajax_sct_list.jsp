@@ -115,7 +115,7 @@ ${bean.sct_proVO.pro_ch_milege }
 <c:if test="${not empty sctList}">
 <a href="javascript:goSctAllDelete(${login.mem_no},0);">
 <img src="<%=cp %>/img/btn_emptyCart.gif" style="border: 0px;"></a>&nbsp;
-<a href="<%=cp %>/sct/sct_odr_doc.ama?sct_mem_no=${login.mem_no }&sct_pro_muti=1">
+<a href="<%=cp %>/ProController?dana=sct_odr_doc&sct_mem_no=${login.mem_no }&sct_pro_muti=1">
 <img src="<%=cp %>/img/btn_buy2.gif" style="border: 0px;"></a>
 </c:if>
 

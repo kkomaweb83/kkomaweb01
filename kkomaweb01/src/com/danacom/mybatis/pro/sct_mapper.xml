@@ -88,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT  
 			MEM_MIL 
 			, TO_CHAR(MEM_MIL, '999,999,999,999')||'원' MEM_CH_MIL
-		FROM MEMBER
+		FROM MEM_COM
 		WHERE MEM_NO = #{mem_no}	
 	</select>
 	

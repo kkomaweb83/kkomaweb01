@@ -260,6 +260,18 @@
 	function search_keyword(){
 		
 	}
+	function goSctOdr(){
+		
+		if (!document.getElementsByName("pst_pro_no")[0])  {
+	        alert("바로구매할 부품을 1개 이상 선택하세요!");
+	         return;
+	 	}
+		
+		$("#dana").val("sct_odr_doc");
+	 	
+		document.vblPro_Search.action = "<%=cp %>/ProController";
+		document.vblPro_Search.submit();	
+	}
 	function goSctmultiInsert(){
 		if (!document.getElementsByName("pst_pro_no")[0])  {
 	        alert("장바구니에 담을 부품을 1개 이상 선택하세요!");
@@ -317,10 +329,12 @@
 	<form method="post" id="vblPro_Search" name="vblPro_Search">
 		<input type="hidden" name="vbl_no" value="${vblVo.vbl_no}" />
 		<input type="hidden" name="vbl_mem_no" value="${login.mem_no}" />
+		<input type="hidden" name="sct_mem_no" value="${login.mem_no}" />
 		<input type="hidden" name="sct_pro_part" value="1" />
 		<input type="hidden" name="sct_pro_muti" value="3" />
 		<input name="proOrderCode" type="hidden" value="1" />
 		<input name="dana" id="dana" type="hidden" value="" />
+		<input name="sct_pro_no" type="hidden" value="0" />
 
 	<div class="title_div1">
 		<div style="float: left;" >

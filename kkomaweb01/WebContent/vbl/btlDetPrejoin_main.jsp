@@ -142,6 +142,19 @@
 		getAjaxVbbList();
 	}
 	
+	function goSctOdr(){
+		
+		if (!document.getElementsByName("pst_pro_no")[0])  {
+	        alert("바로구매할 부품을 1개 이상 선택하세요!");
+	         return;
+	 	}
+	 	
+		$("#dana").val("sct_odr_doc");
+	 	
+		document.vblPro_Search.action = "<%=cp %>/ProController";
+		document.vblPro_Search.submit();	
+	}
+	
 	function goSctmultiInsert(){
 		if (!document.getElementsByName("pst_pro_no")[0])  {
 	        alert("장바구니에 담을 부품을 1개 이상 선택하세요!");

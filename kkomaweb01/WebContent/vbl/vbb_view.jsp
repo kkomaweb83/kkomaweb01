@@ -30,7 +30,9 @@
 	         return;
 	 	}
 	 	
-		document.vblPro_Search.action = "<%=cp %>/sct/sct_odr_doc.ama";
+		$("#dana").val("sct_odr_doc");
+	 	
+		document.vblPro_Search.action = "<%=cp %>/ProController";
 		document.vblPro_Search.submit();	
 	}
 
@@ -116,8 +118,10 @@
 	<section id="admin_section">
 
 <form method="post" id="vblPro_Search" name="vblPro_Search">
+	<input name="sct_pro_no" type="hidden" value="0" />
 	<input name="dana" id="dana" type="hidden" value="" />
 	<input type="hidden" name="vbl_mem_no" value="${login.mem_no}" />
+	<input type="hidden" name="sct_mem_no" value="${login.mem_no}" />
 	<input type="hidden" name="sct_pro_part" value="1" />
 	<input type="hidden" name="sct_pro_muti" value="3" />
 	<input type="hidden" name="vbl_title" value="${vbbContent.vbb_title}" />

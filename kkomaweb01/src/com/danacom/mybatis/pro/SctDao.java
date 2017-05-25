@@ -50,4 +50,8 @@ public class SctDao extends BaseDao {
 		getSql().commit();
 	}
 
+	public static SctTotPriceVO getMemMilege(String mem_no) {
+		return getSql().selectOne("memMilege", mem_no);
+	}
+
 }
