@@ -22,10 +22,7 @@
 	});
 	
 	function doList(page){
-		location.href = "<%=cp %>/VblController?dana=btl_admin_list&cPage="+page;
-	}
-	function doPreInsert(){
-		location.href = "<%=cp %>/VblController?dana=btl_admin_preInsert";
+		location.href = "<%=cp %>/VblController?dana=btl_main_list&cPage="+page;
 	}
 </script>
 </head>
@@ -39,8 +36,8 @@
 	<div id="admin_content">
 	
 	<aside id="admin_aside">
-	<%-- 관리자 외편 메뉴 include 처리 --%>
-	<jsp:include page="../left/admin_left.jsp" flush="false" />
+	<%-- 견적서 외편 메뉴 include 처리 --%>
+	<jsp:include page="../left/vbl_left.jsp" flush="false" />
 	
 	</aside>
 	
@@ -51,11 +48,6 @@
 		<span class="title_box1">☞ 베틀 리스트</span><br/>
 		<span style="font-size: 0px;">&nbsp;</span>
 	</div>
-	
-	<div style="width: 70px; text-align: center; float: right;">
-	<span onclick="javascript:doPreInsert();" class="dana_button01">베틀등록</span>
-	</div>		
-
 	
 	<!-- pro_admin_list -->
 	<div style="width: 800px;">
@@ -74,9 +66,7 @@
 	<c:forEach var="btl" items="${btlList}">
 	<tr>
 		<td>${btl.btl_no}</td>
-		<td><%-- <a href="/VblController?dana=btlDetList&btl_no=${btl.btl_no}"> --%>
-		<a href="<%=cp %>/VblController?dana=btlDetPrejoin&btl_no=${btl.btl_no}">${btl.btl_title}</a>
-		</td>
+		<td><a href="<%=cp %>/VblController?dana=btlDetPrejoin&btl_no=${btl.btl_no}">${btl.btl_title}</a></td>
 		<td>${btl.btl_sdate}</td>
 		<td>${btl.btl_cdate}</td>
 	</tr>

@@ -17,6 +17,8 @@ public class BtlAdminListCommand implements BaseCommand {
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		
+		String reurl = request.getParameter("reurl");
+		
 		int total_cnt = 0;
 		Map<String, Object> requestMap = new HashMap<>();
 		
@@ -32,7 +34,10 @@ public class BtlAdminListCommand implements BaseCommand {
 		request.setAttribute("btlList", btlList);
 		request.setAttribute("total_cnt", total_cnt);
 		
-		return "vbl/btl_admin_list.jsp";
+		String returnUrl = "vbl/btl_admin_list.jsp";
+		if(reurl != null && reurl.equals("main")) returnUrl = "vbl/btl_main_list.jsp";
+		
+		return returnUrl;
 	}
 
 }

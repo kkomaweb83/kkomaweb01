@@ -64,7 +64,7 @@
 		</li>
 		<li>
 		<c:if test="${login.cmd != 101}"><a href="#">베틀견적서</a></c:if>
-		<c:if test="${login.cmd == 101}"><a href="<%=cp %>/VblController?dana=btl_main_prelist">베틀견적서</a></c:if>
+		<c:if test="${login.cmd == 101}"><a href="<%=cp %>/VblController?dana=btl_main_list&reurl=main">베틀견적서</a></c:if>
 		</li>
 	</ul>
 </nav>

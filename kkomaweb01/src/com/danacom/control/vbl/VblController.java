@@ -111,6 +111,8 @@ public class VblController extends HttpServlet {
 			baseComm = new VbbListCommand();
 		}else if("ajaxBtlDetList".equals(dana)){
 			baseComm = new BtlDetListCommand();
+		}else if("btl_main_list".equals(dana)){
+			baseComm = new BtlAdminListCommand();
 		}
 			
 		
