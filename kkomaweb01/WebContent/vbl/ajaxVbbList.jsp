@@ -29,7 +29,7 @@
 		<tr>
 		<td class="table_content2">${bean.vbb_no}</td>
 		<td class="table_content1">
-			<a href="javascript:getAjaxVbbRead(${vbb.vbb_no})">${bean.vbb_title }</a>
+			<a href="javascript:getAjaxVbbRead(${bean.vbb_no})">${bean.vbb_title }</a>
 		</td>
 		<td class="table_content2">${bean.mem_id}</td>
 		<td class="table_content2">${bean.vbb_date}</td>

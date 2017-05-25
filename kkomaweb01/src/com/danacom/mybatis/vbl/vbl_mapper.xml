@@ -133,6 +133,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				vbb.vbb_recomm, vbb.vbb_count, vbb.vbb_btr_answer, vbb.vbb_title
 			from vir_bill_board vbb, mem_com mem 
 			where vbb.vbb_mem_no = mem.mem_no
+			<if test="vbb_mem_no != null">
+			and vbb.vbb_mem_no = #{vbb_mem_no}
+			</if>
 			order by vbb.vbb_no desc
 		) t1
 		) t2

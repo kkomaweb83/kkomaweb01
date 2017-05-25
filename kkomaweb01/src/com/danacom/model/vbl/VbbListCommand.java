@@ -21,6 +21,7 @@ public class VbbListCommand implements BaseCommand {
 		
 		int total_cnt = 0;
 		Map<String, Object> requestMap = new HashMap<>();
+		requestMap.put("vbb_mem_no", request.getParameter("vbb_mem_no"));
 		
 		CommonUtilsController.setPageSetting(requestMap, request); // 페이징1
 		List<VbbVo> vbb_list = VblDao.getVbbList(requestMap);

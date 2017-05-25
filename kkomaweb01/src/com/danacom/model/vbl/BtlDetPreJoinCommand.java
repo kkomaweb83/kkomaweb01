@@ -12,6 +12,8 @@ public class BtlDetPreJoinCommand implements BaseCommand {
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		
+		String reurl = request.getParameter("reurl");
+		
 		BtlVo btl_Command = new BtlVo();
 		btl_Command.setBtl_no(request.getParameter("btl_no"));
 		
@@ -19,7 +21,10 @@ public class BtlDetPreJoinCommand implements BaseCommand {
 		
 		request.setAttribute("btl", btl);
 		
-		return "vbl/btlDetPrejoin.jsp";
+		String returnUrl = "vbl/btlDetPrejoin.jsp";
+		if(reurl != null && reurl.equals("main")) returnUrl = "vbl/btlDetPrejoin_main.jsp";
+		
+		return returnUrl;
 	}
 
 }

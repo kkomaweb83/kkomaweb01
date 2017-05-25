@@ -66,7 +66,7 @@
 	<c:forEach var="btl" items="${btlList}">
 	<tr>
 		<td>${btl.btl_no}</td>
-		<td><a href="<%=cp %>/VblController?dana=btlDetPrejoin&btl_no=${btl.btl_no}">${btl.btl_title}</a></td>
+		<td><a href="<%=cp %>/VblController?dana=btlDetPrejoin&btl_no=${btl.btl_no}&reurl=main">${btl.btl_title}</a></td>
 		<td>${btl.btl_sdate}</td>
 		<td>${btl.btl_cdate}</td>
 	</tr>
