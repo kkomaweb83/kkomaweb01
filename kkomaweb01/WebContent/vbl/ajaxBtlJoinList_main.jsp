@@ -11,17 +11,17 @@
 <title></title>
 </head>
 <body>
+
 <table class="lngTable2" style="width: 100%;">
 	<tr>
 		<th style="width:10%;">참가번호</th>
-		<th style="width:40%;">견적서 이름</th>
-		<th style="width:10%;">점수</th>
+		<th style="width:50%;">견적서 이름</th>
+		<th style="width:20%;">점수</th>
 		<th style="width:30%;">작성자</th>
-		<th style="width:10%;">삭제</th>
 	</tr>
 	<c:if test="${empty btlDetList}">
 	<tr>
-		<td colspan="5">
+		<td colspan="4">
 		<div style="font-weight: bolder; font-size: 17pt; text-align: center;">해당하는 배틀 참가 견적서가 없습니다.</div>
 		</td>
 	</tr>
@@ -30,11 +30,11 @@
 	<tr>
 		<td style="text-align: center;">${btlContent.vbj_no }</td>
 		<td><a href="javascript:ajaxBtlJoinDetList(${btlContent.vbj_no})">${btlContent.vbj_title }</a></td>
-		<td style="text-align: center;">${btlContent.vbj_grade }</td>
+		<td style="text-align: center;">${btlContent.vbj_grade }점</td>
 		<td style="text-align: center;">${btlContent.mem_id }</td>
-		<td style="text-align: center;"><a href="javascript:ajaxBtlDetUnjoin(${btlContent.vbj_no});"><img src="<%=cp %>/img/cpdelete.jpg" border=0 /></a></td>
 	</tr>	
 	</c:forEach>
 </table>
+
 </body>
 </html>

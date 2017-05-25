@@ -119,4 +119,40 @@ public class VblDao extends BaseDao {
 		return getSql().selectList("getBtlDetList", btl_Command);
 	}
 
+	public static int getVbjMaxNo() {
+		return getSql().selectOne("vbjMaxNo");
+	}
+
+	public static void vbjInsert(BtlVo btl_Command) {
+		getSql().insert("vbjInsert", btl_Command);
+	}
+
+	public static List<BtlVo> getVdsNoList(BtlVo btl_Command) {
+		return getSql().selectList("getVdsNoList", btl_Command);
+	}
+
+	public static void vbdInsert(BtlVo btl_Command) {
+		getSql().insert("vbdInsert", btl_Command);
+	}
+
+	public static void answerVbbUpdate(BtlVo btl_Command) {
+		getSql().update("answerVbbUpdate", btl_Command);
+	}
+
+	public static BtlVo getBtlJoinContent(BtlVo btl_Command) {
+		return getSql().selectOne("getBtlJoinContent", btl_Command);
+	}
+
+	public static List<BtlVo> getBtlJoinDetList(BtlVo btl_Command) {
+		return getSql().selectList("getBtlJoinDetList", btl_Command);
+	}
+
+	public static void vbdDelete(BtlVo btl_Command) {
+		getSql().delete("vbdDelete", btl_Command);
+	}
+
+	public static void vbjDelete(BtlVo btl_Command) {
+		getSql().delete("vbjDelete", btl_Command);
+	}
+
 }

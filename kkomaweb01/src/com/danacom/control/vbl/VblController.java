@@ -21,6 +21,9 @@ import com.danacom.model.vbl.VbbReplyDeleteCommand;
 import com.danacom.model.vbl.VbbReplyInsertCommand;
 import com.danacom.model.vbl.VbbReplyUpdateCommand;
 import com.danacom.model.vbl.VbbViewCommand;
+import com.danacom.model.vbl.VbdViewCommand;
+import com.danacom.model.vbl.VbjDeleteCommand;
+import com.danacom.model.vbl.VbjInsertCommand;
 import com.danacom.model.vbl.VblAjaxMkrPclCommand;
 import com.danacom.model.vbl.VblAjaxProListCommand;
 import com.danacom.model.vbl.VblDeleteCommand;
@@ -115,6 +118,12 @@ public class VblController extends HttpServlet {
 			baseComm = new BtlAdminListCommand();
 		}else if("ajaxVbbRead".equals(dana)){
 			baseComm = new VbbViewCommand();
+		}else if("ajaxBtlDetJoin".equals(dana)){
+			baseComm = new VbjInsertCommand();
+		}else if("ajaxBtlJoinDetList".equals(dana)){
+			baseComm = new VbdViewCommand();
+		}else if("ajaxBtlDetUnjoin".equals(dana)){
+			baseComm = new VbjDeleteCommand();
 		}
 			
 		

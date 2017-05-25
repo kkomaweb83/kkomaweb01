@@ -23,6 +23,21 @@
 		 $("#tabs").tabs();
 	});
 	
+	function ajaxBtlJoinDetList(vbj_no){
+		$.ajax({
+			url : "<%=cp %>/VblController",
+			type : "post",
+			data : {dana:'ajaxBtlJoinDetList',vbj_no:vbj_no},
+			dataType : "html",
+			success : function(data) {
+				$("#ajaxVbbRead").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	
 	function getAjaxVbbList(){
 		$.ajax({
 			url : "<%=cp %>/VblController",
@@ -55,7 +70,7 @@
 		$.ajax({
 			url : "<%=cp %>/VblController",
 			type : "post",
-			data : {dana:'ajaxVbbRead',vbb_no:vbb_no},
+			data : {dana:'ajaxVbbRead',vbb_no:vbb_no,reurl:'btl'},
 			dataType : "html",
 			success : function(data) {
 				$("#ajaxVbbRead").html(data);
@@ -66,10 +81,14 @@
 		});
 	}
 	function ajaxBtlDetJoin(vbb_no){
+		var tabs = "";
+		tabs = $( "#tabs" ).tabs();
+		tabs.tabs({ active: 0 });
+		
 		$.ajax({
 			url : "<%=cp %>/VblController",
 			type : "post",
-			data : {dana:'ajaxBtlDetJoin',vbb_no:vbb_no,btl_no:'${btl.btl_no}'},
+			data : {dana:'ajaxBtlDetJoin',vbb_no:vbb_no,btl_no:'${btl.btl_no}',reurl:'admin'},
 			dataType : "html",
 			success : function(data) {
 				$("#ajaxBtlJoinList").html(data);
@@ -82,10 +101,14 @@
 		getAjaxVbbList();
 	}
 	function ajaxBtlDetUnjoin(vbj_no){
+		var tabs = "";
+		tabs = $( "#tabs" ).tabs();
+		tabs.tabs({ active: 0 });
+		
 		$.ajax({
 			url : "<%=cp %>/VblController",
 			type : "post",
-			data : {dana:'ajaxBtlDetUnjoin',vbj_no:vbj_no,btl_no:'${btl.btl_no}'},
+			data : {dana:'ajaxBtlDetUnjoin',vbj_no:vbj_no,btl_no:'${btl.btl_no}',reurl:'admin'},
 			dataType : "html",
 			success : function(data) {
 				$("#ajaxBtlJoinList").html(data);

@@ -23,6 +23,21 @@
 		 $("#tabs").tabs();
 	});
 	
+	function ajaxBtlJoinDetList(vbj_no){
+		$.ajax({
+			url : "<%=cp %>/VblController",
+			type : "post",
+			data : {dana:'ajaxBtlJoinDetList',reurl:'main',vbj_no:vbj_no},
+			dataType : "html",
+			success : function(data) {
+				$("#ajaxVbbRead").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+	
 	function getAjaxVbbList(){
 		$.ajax({
 			url : "<%=cp %>/VblController",
@@ -66,6 +81,10 @@
 		});
 	}
 	function ajaxBtlDetJoin(vbb_no){
+		var tabs = "";
+		tabs = $( "#tabs" ).tabs();
+		tabs.tabs({ active: 0 });
+		
 		$.ajax({
 			url : "<%=cp %>/VblController",
 			type : "post",
@@ -103,7 +122,7 @@
 		$.ajax({
 			url : "<%=cp %>/VblController",
 			type : "post",
-			data : {dana:'ajaxBtlDetList',btl_no:'${btl.btl_no}',reurl:'admin'},
+			data : {dana:'ajaxBtlDetList',btl_no:'${btl.btl_no}',reurl:'main'},
 			dataType : "html",
 			success : function(data) {
 				$("#ajaxBtlJoinList").html(data);
@@ -132,7 +151,7 @@
 	</aside>
 	
 	<section id="admin_section">
-	
+	<form method="post" id="vblPro_Search" name="vblPro_Search">
 	<div class="title_div1">
 		<span style="font-size: 5px;">&nbsp;</span><br/>
 		<span class="title_box1">☞ 배틀 견적서 관리</span><br/>
@@ -183,7 +202,7 @@
 	<div id="ajaxVbbRead"></div>
 	 
 	</div>
-	
+	</form>
 	</section>
 	
 	</div>
