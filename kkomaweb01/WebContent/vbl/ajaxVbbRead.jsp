@@ -17,7 +17,7 @@
 			position : [500, 500],
 			buttons: {
 				"등록": function() {
-            		ajaxBtlDetJoin('${vbbContent.vbb_no}');
+            		ajaxBtlDetJoin('${vbbContent.vbb_no}','${vbbContent.vbb_btr_answer}');
 					$(this).dialog('close');
 				},
 				"취소": function() {

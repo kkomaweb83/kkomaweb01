@@ -80,7 +80,12 @@
 			}
 		});
 	}
-	function ajaxBtlDetJoin(vbb_no){
+	function ajaxBtlDetJoin(vbb_no, answer){
+		if(answer == "y"){
+			alert("이미 베틀에 참여한 견적서 입니다.");
+			return;
+		}
+		
 		var tabs = "";
 		tabs = $( "#tabs" ).tabs();
 		tabs.tabs({ active: 0 });

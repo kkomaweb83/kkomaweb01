@@ -20,11 +20,11 @@
 					$(this).dialog('close');
 				},
 				"비추천": function() {
-					location.href = "<%=cp %>/btl/ajaxBtlJoinDowngrade.ama?vbj_no=${btlJoinContent.vbj_no}&btl_no=${btlJoinContent.vbj_btl_no}";
+					ajaxBtlJoinDowngrade('${btlJoinContent.vbj_no}','${btlJoinContent.vbj_btl_no}','down');
 					$(this).dialog('close');
 				},
 				"추천": function() {
-					location.href = "<%=cp %>/btl/ajaxBtlJoinUpgrade.ama?vbj_no=${btlJoinContent.vbj_no}&btl_no=${btlJoinContent.vbj_btl_no}";
+					ajaxBtlJoinDowngrade('${btlJoinContent.vbj_no}','${btlJoinContent.vbj_btl_no}','up');
 					$(this).dialog('close');
 				}
 			}
@@ -60,24 +60,12 @@
 	</table>
 
 <div class="title_div3" style="width: 95%;">
-<div style="float: left; padding-top: 10px;" >
-<span class="title_box1_o">
-<c:if test="${login.mem_id != btlJoinContent.mem_id}">
-<a href="javascript:goMyVblInsert();">
-내 가상견적서에 담기</a>
-</c:if>
-<c:if test="${login.mem_id == btlJoinContent.mem_id}">
-${btlJoinContent.mem_id}님이  등록한 가상견적서 입니다.
-</c:if>
-</span>
-</div>
-
-<div style="float: right;">
-<a href="javascript:goSctOdr();">	
-<img src="<%=cp %>/img/btn_buy.gif" border="0"></a>&nbsp;
-<a href="javascript:goSctmultiInsert();">
-<img src="<%=cp %>/img/btn_cart.gif" border="0"></a>
-</div>
+	<div style="float: right;">
+	<a href="javascript:goSctOdr();">	
+	<img src="<%=cp %>/img/btn_buy.gif" border="0"></a>&nbsp;
+	<a href="javascript:goSctmultiInsert();">
+	<img src="<%=cp %>/img/btn_cart.gif" border="0"></a>
+	</div>
 </div>
 
 	

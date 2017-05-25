@@ -421,4 +421,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where vbj_no = #{vbj_no}
 	</delete>
 	
+	<update id="gradeVbjUpdate" parameterType="com.danacom.mybatis.vbl.BtlVo">
+		update 
+		vbl_btl_join set
+			<if test='vbj_title == "up"'>
+			vbj_grade = vbj_grade + 5
+			</if>
+			<if test='vbj_title == "down"'>
+			vbj_grade = vbj_grade - 5
+			</if>
+		where vbj_no=#{vbj_no}
+	</update>
+	
 </mapper>

@@ -23,6 +23,7 @@ import com.danacom.model.vbl.VbbReplyUpdateCommand;
 import com.danacom.model.vbl.VbbViewCommand;
 import com.danacom.model.vbl.VbdViewCommand;
 import com.danacom.model.vbl.VbjDeleteCommand;
+import com.danacom.model.vbl.VbjGradeUpdateCommand;
 import com.danacom.model.vbl.VbjInsertCommand;
 import com.danacom.model.vbl.VblAjaxMkrPclCommand;
 import com.danacom.model.vbl.VblAjaxProListCommand;
@@ -124,6 +125,8 @@ public class VblController extends HttpServlet {
 			baseComm = new VbdViewCommand();
 		}else if("ajaxBtlDetUnjoin".equals(dana)){
 			baseComm = new VbjDeleteCommand();
+		}else if("ajaxBtlJoinDowngrade".equals(dana)){
+			baseComm = new VbjGradeUpdateCommand();
 		}
 			
 		

@@ -155,4 +155,8 @@ public class VblDao extends BaseDao {
 		getSql().delete("vbjDelete", btl_Command);
 	}
 
+	public static void gradeVbjUpdate(BtlVo btl_Command) {
+		getSql().update("gradeVbjUpdate", btl_Command);
+	}
+
 }

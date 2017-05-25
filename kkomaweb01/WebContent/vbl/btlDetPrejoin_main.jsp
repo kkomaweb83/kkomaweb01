@@ -80,7 +80,12 @@
 			}
 		});
 	}
-	function ajaxBtlDetJoin(vbb_no){
+	function ajaxBtlDetJoin(vbb_no, answer){
+		if(answer == "y"){
+			alert("이미 베틀에 참여한 견적서 입니다.");
+			return;
+		}
+		
 		var tabs = "";
 		tabs = $( "#tabs" ).tabs();
 		tabs.tabs({ active: 0 });
@@ -89,6 +94,26 @@
 			url : "<%=cp %>/VblController",
 			type : "post",
 			data : {dana:'ajaxBtlDetJoin',vbb_no:vbb_no,btl_no:'${btl.btl_no}'},
+			dataType : "html",
+			success : function(data) {
+				$("#ajaxBtlJoinList").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+		
+		getAjaxVbbList();
+	}
+	function ajaxBtlJoinDowngrade(vbj_no,btl_no,vbj_title){
+		var tabs = "";
+		tabs = $( "#tabs" ).tabs();
+		tabs.tabs({ active: 0 });
+		
+		$.ajax({
+			url : "<%=cp %>/VblController",
+			type : "post",
+			data : {dana:'ajaxBtlJoinDowngrade',vbj_no:vbj_no,btl_no:btl_no,vbj_title:vbj_title},
 			dataType : "html",
 			success : function(data) {
 				$("#ajaxBtlJoinList").html(data);
@@ -116,6 +141,19 @@
 		
 		getAjaxVbbList();
 	}
+	
+	function goSctmultiInsert(){
+		if (!document.getElementsByName("pst_pro_no")[0])  {
+	        alert("장바구니에 담을 부품을 1개 이상 선택하세요!");
+	         return;
+	 	}
+		
+		$("#dana").val("ajax_sct_multi_insert");
+	 	
+		document.vblPro_Search.action = "<%=cp %>/ProController";
+		document.vblPro_Search.submit();	
+	}
+	
 	function init(){
 		getAjaxVbbList();
 		
@@ -152,6 +190,7 @@
 	
 	<section id="admin_section">
 	<form method="post" id="vblPro_Search" name="vblPro_Search">
+		<input name="dana" id="dana" type="hidden" value="" />
 	<div class="title_div1">
 		<span style="font-size: 5px;">&nbsp;</span><br/>
 		<span class="title_box1">☞ 배틀 견적서 관리</span><br/>
