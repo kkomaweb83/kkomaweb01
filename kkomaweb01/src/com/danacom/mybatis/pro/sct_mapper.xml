@@ -193,4 +193,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE rm BETWEEN #{begin} AND #{end}			
 	</select>
 	
+	<select id="getOrdersDetList" resultType="com.danacom.mybatis.pro.MpVo" parameterType="string">
+		select
+			o.odr_no
+			, m.mem_id
+			, m.mem_name
+			, m.mem_email
+			, '용궁 별주부리 거북동' as mem_addr
+			, mem_hp as mem_tel
+			, mem_hp 
+			, to_char(o.odr_odate, 'yyyy/mm/dd') odr_odate
+			, d.dlv_sendaddr
+			, o.odr_condition
+			, o.odr_amount 
+			, o.odr_mileage
+			, m.mem_mil      
+		from orders o, mem_com m, delivery d, odr_det od    
+		where m.mem_no=o.odr_mem_no 
+		and d.dlv_no=od.odt_dlv_no 
+		and od.odt_odr_no = o.odr_no
+		and o.odr_no = #{odr_no}
+		and rownum = 1
+	</select>
+	
+	<select id="getOdcOdtList" resultType="com.danacom.mybatis.pro.Shop_cart" parameterType="string">
+		SELECT 
+			ODT_PRO_NO SCT_PRO_NO
+			, ODT_COUNT SCT_COUNT
+			, '1' as SCT_PRO_PART
+		FROM ODR_DET
+		WHERE ODT_ODR_NO = #{odr_no}
+	</select>
+	
 </mapper>

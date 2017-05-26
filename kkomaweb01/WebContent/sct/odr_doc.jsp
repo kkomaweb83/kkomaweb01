@@ -61,7 +61,7 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 		var tot_finalPrice = document.getElementsByName("tot_finalPrice")[0];
 		useMileageValue =useMileage[0].value;
 		var total = s_totPrice - useMileageValue - disprice + 2500;
-		totPrice.innerHTML = total+'원'; 
+		totPrice.innerHTML = total+' 원'; 
 		tot_finalPrice.value = total;
 	}
 	

@@ -20,7 +20,7 @@ public class OdrDocCommand implements BaseCommand {
 		doc.setOdr_condition(1);
 		doc.setDlv_sendaddr(request.getParameter("dlv_sendaddr"));
 		doc.setMem_no(Integer.parseInt(request.getParameter("mem_no")));
-		doc.setUseMileage(Integer.parseInt(request.getParameter("useMileage")));
+		doc.setUseMileage(Integer.parseInt((request.getParameter("useMileage") != null && !"".equals(request.getParameter("useMileage")))?request.getParameter("useMileage"):"0"));
 		doc.setS_totPrice(Integer.parseInt(request.getParameter("s_totPrice")));
 		doc.setOdr_way(request.getParameter("odr_way"));
 		doc.setDlv_sender(request.getParameter("dlv_sender"));
@@ -96,11 +96,11 @@ public class OdrDocCommand implements BaseCommand {
 		
 		SctDao.commit();
 		
-		request.setAttribute("odr_no_max", odr_no_max);
-		request.setAttribute("dlv_sender", request.getParameter("dlv_sender"));
-		request.setAttribute("odr_way", "무통장입금");
+		//request.setAttribute("odr_no_max", odr_no_max);
+		//request.setAttribute("dlv_sender", request.getParameter("dlv_sender"));
+		//request.setAttribute("odr_way", "무통장입금");
 		
-		String returnUrl = "sct/odr_result.jsp";
+		String returnUrl = "sct/odr_result.jsp?odr_no_max="+odr_no_max+"&dlv_sender="+request.getParameter("dlv_sender")+"&odr_way=무통장입금";
 		
 		return returnUrl;
 	}

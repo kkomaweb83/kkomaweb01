@@ -91,4 +91,12 @@ public class SctDao extends BaseDao {
 		return getSql().selectList("getOrdersList", requestMap);
 	}
 
+	public static MpVo getOrdersDetList(String odr_no) {
+		return getSql().selectOne("getOrdersDetList", odr_no);
+	}
+
+	public static List<Shop_cart> getOdcOdtList(String odr_no) {
+		return getSql().selectList("getOdcOdtList", odr_no);
+	}
+
 }

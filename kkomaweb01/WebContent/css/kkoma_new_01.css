@@ -550,3 +550,14 @@ table.lngTable select{
  	text-align: left;
 	width: 100%;
 }
+
+.box_top{
+ 	font-size: 9pt;
+ 	border-top: gray 1px solid;
+ 	border-right: gray 1px solid;
+ 	border-bottom: gray 1px solid;
+ 	border-left: gray 1px solid;
+ 	padding: 5px;
+ 	vertical-align: middle;
+ 	text-align: center;
+ }
