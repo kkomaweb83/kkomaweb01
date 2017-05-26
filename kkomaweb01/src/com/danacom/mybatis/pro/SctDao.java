@@ -1,6 +1,7 @@
 package com.danacom.mybatis.pro;
 
 import java.util.List;
+import java.util.Map;
 
 import com.danacom.mybatis.base.BaseDao;
 
@@ -73,6 +74,10 @@ public class SctDao extends BaseDao {
 	public static void odtInsert(OdrDet odtVo) {
 		getSql().insert("odtInsert", odtVo);
 	}
+	
+	public static void proCountUpdate(Map<String, Object> stockcount_map) {
+		getSql().update("proCountUpdate", stockcount_map);
+	}
 
 	public static void editMileage(OdrDocVo doc) {
 		getSql().update("editMileage", doc);
@@ -80,6 +85,10 @@ public class SctDao extends BaseDao {
 
 	public static void memMilAdd(OdrDocVo doc) {
 		getSql().update("memMilAdd", doc);
+	}
+
+	public static List<MpVo> getOrdersList(Map<String, Object> requestMap) {
+		return getSql().selectList("getOrdersList", requestMap);
 	}
 
 }

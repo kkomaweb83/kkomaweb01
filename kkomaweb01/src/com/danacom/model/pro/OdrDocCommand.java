@@ -1,5 +1,8 @@
 package com.danacom.model.pro;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -80,6 +83,11 @@ public class OdrDocCommand implements BaseCommand {
 			odtVo.setOdr_no_max(odr_no_max);
 			odtVo.setDel_no_max(del_no_max);
 			SctDao.odtInsert(odtVo);
+			
+			Map<String, Object> stockcount_map = new HashMap<>();
+			stockcount_map.put("s_pro_no", doc.getS_pro_no()[i]);
+			stockcount_map.put("s_count", doc.getS_odt_count()[i]);
+			SctDao.proCountUpdate(stockcount_map);
 		}
 		
 		SctDao.editMileage(doc);
@@ -88,7 +96,11 @@ public class OdrDocCommand implements BaseCommand {
 		
 		SctDao.commit();
 		
-		String returnUrl = "sct/odr_doc.jsp";
+		request.setAttribute("odr_no_max", odr_no_max);
+		request.setAttribute("dlv_sender", request.getParameter("dlv_sender"));
+		request.setAttribute("odr_way", "무통장입금");
+		
+		String returnUrl = "sct/odr_result.jsp";
 		
 		return returnUrl;
 	}

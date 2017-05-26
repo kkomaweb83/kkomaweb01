@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.danacom.model.base.BaseCommand;
 import com.danacom.model.pcl.PclTopListCommand;
 import com.danacom.model.pro.OdrDocCommand;
+import com.danacom.model.pro.OrdersAjaxListCommand;
 import com.danacom.model.pro.ProAjaxListCommand;
 import com.danacom.model.pro.ProAjaxViewCommand;
 import com.danacom.model.pro.ProTopSearchCommand;
@@ -79,6 +80,11 @@ public class ProController extends HttpServlet {
 			baseComm = new SctOdrDocCommand();
 		}else if("odr_doc".equals(dana)){
 			baseComm = new OdrDocCommand();
+		}else if("orders_list".equals(dana)){
+			exec_go = false;
+			path = "sct/orders_list.jsp";
+		}else if("ajax_orders_list".equals(dana)){
+			baseComm = new OrdersAjaxListCommand();
 		}
 		
 		if(exec_go){

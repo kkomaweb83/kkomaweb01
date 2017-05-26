@@ -103,7 +103,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 			#{odr_no_max}
 			, #{mem_no}
-			, 2500
 			, #{useMileage}
 			, #{s_totPrice} - #{useMileage} + 2500
 			, #{odr_way}
@@ -167,8 +166,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="proCountUpdate" parameterType="hashmap">
 		UPDATE 
 		PRODUCT SET
-		PRO_STOCKCOUNT = PRO_STOCKCOUNT - #{sct_count}
-		WHERE PRO_NO = #{sct_pro_no} 
+		PRO_STOCKCOUNT = PRO_STOCKCOUNT - #{s_count}
+		WHERE PRO_NO = #{s_pro_no} 
 	</update>
+	
+	<select id="getOrdersList" resultType="com.danacom.mybatis.pro.MpVo" parameterType="hashmap">
+		SELECT 
+			t2.*
+		FROM
+		(
+		SELECT 
+			t1.*
+			, ROWNUM rm
+			, COUNT(ODR_NO) OVER() AS tot_cont
+		FROM
+		(
+			select 
+				ODR_NO, ODR_MEM_NO, ODR_MILEAGE, ODR_AMOUNT, 
+				ODR_WAY, to_char(ODR_ODATE, 'yyyy/mm/dd') odr_odate, NVL(TO_CHAR(odr_sdate, 'yyyy-mm-dd'), '입금미확인') odr_sdate,
+				NVL(TO_CHAR(odr_sdate, 'yyyy-mm-dd'), '미정') odr_cdate, ODR_CONDITION
+			from orders 
+			where odr_mem_no = #{ord_mem_no} 
+			ORDER BY ODR_NO DESC
+		) t1
+		) t2
+		WHERE rm BETWEEN #{begin} AND #{end}			
+	</select>
 	
 </mapper>
