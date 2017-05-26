@@ -92,4 +92,83 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MEM_NO = #{mem_no}	
 	</select>
 	
+	<select id="getOdrMaxNo" resultType="string">
+		SELECT NVL(MAX(ODR_NO), 0)+1 FROM ORDERS
+	</select>
+	
+	<insert id="odrInsert" parameterType="com.danacom.mybatis.pro.OdrDocVo">
+		insert 
+		into orders 
+		values
+		(
+			#{odr_no_max}
+			, #{mem_no}
+			, 2500
+			, #{useMileage}
+			, #{s_totPrice} - #{useMileage} + 2500
+			, #{odr_way}
+			, sysdate
+			, null
+			, #{odr_condition}
+		)
+	</insert>
+	
+	<select id="getDlvMaxNo" resultType="string">
+		SELECT NVL(MAX(dlv_no), 0)+1 FROM delivery
+	</select>
+	
+	<insert id="dlvInsert" parameterType="com.danacom.mybatis.pro.OdrDocVo">
+		insert 
+		into DELIVERY 
+		values
+		(
+			#{del_no_max}
+			, '97979797'
+			, #{dlv_sendaddr}
+			, #{dlv_sender}
+			, #{dlv_tel}
+			, #{dlv_sphone}
+			, #{dlv_msg}
+		)
+	</insert>
+	
+	<insert id="odtInsert" parameterType="com.danacom.mybatis.pro.OdrDet">
+		insert 
+		into odr_det 
+		values
+		(
+			(SELECT NVL(MAX(odt_no), 0)+1 FROM ODR_DET)
+			, #{s_pro_no}
+			, #{s_odt_count}
+			, #{s_pro_disprice}
+			, #{s_pro_disprice}
+			, #{s_pro_disprice}
+			, #{s_pro_milege}
+			, '1' 
+			, #{odr_no_max}
+			, #{del_no_max}
+		)	
+	</insert>
+	
+	<update id="editMileage" parameterType="com.danacom.mybatis.pro.OdrDocVo">
+		update 
+		mem_com set 
+			mem_mil = (mem_mil - #{useMileage})
+		where mem_no = #{mem_no}
+	</update>
+	
+	<update id="memMilAdd" parameterType="com.danacom.mybatis.pro.OdrDocVo">
+		UPDATE 
+		MEM_COM SET
+			MEM_MIL = MEM_MIL + #{s_totMilege}
+		WHERE MEM_NO = #{mem_no}
+	</update>
+	
+	<update id="proCountUpdate" parameterType="hashmap">
+		UPDATE 
+		PRODUCT SET
+		PRO_STOCKCOUNT = PRO_STOCKCOUNT - #{sct_count}
+		WHERE PRO_NO = #{sct_pro_no} 
+	</update>
+	
 </mapper>

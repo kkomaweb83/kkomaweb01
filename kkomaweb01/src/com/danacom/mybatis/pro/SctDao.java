@@ -54,4 +54,32 @@ public class SctDao extends BaseDao {
 		return getSql().selectOne("memMilege", mem_no);
 	}
 
+	public static String getOdrMaxNo() {
+		return getSql().selectOne("getOdrMaxNo");
+	}
+
+	public static void odrInsert(OdrDocVo doc) {
+		getSql().insert("odrInsert", doc);
+	}
+
+	public static String getDlvMaxNo() {
+		return getSql().selectOne("getDlvMaxNo");
+	}
+
+	public static void dlvInsert(OdrDocVo doc) {
+		getSql().insert("dlvInsert", doc);
+	}
+
+	public static void odtInsert(OdrDet odtVo) {
+		getSql().insert("odtInsert", odtVo);
+	}
+
+	public static void editMileage(OdrDocVo doc) {
+		getSql().update("editMileage", doc);
+	}
+
+	public static void memMilAdd(OdrDocVo doc) {
+		getSql().update("memMilAdd", doc);
+	}
+
 }

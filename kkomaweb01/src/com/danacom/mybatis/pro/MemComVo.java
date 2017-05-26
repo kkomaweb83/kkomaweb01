@@ -8,6 +8,8 @@ public class MemComVo{
 	private String mem_name;
 	private String mem_email;
 	private String mem_hp;
+	private String mem_tel;
+	private String mem_addr;
 	private int mem_mil;
 	private String mem_rdate;
 	private String mem_admin_autho;
@@ -115,6 +117,18 @@ public class MemComVo{
 
 	public void setCmd(int cmd) {
 		this.cmd = cmd;
+	}
+	public String getMem_tel() {
+		return mem_tel;
+	}
+	public void setMem_tel(String mem_tel) {
+		this.mem_tel = mem_tel;
+	}
+	public String getMem_addr() {
+		return mem_addr;
+	}
+	public void setMem_addr(String mem_addr) {
+		this.mem_addr = mem_addr;
 	}
 	
 }
