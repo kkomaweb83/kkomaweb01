@@ -24,7 +24,7 @@
 		$.ajax({
 			url : "<%=cp %>/ProController",
 			type : "post",
-			data : {dana:'ajax_orders_list',ord_mem_no:'${login.mem_no}'},
+			data : {dana:'ajax_orders_admin_list',reurl:'admin'},
 			dataType : "html",
 			success : function(data) {
 				$("#pclListDiv").html(data);
@@ -38,7 +38,7 @@
 		$.ajax({
 			url : "<%=cp %>/ProController",
 			type : "post",
-			data : {dana:'ajax_orders_list',cPage:page,ord_mem_no:'${login.mem_no}'},
+			data : {dana:'ajax_orders_admin_list',reurl:'admin',cPage:page},
 			dataType : "html",
 			success : function(data) {
 				$("#pclListDiv").html(data);
@@ -60,8 +60,8 @@
 	<div id="admin_content">
 	
 	<aside id="admin_aside">
-	<%-- 견적서 외편 메뉴 include 처리 --%>
-	<jsp:include page="../left/my_left.jsp" flush="false" />
+	<%-- 관리자 외편 메뉴 include 처리 --%>
+	<jsp:include page="../left/admin_left.jsp" flush="false" />
 	
 	</aside>
 	

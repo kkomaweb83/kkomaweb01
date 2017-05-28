@@ -27,6 +27,7 @@ public class OdrDocCommand implements BaseCommand {
 		doc.setDlv_tel(request.getParameter("dlv_tel"));
 		doc.setDlv_sphone(request.getParameter("dlv_sphone"));
 		doc.setDlv_msg(request.getParameter("dlv_msg"));
+		doc.setSct_pro_muti(Integer.parseInt((request.getParameter("sct_pro_muti") != null && !"".equals(request.getParameter("sct_pro_muti")))?request.getParameter("sct_pro_muti"):"0"));
 
 		String[] s_pro_no = request.getParameterValues("s_pro_no");
 		int[] s_pro_no_i = new int[s_pro_no.length];
@@ -94,13 +95,14 @@ public class OdrDocCommand implements BaseCommand {
 		
 		SctDao.memMilAdd(doc);
 		
+		// 장바구니 초기화
+		if(doc.getSct_pro_muti() == 1){
+			SctDao.sctAllDelete(doc.getMem_no());
+		}
+		
 		SctDao.commit();
 		
-		//request.setAttribute("odr_no_max", odr_no_max);
-		//request.setAttribute("dlv_sender", request.getParameter("dlv_sender"));
-		//request.setAttribute("odr_way", "무통장입금");
-		
-		String returnUrl = "sct/odr_result.jsp?odr_no_max="+odr_no_max+"&dlv_sender="+request.getParameter("dlv_sender")+"&odr_way=무통장입금";
+		String returnUrl = "sct/odr_result.jsp?odr_no_max="+odr_no_max;
 		
 		return returnUrl;
 	}

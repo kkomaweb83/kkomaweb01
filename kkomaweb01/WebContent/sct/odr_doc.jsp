@@ -162,6 +162,7 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 	<div id="proMainViewDiv" style="width: 960px; margin-left: auto; margin-right: auto;">
 	<form action="<%=cp %>/ProController?dana=odr_doc" method="post" name="odr_doc_form" onsubmit="return doChk();">
 		<input type="hidden" value="${login.mem_no }" name="mem_no" />
+		<input type="hidden" value="${sctProMuti }" name="sct_pro_muti" />
 	
 	<div style="font-size: 11pt;
 				background-color: #FFFFFF;
@@ -305,7 +306,9 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 			<td><span class="span_box2">결제 방법</span></td>
 			<td colspan="3">
 				무통장입금  <input type="radio" name="odr_way" id="cash" value="무통장입금" checked="checked" />
-				신용카드 <input type="radio" name="odr_way" id="card" value="신용카드" onclick="javascript:ajaxCard();"/>	
+				<%--
+				신용카드 <input type="radio" name="odr_way" id="card" value="신용카드" onclick="javascript:ajaxCard();"/>
+				 --%>	
 			</td>
 		</tr>
 		<tr><td colspan="4" style="height: 15px;">&nbsp;</td></tr>

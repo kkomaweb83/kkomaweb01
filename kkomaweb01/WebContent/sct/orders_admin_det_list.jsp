@@ -48,6 +48,12 @@
 			}
 		});
 	}
+	
+	function updateOdr_condition(){
+		var newCondition = document.getElementsByName("odr_condition")[0].value;
+		var odr_no = document.getElementsByName("odr_no")[0].value;
+		location.href = "<%=cp %>/ProController?dana=odr_condition&odr_condition="+newCondition+"&odr_no="+odr_no;
+	}
 </script>
 </head>
 <body>
@@ -60,8 +66,8 @@
 	<div id="admin_content">
 	
 	<aside id="admin_aside">
-	<%-- 견적서 외편 메뉴 include 처리 --%>
-	<jsp:include page="../left/my_left.jsp" flush="false" />
+	<%-- 관리자 외편 메뉴 include 처리 --%>
+	<jsp:include page="../left/admin_left.jsp" flush="false" />
 	
 	</aside>
 	
@@ -79,6 +85,7 @@
 		<tr>
 			<td class="box_top" style="width: 120px">주문번호</td>
 			<td style="width: 280px"><div>${mpCommand.odr_no }</div>
+			<input type="hidden" name="odr_no" value="${mpCommand.odr_no }"/>
 			</td>
 			<td class="box_top" style="width: 120px">회원ID</td>
 			<td style="width: 300px"><div>${mpCommand.mem_id }</div>
@@ -106,11 +113,22 @@
 		</tr>
 		<tr>
 			<td class="box_top" style="width: 120px">주문상태</td>
-			<td style="width: 300px; text-align: center;"><span style="color: red;"><b>
-			<c:if test="${mpCommand.odr_condition==1}">주문신청</c:if>
-			<c:if test="${mpCommand.odr_condition==2}">결제확인</c:if>
-			<c:if test="${mpCommand.odr_condition==3}">배송</c:if>
-			<c:if test="${mpCommand.odr_condition==4}">주문완료</c:if></b></span>
+			<td style="width: 300px" align="center"><span style="color: red;"> <b>${mpCommand.odr_condition2 }</b></span>
+				<select name="odr_condition">
+					<option value="1" 
+					<c:if test="${mpCommand.odr_condition == '1'}">selected="selected"</c:if>>
+					주문신청</option>
+					<option value="2"
+					<c:if test="${mpCommand.odr_condition == '2'}">selected="selected"</c:if>>
+					결제확인</option>
+					<option value="3"
+					<c:if test="${mpCommand.odr_condition == '3'}">selected="selected"</c:if>>
+					배송</option>
+					<option value="4"
+					<c:if test="${mpCommand.odr_condition == '4'}">selected="selected"</c:if>>
+					주문완료</option>
+				</select>
+				<input type="button" value="변경" onclick="javascript:updateOdr_condition();">
 			</td>
 			<td class="box_top" style="width: 120px">주문 총 금액</td>
 			<td style="width: 300px" class="ar"><fmt:formatNumber value="${mpCommand.odr_amount}" pattern="###,###,###,###" /> 원 

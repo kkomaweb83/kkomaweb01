@@ -51,8 +51,8 @@ public class SctDao extends BaseDao {
 		getSql().commit();
 	}
 
-	public static SctTotPriceVO getMemMilege(String mem_no) {
-		return getSql().selectOne("memMilege", mem_no);
+	public static SctTotPriceVO getMemMilege(int sct_mem_no) {
+		return getSql().selectOne("memMilege", sct_mem_no);
 	}
 
 	public static String getOdrMaxNo() {

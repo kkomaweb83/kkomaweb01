@@ -26,7 +26,7 @@
 <span class="box_button2">☞ 주문관리</span>
 <nav id="admin_menu_lnb">
 	<ul>
-		<li><a href="#">- 주문 리스트</a></li>
+		<li><a href="<%=cp %>/ProController?dana=orders_admin_list&reurl=admin">- 주문 리스트</a></li>
 	</ul>
 </nav>
 

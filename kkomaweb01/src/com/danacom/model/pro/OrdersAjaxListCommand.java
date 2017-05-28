@@ -17,9 +17,13 @@ public class OrdersAjaxListCommand implements BaseCommand {
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		
+		String reurl = request.getParameter("reurl");
+		
 		int total_cnt = 0;
 		Map<String, Object> requestMap = new HashMap<>();
-		requestMap.put("ord_mem_no", request.getParameter("ord_mem_no"));
+		if(reurl == null || !reurl.equals("admin")){
+			requestMap.put("ord_mem_no", request.getParameter("ord_mem_no"));
+		}
 		
 		CommonUtilsController.setPageSetting(requestMap, request); // 페이징1
 		List<MpVo> orders_list = SctDao.getOrdersList(requestMap);
@@ -33,7 +37,10 @@ public class OrdersAjaxListCommand implements BaseCommand {
 		request.setAttribute("orders_list", orders_list);
 		request.setAttribute("total_cnt", total_cnt);
 		
-		return "sct/ajax_orders_list.jsp";
+		String returnUrl = "sct/ajax_orders_list.jsp";
+		if(reurl != null && reurl.equals("admin")) returnUrl = "sct/ajax_orders_admin_list.jsp";
+		
+		return returnUrl;
 	}
 
 }

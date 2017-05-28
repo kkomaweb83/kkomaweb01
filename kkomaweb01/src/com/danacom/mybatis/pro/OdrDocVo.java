@@ -56,6 +56,8 @@ public class OdrDocVo {
 	private String odr_cdate;
 	private String odr_condition2;
 	
+	private int sct_pro_muti;
+	
 	public String getDlv_sendaddr() {
 		return dlv_sendaddr;
 	}
@@ -319,6 +321,12 @@ public class OdrDocVo {
 	}
 	public void setOdr_condition2(String odr_condition2) {
 		this.odr_condition2 = odr_condition2;
+	}
+	public int getSct_pro_muti() {
+		return sct_pro_muti;
+	}
+	public void setSct_pro_muti(int sct_pro_muti) {
+		this.sct_pro_muti = sct_pro_muti;
 	}
 
 }

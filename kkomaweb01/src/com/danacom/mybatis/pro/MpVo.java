@@ -44,6 +44,7 @@ public class MpVo {
 	private String odr_sdate;
 	private String odr_cdate;
 	private String odr_condition;
+	private String odr_condition2;
 	private String odr_cby_no;
 
 	private String dlv_sendaddr;
@@ -302,5 +303,11 @@ public class MpVo {
 	}
 	public void setTot_cont(int tot_cont) {
 		this.tot_cont = tot_cont;
+	}
+	public String getOdr_condition2() {
+		return odr_condition2;
+	}
+	public void setOdr_condition2(String odr_condition2) {
+		this.odr_condition2 = odr_condition2;
 	}
 }

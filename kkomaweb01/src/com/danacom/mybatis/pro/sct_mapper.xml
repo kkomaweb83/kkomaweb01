@@ -84,16 +84,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND SCT_PRO_NO = #{sct_pro_no}
 	</update>
 	
-	<select id="memMilege" resultType="com.danacom.mybatis.pro.SctTotPriceVO" parameterType="string">
+	<select id="memMilege" resultType="com.danacom.mybatis.pro.SctTotPriceVO" parameterType="int">
 		SELECT  
 			MEM_MIL 
 			, TO_CHAR(MEM_MIL, '999,999,999,999')||'원' MEM_CH_MIL
 		FROM MEM_COM
-		WHERE MEM_NO = #{mem_no}	
+		WHERE MEM_NO = #{sct_mem_no}	
 	</select>
 	
 	<select id="getOdrMaxNo" resultType="string">
-		SELECT NVL(MAX(ODR_NO), 0)+1 FROM ORDERS
+		SELECT NVL(MAX(ODR_NO), TO_CHAR(SYSDATE,'YYYYMMDD')||'00000')+1 FROM ORDERS
+		WHERE ODR_NO LIKE TO_CHAR(SYSDATE,'YYYYMMDD')||'%'
 	</select>
 	
 	<insert id="odrInsert" parameterType="com.danacom.mybatis.pro.OdrDocVo">
@@ -182,11 +183,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM
 		(
 			select 
-				ODR_NO, ODR_MEM_NO, ODR_MILEAGE, ODR_AMOUNT, 
-				ODR_WAY, to_char(ODR_ODATE, 'yyyy/mm/dd') odr_odate, NVL(TO_CHAR(odr_sdate, 'yyyy-mm-dd'), '입금미확인') odr_sdate,
-				NVL(TO_CHAR(odr_sdate, 'yyyy-mm-dd'), '미정') odr_cdate, ODR_CONDITION
-			from orders 
-			where odr_mem_no = #{ord_mem_no} 
+				ODR_NO
+				, ODR_MEM_NO
+				, M.MEM_ID
+				, ODR_MILEAGE
+				, ODR_AMOUNT 
+				, ODR_WAY
+				, TO_CHAR(ODR_ODATE, 'yyyy-mm-dd') odr_odate
+				, NVL(TO_CHAR(odr_sdate, 'yyyy-mm-dd'), '입금미확인') odr_sdate
+				, NVL(TO_CHAR(odr_sdate, 'yyyy-mm-dd'), '미정') odr_cdate
+				, ODR_CONDITION
+				, DECODE(o.odr_condition, 1, '주문신청', 2, '결제확인', 3, '배송', 4, '주문완료') odr_condition2
+			from orders o, mem_com m 
+			where o.odr_mem_no = m.mem_no
+			<if test="ord_mem_no != null">
+			and odr_mem_no = #{ord_mem_no}
+			</if> 
 			ORDER BY ODR_NO DESC
 		) t1
 		) t2
@@ -202,12 +214,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			, '용궁 별주부리 거북동' as mem_addr
 			, mem_hp as mem_tel
 			, mem_hp 
-			, to_char(o.odr_odate, 'yyyy/mm/dd') odr_odate
+			, to_char(o.odr_odate, 'yyyy-mm-dd') odr_odate
 			, d.dlv_sendaddr
 			, o.odr_condition
 			, o.odr_amount 
 			, o.odr_mileage
-			, m.mem_mil      
+			, m.mem_mil
+			, DECODE(odr_condition, 1, '주문신청', 2, '결제확인', 3, '배송', 4, '주문완료') odr_condition2      
 		from orders o, mem_com m, delivery d, odr_det od    
 		where m.mem_no=o.odr_mem_no 
 		and d.dlv_no=od.odt_dlv_no 

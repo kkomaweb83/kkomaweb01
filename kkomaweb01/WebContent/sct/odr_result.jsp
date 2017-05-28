@@ -46,20 +46,14 @@
 	<table style="width: 100%; border: 1px solid red;">
 		<tr>
 			<td><span class="span_box2">주문번호</span></td>
-			<td colspan="2"><input type="text" value="${param.odr_no_max}" readonly="readonly" class="box_input_left" style="width: 90%;" /></td>
-			<td rowspan="3" style="border: #FF9900 1px solid;font-size: 15px;">
+			<td colspan="2" style="border: #FF9900 1px solid;font-size: 20px;">
+			<input type="text" value="${param.odr_no_max}" readonly="readonly" class="box_input_left" style="width: 90%;" />
+			</td>
+			<td style="border: #FF9900 1px solid;font-size: 15px;">
 				이용하시면서 문의사항이나 문제점이 발생할 경우에는<br/> 
 				고객지원실 (<a style="color:red;">02-555-9999</a>) 로<br/> 
 				문의 하시기 바랍니다.<br/>
 			</td>
-		</tr>
-		<tr>
-			<td><span class="span_box2">수취인</span></td>
-			<td colspan="2"><input type="text" value="${param.dlv_sender}"  readonly="readonly" class="box_input_left" style="width: 90%;" /></td>
-		</tr>
-		<tr>
-			<td><span class="span_box2">결제방법</span></td>
-			<td colspan="2"><input type="text" value="${param.odr_way}"  readonly="readonly" class="box_input_left" style="width: 90%;" /></td>
 		</tr>
 		<tr>
 			<td colspan="4">
@@ -68,7 +62,7 @@
 		</tr>
 		<tr>
 			<td colspan="4" align="center">
-				<div class="box_button1"><a href="<%=cp %>/ProController?dana=pro_main_prelist&pro_pcl_no=0101">메인으로 가기</a></div>
+				<div class="box_button1"><a href="<%=cp %>/ProController?dana=orders_det_list&odr_no=${param.odr_no_max}">주문내역 확인</a></div>
 			</td>
 		</tr>
 	</table>

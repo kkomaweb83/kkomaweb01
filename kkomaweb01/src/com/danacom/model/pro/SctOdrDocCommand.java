@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
-import com.danacom.mybatis.pro.MemComVo;
 import com.danacom.mybatis.pro.SctDao;
 import com.danacom.mybatis.pro.SctTotPriceVO;
 import com.danacom.mybatis.pro.Shop_cart;
@@ -72,11 +71,7 @@ public class SctOdrDocCommand implements BaseCommand {
 		}
 		sctTotPrivceVo = SctDao.getSctTotPrice(sctTotPrivceVo);
 		
-		MemComVo loginCommand = (MemComVo) request.getSession().getAttribute("login");
-		String mem_no = loginCommand.getMem_no()+"";
-		//List list2 = ProDao.getCpIssue(mem_no);
-		
-		SctTotPriceVO userMil = SctDao.getMemMilege(mem_no);
+		SctTotPriceVO userMil = SctDao.getMemMilege(sctCommand.getSct_mem_no());
 		
 		String returnUrl = "sct/odr_doc.jsp";
 		
@@ -84,6 +79,7 @@ public class SctOdrDocCommand implements BaseCommand {
 		request.setAttribute("sctTotPrivceVo", sctTotPrivceVo);
 		request.setAttribute("myCoupon", null);		
 		request.setAttribute("userMil", userMil);		
+		request.setAttribute("sctProMuti", sctProMuti);		
 		
 		return returnUrl;
 	}
