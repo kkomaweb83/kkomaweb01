@@ -238,4 +238,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ODT_ODR_NO = #{odr_no}
 	</select>
 	
+	<update id="conditionUpdate" parameterType="com.danacom.mybatis.pro.OdrDocVo">
+		update 
+		orders set 
+			odr_condition = #{odr_condition}
+			<if test='odr_condition == "2"'>
+			, odr_sdate = sysdate
+			</if>
+			<if test='odr_condition == "4"'>
+			, odr_sdate = sysdate
+			</if>
+		where odr_no = #{odr_no}
+	</update>
+	
 </mapper>

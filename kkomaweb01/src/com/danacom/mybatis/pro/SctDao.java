@@ -99,4 +99,8 @@ public class SctDao extends BaseDao {
 		return getSql().selectList("getOdcOdtList", odr_no);
 	}
 
+	public static void conditionUpdate(OdrDocVo doc) {
+		getSql().update("conditionUpdate", doc);
+	}
+
 }

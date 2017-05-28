@@ -20,6 +20,7 @@ public class VblAjaxProListCommand implements BaseCommand {
 		
 		String pcl_no = request.getParameter("pcl_no");
 		String maker = request.getParameter("maker");
+		String searchValue = request.getParameter("searchValue");
 		String[] mkr_no_sy = null;
 		String[] pdt_step51_sy = null;
 		
@@ -49,6 +50,7 @@ public class VblAjaxProListCommand implements BaseCommand {
 		}
 		requestMap.put("mkr_no_sy", mkr_no_sy);
 		requestMap.put("pdt_step51_sy", pdt_step51_sy);
+		requestMap.put("searchValue", searchValue);
 		
 		CommonUtilsController.setPageSetting(requestMap, request); // 페이징1
 		List<ProductVo> pro_list = ProDao.getProMainList(requestMap);

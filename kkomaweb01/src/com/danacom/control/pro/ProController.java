@@ -14,6 +14,7 @@ import com.danacom.model.pcl.PclTopListCommand;
 import com.danacom.model.pro.OdrDocCommand;
 import com.danacom.model.pro.OrdersAdminDetListCommand;
 import com.danacom.model.pro.OrdersAjaxListCommand;
+import com.danacom.model.pro.OrdersCondUpdateCommand;
 import com.danacom.model.pro.OrdersDetListCommand;
 import com.danacom.model.pro.ProAjaxListCommand;
 import com.danacom.model.pro.ProAjaxViewCommand;
@@ -97,6 +98,8 @@ public class ProController extends HttpServlet {
 			baseComm = new OrdersAjaxListCommand();
 		}else if("orders_admin_det_list".equals(dana)){
 			baseComm = new OrdersAdminDetListCommand();
+		}else if("odr_condition".equals(dana)){
+			baseComm = new OrdersCondUpdateCommand();
 		}
 		
 		if(exec_go){

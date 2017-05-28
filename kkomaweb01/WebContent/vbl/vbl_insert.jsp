@@ -230,7 +230,31 @@
 		document.vblPro_Search.submit();
 	}
 	function search_keyword(){
+		var searchUi = document.getElementsByName("searchValue")[1];
+		var searchValue = $.trim(searchUi.value);
+		if(searchValue == ""){
+			//alert("검색어를 입력하세요!");
+			searchUi.value = "";
+			//searchUi.focus();
+			//return;
+		}
+		searchUi.value = searchValue;
 		
+		document.getElementsByName("cPage")[0].value = 1;
+		
+		$("#dana").val("ajax_vbl_inProList");
+		$.ajax({
+			url : "<%=cp %>/VblController",
+			type : "post",
+			data : $('#vblPro_Search').serialize(),
+			dataType : "html",
+			success : function(data) {
+				$("#LAY_OnlyProdList").html(data);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
 	}
 	function goProDlgView(pro_no, pro_pcl_no, sct_pro_part){
 		$("#dialog").dialog({ 

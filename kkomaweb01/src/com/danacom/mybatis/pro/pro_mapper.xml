@@ -74,6 +74,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</foreach>
 			</if>
 			
+			<if test="searchValue != null">
+			<if test="searchValue != ''">
+				AND PRO_NO IN (
+					        SELECT PRO_NO FROM PRODUCT WHERE PRO_NAME LIKE '%'||#{searchValue}||'%'
+					        UNION
+					        SELECT PSM_PRO_NO FROM PRO_SUMM
+					        WHERE PSM_CONENT LIKE '%'||#{searchValue}||'%' AND PSM_PRO_NO != 0
+					        UNION
+					        SELECT PRO_NO FROM PRODUCT 
+					        WHERE PRO_PCL_NO IN(SELECT MKR_PCL_NO FROM MAKER
+					        					 WHERE MKR_NAME LIKE '%'||#{searchValue}||'%')
+				        )
+			</if>
+			</if>
+			
 			<if test="proOrderCode != ''">
 				<if test='proOrderCode == "1"'>
 					ORDER BY ODT_COUNT DESC, PRO_NO

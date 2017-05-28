@@ -170,7 +170,7 @@
 	<!-- pro_admin_list -->
 	<div style="width: 800px;">
 	
-	<table class="lngTable2">
+	<table class="lngTable2" style="width: 800px;">
 		<colgroup>
 			<col width="15%;" />
 			<col width="40%;" />
