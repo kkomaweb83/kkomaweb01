@@ -21,7 +21,7 @@ public class VbbViewCommand implements BaseCommand {
 		VbbVo vbb_Command = new VbbVo();
 		vbb_Command.setVbb_no(request.getParameter("vbb_no"));
 		
-		if("".equals(reurl)){
+		if(reurl == null || "".equals(reurl)){
 			VblDao.countUpVbbContent(vbb_Command);
 		}
 		VbbVo vbbContent = VblDao.getVbbContent(vbb_Command);

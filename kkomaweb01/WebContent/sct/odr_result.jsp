@@ -45,20 +45,19 @@
 	
 	<table style="width: 100%; border: 1px solid red;">
 		<tr>
-			<td><span class="span_box2">주문번호</span></td>
-			<td colspan="2" style="border: #FF9900 1px solid;font-size: 20px;">
-			<input type="text" value="${param.odr_no_max}" readonly="readonly" class="box_input_left" style="width: 90%;" />
-			</td>
-			<td style="border: #FF9900 1px solid;font-size: 15px;">
+			<td colspan="4" style="text-align: center;">
+				<div style="font-size: 20px; margin: 10px; padding: 10px;">
+					주문번호 : ${param.odr_no_max}
+				</div>
+				<div style="border: #FF9900 1px solid;font-size: 15px; padding: 10px;margin-bottom: 10px;">
 				이용하시면서 문의사항이나 문제점이 발생할 경우에는<br/> 
 				고객지원실 (<a style="color:red;">02-555-9999</a>) 로<br/> 
 				문의 하시기 바랍니다.<br/>
+				</div>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="4">
-				<span class="span_box2"></span>
-			</td>
+			<td colspan="4">&nbsp;</td>
 		</tr>
 		<tr>
 			<td colspan="4" align="center">
