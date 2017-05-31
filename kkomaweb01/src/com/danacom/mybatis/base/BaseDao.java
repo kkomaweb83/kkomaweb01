@@ -14,4 +14,12 @@ public class BaseDao {
 		return ss;
 	}
 	
+	public static int get_found_rows() {
+		return getSql().selectOne("found_rows");
+	}
+	
+	public static void commit(){
+		getSql().commit();
+	}
+	
 }

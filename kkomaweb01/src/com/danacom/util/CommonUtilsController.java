@@ -16,14 +16,14 @@ public class CommonUtilsController {
     	int end = 10;  // 끝번호
     	int totalRecord = 0; // 총 게시물의 수(원글의 수)
     	int totalPage = 0; // 전체 페이지의수
-    	int pagePerBlock = 3; // 블럭당 표현되는 페이지의 수
+    	int pagePerBlock = 5; // 블럭당 표현되는 페이지의 수
     	
     	requestMap.put("cPage", request.getParameter("cPage"));
     	requestMap.put("numPerPage", request.getParameter("numPerPage"));
     	requestMap.put("pagePerBlock", request.getParameter("pagePerBlock"));
     	
     	nowPage			= MapUtils.getIntValue( requestMap, "cPage",        1); // 현재 링크 페이지 번호
-    	numPerPage		= MapUtils.getIntValue( requestMap, "numPerPage",   5); // 한페이지에 나오는 리스트 갯수
+    	numPerPage		= MapUtils.getIntValue( requestMap, "numPerPage",   3); // 한페이지에 나오는 리스트 갯수
     	totalRecord     = MapUtils.getIntValue( requestMap, "total_cnt",    1);  // 전체 갯수
     	pagePerBlock    = MapUtils.getIntValue( requestMap, "pagePerBlock", 5);  // 페이지 블럭 갯수
     	
@@ -34,11 +34,18 @@ public class CommonUtilsController {
 	    if( totalRecord % numPerPage != 0 ) totalPage ++ ;
     	
     	requestMap.put("begin", begin);
+    	requestMap.put("begin_ms", (begin-1));
     	requestMap.put("end", end);
+    	requestMap.put("numPerPage", numPerPage);
     	
     	request.setAttribute("p_totalPage", totalPage);
     	request.setAttribute("p_nowPage", nowPage);
     	request.setAttribute("p_pagePerBlock", pagePerBlock);
+    	try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     }
 
 }

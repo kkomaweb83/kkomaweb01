@@ -3,21 +3,26 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.danacom.mybatis.pro.pro_mapper">
+
+	<select id="found_rows" resultType="int">
+		SELECT FOUND_ROWS() AS tot_cont
+	</select>
 	
 	<select id="proAdminPclList" resultType="com.danacom.mybatis.pro.ProductVo" parameterType="hashmap">
 		SELECT 
-			*
+			SQL_CALC_FOUND_ROWS *
 		FROM
 		(
 		SELECT 
 			T1.*
-		    , 20 AS tot_cont
+		    , @ROWNUM := @ROWNUM + 1 AS rm
+            , -999 AS tot_cont
 		FROM
 		(
 			SELECT 
 				PRO_NO
 				, PRO_DISPRICE
-				, FORMAT(PRO_DISPRICE, 0)||'원' PRO_CH_PRICE
+				, CONCAT(CONCAT(FORMAT(PRO_DISPRICE, 0)),'원') PRO_CH_PRICE
 				, PCL_NAME, PRO_PCL_NO, PRO_STOCKCOUNT
 				, PRO_NAME
 			FROM PRODUCT A
@@ -28,26 +33,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</if>
 			</if>
 			ORDER BY PRO_NO DESC
-		) T1
+		) T1, (select @ROWNUM := 0) A
 		) T2
-		ORDER BY PRO_NO DESC LIMIT #{begin},5 
+		LIMIT #{begin_ms},#{numPerPage} 
 	</select>
 	
 	<select id="proMainList" resultType="com.danacom.mybatis.pro.ProductVo" parameterType="hashmap">
 		SELECT 
-			*
+			SQL_CALC_FOUND_ROWS *
 		FROM
 		(
 		SELECT 
 			T1.*
-		    , 20 AS tot_cont
+		    , @ROWNUM := @ROWNUM + 1 AS rm
+            , -999 AS tot_cont
 		FROM
 		(
 			SELECT 
 				PRO_NO, PRO_NAME, PRO_DISPRICE, PRO_REALPRICE
-				, FORMAT(PRO_DISPRICE, 0)||'원' PRO_CH_PRICE
+				, CONCAT(CONCAT(FORMAT(PRO_DISPRICE, 0)),'원') PRO_CH_PRICE
 				, FORMAT(PRO_DISPRICE, 0) PRO_CH2_PRICE
-				, DATE_FORMAT(PRO_REGDATE, '%Y/%M/%D') PRO_REGDATE
+				, DATE_FORMAT(PRO_REGDATE, '%Y/%c/%d') PRO_REGDATE
 				, PSM_CONENT
 				, PMG_FILE
 				, PRO_PCL_NO
@@ -72,6 +78,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</foreach>
 			</if>
 			
+			<if test="searchValue != null">
+			<if test="searchValue != ''">
+				AND PRO_NO IN (
+					        SELECT PRO_NO FROM PRODUCT WHERE PRO_NAME LIKE '%'||#{searchValue}||'%'
+					        UNION
+					        SELECT PSM_PRO_NO FROM PRO_SUMM
+					        WHERE PSM_CONENT LIKE '%'||#{searchValue}||'%' AND PSM_PRO_NO != 0
+					        UNION
+					        SELECT PRO_NO FROM PRODUCT 
+					        WHERE PRO_PCL_NO IN(SELECT MKR_PCL_NO FROM MAKER
+					        					 WHERE MKR_NAME LIKE '%'||#{searchValue}||'%')
+				        )
+			</if>
+			</if>			
+			
 			<if test="proOrderCode != ''">
 				<if test='proOrderCode == "1"'>
 					ORDER BY ODT_COUNT DESC, PRO_NO
@@ -86,9 +107,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					ORDER BY PRO_DISPRICE DESC
 				</if>
 			</if>
-		) T1
+		) T1, (select @ROWNUM := 0) A
 		) T2
-		ORDER BY PRO_NO DESC LIMIT #{begin},5 
+		LIMIT #{begin_ms},#{numPerPage}
 	</select>
 	
 	<select id="proMaxNO" resultType="int">
