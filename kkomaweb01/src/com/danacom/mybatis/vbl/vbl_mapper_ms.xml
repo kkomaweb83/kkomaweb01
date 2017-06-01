@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.danacom.mybatis.vbl.vbl_mapper">
+<mapper namespace="com.danacom.mybatis.vbl.vbl_mapper_ms">
 	
 	<select id="vblList" resultType="com.danacom.mybatis.vbl.VirBillVo" parameterType="hashmap">
 		SELECT 

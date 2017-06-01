@@ -32,7 +32,6 @@ public class ProAjaxListCommand implements BaseCommand {
 			total_cnt = ((ProductVo)pro_list.get(0)).getTot_cont();
 			if(total_cnt == -999){
 				total_cnt = BaseDao.get_found_rows();
-				BaseDao.commit();
 			}
 			requestMap.put("total_cnt", total_cnt);
 		}

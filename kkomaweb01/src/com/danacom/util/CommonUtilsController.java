@@ -11,7 +11,7 @@ public class CommonUtilsController {
 	//  페이징 정보 셋팅
     public static void setPageSetting(Map<String, Object> requestMap, HttpServletRequest request){
     	int nowPage = 1; // 현재페이지
-    	int numPerPage = 3; // 한 페이지에 게시되는 원글의 수
+    	int numPerPage = 10; // 한 페이지에 게시되는 원글의 수
     	int begin = 1; // 시작번호
     	int end = 10;  // 끝번호
     	int totalRecord = 0; // 총 게시물의 수(원글의 수)
@@ -23,7 +23,7 @@ public class CommonUtilsController {
     	requestMap.put("pagePerBlock", request.getParameter("pagePerBlock"));
     	
     	nowPage			= MapUtils.getIntValue( requestMap, "cPage",        1); // 현재 링크 페이지 번호
-    	numPerPage		= MapUtils.getIntValue( requestMap, "numPerPage",   3); // 한페이지에 나오는 리스트 갯수
+    	numPerPage		= MapUtils.getIntValue( requestMap, "numPerPage",   10); // 한페이지에 나오는 리스트 갯수
     	totalRecord     = MapUtils.getIntValue( requestMap, "total_cnt",    1);  // 전체 갯수
     	pagePerBlock    = MapUtils.getIntValue( requestMap, "pagePerBlock", 5);  // 페이지 블럭 갯수
     	

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.danacom.mybatis.pro.pro_mapper">
+<mapper namespace="com.danacom.mybatis.pro.pro_mapper_ms">
 
 	<select id="found_rows" resultType="int">
 		SELECT FOUND_ROWS() AS tot_cont
@@ -113,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="proMaxNO" resultType="int">
-		SELECT NVL(MAX(PRO_NO), 0)+1 FROM PRODUCT
+		SELECT IFNULL(MAX(PRO_NO), 0)+1 FROM PRODUCT
 	</select>
 	
 	<insert id="proInsert" parameterType="com.danacom.mybatis.pro.ProductVo">
@@ -135,7 +135,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INTO PRO_SUMM
 		(PSM_NO, PSM_CONENT, PSM_PRO_NO)
 		VALUES
-		((SELECT NVL(MAX(PSM_NO), 0)+1 FROM PRO_SUMM)
+		((SELECT IFNULL(MAX(PSM_NO), 0)+1 FROM PRO_SUMM)
 		, #{psm_conent}
 		, #{pro_no})
 	</insert>
@@ -145,7 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INTO PRO_IMG
 		(PMG_NO, PMG_FILE, PMG_PRO_NO, PMG_IDT_NO)
 		VALUES
-		((SELECT NVL(MAX(PMG_NO), 0)+1 FROM PRO_IMG)
+		((SELECT IFNULL(MAX(PMG_NO), 0)+1 FROM PRO_IMG)
 		, #{pmg_file}, #{pmg_pro_no}, #{pmg_idt_no})
 	</insert>
 	
@@ -154,15 +154,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INTO PRO_DET
 		(PDT_NO, PDT_NAME, PDT_CONENT, PDT_STEP, PDT_PRO_NO)
 		VALUES
-		((SELECT NVL(MAX(PDT_NO), 0)+1 FROM PRO_DET)
+		((SELECT IFNULL(MAX(PDT_NO), 0)+1 FROM PRO_DET)
         , #{pdt_name}, #{pdt_conent}, 5, #{pdt_pro_no})
 	</insert>
 	
 	<select id="proVo" resultType="com.danacom.mybatis.pro.ProductVo" parameterType="int">
 		SELECT 
 			PRO_NO, PRO_NAME, PRO_DISPRICE, PRO_REALPRICE, PRO_MILEGE
-			, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
-			, TO_CHAR(PRO_REGDATE, 'YYYY/MM/DD') PRO_REGDATE
+			, CONCAT(CONCAT(FORMAT(PRO_DISPRICE, 0)),'원') PRO_CH_PRICE
+			, DATE_FORMAT(PRO_REGDATE, '%Y/%c/%d') PRO_REGDATE
 			, PSM_CONENT
 			, PMG_FILE
             , MKR_NAME

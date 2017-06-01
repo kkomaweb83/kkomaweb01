@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
+import com.danacom.mybatis.base.BaseDao;
 import com.danacom.mybatis.pro.MpVo;
 import com.danacom.mybatis.pro.SctDao;
 import com.danacom.util.CommonUtilsController;
@@ -30,6 +31,9 @@ public class OrdersAjaxListCommand implements BaseCommand {
 		
 		if(orders_list != null && orders_list.size() > 0){
 			total_cnt = ((MpVo)orders_list.get(0)).getTot_cont();
+			if(total_cnt == -999){
+				total_cnt = BaseDao.get_found_rows();
+			}
 			requestMap.put("total_cnt", total_cnt);
 		}
 		CommonUtilsController.setPageSetting(requestMap, request); // 페이징2
