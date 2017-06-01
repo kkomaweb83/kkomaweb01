@@ -37,6 +37,7 @@ public class PclController extends HttpServlet {
 		String dana = "";
 		String path = "";
 		Boolean forward = true;
+		Boolean exec_go = true;
 		
 		RequestDispatcher rd = null;
 		BaseCommand baseComm = null;
@@ -60,9 +61,14 @@ public class PclController extends HttpServlet {
 		}else if("pcl_delete".equals(dana)){
 			baseComm = new PclDeleteCommand();
 			forward = false;
+		}else if("member_prejoin".equals(dana)){
+			exec_go = false;
+			path = "pcl/member_prejoin.jsp";
 		}
 		
-		path = baseComm.exec(request, response);
+		if(exec_go){
+			path = baseComm.exec(request, response);
+		}
 		
 		if(forward){
 			rd = request.getRequestDispatcher(path);
