@@ -14,15 +14,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="sctProVo" resultType="com.danacom.mybatis.pro.Shop_proVO" parameterType="com.danacom.mybatis.pro.Shop_cart">
 		SELECT 
 			PRO_NO, PRO_DISPRICE, PRO_MILEGE
-			, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
-            , TO_CHAR(PRO_MILEGE, '999,999,999,999')||'원' PRO_CH_MILEGE
+            , CONCAT(CONCAT(FORMAT(PRO_DISPRICE, 0)),'원') AS PRO_CH_PRICE
+            , CONCAT(CONCAT(FORMAT(PRO_MILEGE, 0)),'원') AS PRO_CH_MILEGE
             , PRO_PCL_NO
             , PRO_NAME
             , PMG_FILE
             , PCL_NAME
-            , TO_CHAR(PRO_DISPRICE*#{sct_count}, '999,999,999,999')||'원' pro_tot_ch_price
-            , PRO_DISPRICE*#{sct_count} pro_tot_price
-            , PRO_MILEGE*#{sct_count} pro_tot_milege
+            , CONCAT(FORMAT(PRO_DISPRICE*#{sct_count}, 0),'원') AS PRO_TOT_CH_PRICE
+            , PRO_DISPRICE*#{sct_count} AS PRO_TOT_PRICE
+            , PRO_MILEGE*#{sct_count} AS PRO_TOT_MILEGE
 		FROM PRODUCT
         JOIN PRO_IMG ON PRO_NO = PMG_PRO_NO
         JOIN PRO_CLASS ON PRO_PCL_NO = PCL_NO
@@ -32,10 +32,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="sctTotPrice" resultType="com.danacom.mybatis.pro.SctTotPriceVO" parameterType="com.danacom.mybatis.pro.SctTotPriceVO">
 		SELECT 
-			TO_CHAR(#{sct_tot_disprice}, '999,999,999,999')||'원' AS sct_tot_ch_disprice
-            , TO_CHAR(#{sct_tot_milege}, '999,999,999,999')||'원' AS sct_tot_ch_milege
-            , #{sct_tot_disprice} AS sct_tot_disprice
-            , #{sct_tot_milege} AS sct_tot_milege
+			CONCAT(FORMAT(#{sct_tot_disprice}, 0),'원') AS SCT_TOT_CH_DISPRICE
+            , CONCAT(FORMAT(#{sct_tot_milege}, 0),'원') AS SCT_TOT_CH_MILEGE
+            , #{sct_tot_disprice} AS SCT_TOT_DISPRICE
+            , #{sct_tot_milege} AS SCT_TOT_MILEGE
         FROM DUAL
 	</select>
 	
@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INTO SHOP_CART
 		(SCT_NO, SCT_PRO_NO, SCT_COUNT, SCT_MEM_NO)
 		VALUES
-		((SELECT IFNULL(MAX(SCT_NO), 0)+1 FROM SHOP_CART)
+		((SELECT IFNULL(MAX(SCT_NO), 0)+1 FROM SHOP_CART a)
 		, #{sct_pro_no}, #{sct_count}, #{sct_mem_no})
 	</insert>
 	
@@ -73,7 +73,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM SHOP_CART
 		WHERE SCT_MEM_NO = #{sct_mem_no}
 		AND SCT_PRO_NO = #{sct_pro_no}
-		AND ROWNUM = 1
 	</select>
 	
 	<update id="countUpdate" parameterType="com.danacom.mybatis.pro.Shop_cart">
@@ -87,44 +86,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="memMilege" resultType="com.danacom.mybatis.pro.SctTotPriceVO" parameterType="int">
 		SELECT  
 			MEM_MIL 
-			, TO_CHAR(MEM_MIL, '999,999,999,999')||'원' MEM_CH_MIL
+			, CONCAT(CONCAT(FORMAT(MEM_MIL, 0)),'원') MEM_CH_MIL
 		FROM MEM_COM
 		WHERE MEM_NO = #{sct_mem_no}	
 	</select>
 	
 	<select id="getOdrMaxNo" resultType="string">
-		SELECT IFNULL(MAX(ODR_NO), TO_CHAR(SYSDATE,'YYYYMMDD')||'00000')+1 FROM ORDERS
-		WHERE ODR_NO LIKE TO_CHAR(SYSDATE,'YYYYMMDD')||'%'
+		SELECT IFNULL(MAX(ODR_NO), CONCAT(DATE_FORMAT(now(),'%Y%c%d'),'00000'))+1 FROM ORDERS
+		WHERE ODR_NO LIKE CONCAT(DATE_FORMAT(now(),'%Y%c%d'),'%')
 	</select>
 	
 	<insert id="odrInsert" parameterType="com.danacom.mybatis.pro.OdrDocVo">
-		insert 
-		into orders 
-		values
+		INSERT 
+		INTO ORDERS 
+		VALUES
 		(
 			#{odr_no_max}
 			, #{mem_no}
 			, #{useMileage}
 			, #{s_totPrice} - #{useMileage} + 2500
 			, #{odr_way}
-			, sysdate
+			, sysdate()
+			, null
 			, null
 			, #{odr_condition}
 		)
 	</insert>
 	
 	<select id="getDlvMaxNo" resultType="string">
-		SELECT IFNULL(MAX(dlv_no), 0)+1 FROM delivery
+		SELECT IFNULL(MAX(DLV_NO), 0)+1 FROM DELIVERY
 	</select>
 	
 	<insert id="dlvInsert" parameterType="com.danacom.mybatis.pro.OdrDocVo">
-		insert 
-		into DELIVERY 
-		values
+		INSERT 
+		INTO DELIVERY 
+		VALUES
 		(
 			#{del_no_max}
 			, '97979797'
+			, #{dlv_zonecode}
 			, #{dlv_sendaddr}
+			, #{dlv_sendaddr2}
 			, #{dlv_sender}
 			, #{dlv_tel}
 			, #{dlv_sphone}
@@ -133,11 +135,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<insert id="odtInsert" parameterType="com.danacom.mybatis.pro.OdrDet">
-		insert 
-		into odr_det 
-		values
+		INSERT 
+		INTO ODR_DET 
+		VALUES
 		(
-			(SELECT IFNULL(MAX(odt_no), 0)+1 FROM ODR_DET)
+			(SELECT IFNULL(MAX(ODT_NO), 0)+1 FROM ODR_DET a)
 			, #{s_pro_no}
 			, #{s_odt_count}
 			, #{s_pro_disprice}
@@ -151,10 +153,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id="editMileage" parameterType="com.danacom.mybatis.pro.OdrDocVo">
-		update 
-		mem_com set 
-			mem_mil = (mem_mil - #{useMileage})
-		where mem_no = #{mem_no}
+		UPDATE 
+		MEM_COM SET 
+			MEM_MIL = (MEM_MIL - #{useMileage})
+		WHERE MEM_NO = #{mem_no}
 	</update>
 	
 	<update id="memMilAdd" parameterType="com.danacom.mybatis.pro.OdrDocVo">
@@ -179,7 +181,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT 
 			t1.*
 			, @ROWNUM := @ROWNUM + 1 AS rm
-			, COUNT(ODR_NO) OVER() AS tot_cont
+			, -999 AS tot_cont
 		FROM
 		(
 			select 
@@ -189,66 +191,74 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				, ODR_MILEAGE
 				, ODR_AMOUNT 
 				, ODR_WAY
-				, TO_CHAR(ODR_ODATE, 'yyyy-mm-dd') odr_odate
-				, IFNULL(TO_CHAR(odr_sdate, 'yyyy-mm-dd'), '입금미확인') odr_sdate
-				, IFNULL(TO_CHAR(odr_sdate, 'yyyy-mm-dd'), '미정') odr_cdate
+				, DATE_FORMAT(ODR_ODATE, '%Y-%c-%d') AS ODR_ODATE
+				, IFNULL(DATE_FORMAT(odr_sdate, '%Y-%c-%d'), '입금미확인') AS ODR_SDATE
+				, IFNULL(DATE_FORMAT(odr_cdate, '%Y-%c-%d'), '미정') AS ODR_CDATE
 				, ODR_CONDITION
-				, DECODE(o.odr_condition, 1, '주문신청', 2, '결제확인', 3, '배송', 4, '주문완료') odr_condition2
-			from orders o, mem_com m 
-			where o.odr_mem_no = m.mem_no
+				, (CASE O.ODR_CONDITION 
+					WHEN 1 THEN '주문신청' 
+					WHEN 2 THEN '결제확인' 
+					WHEN 3 THEN '배송' 
+					WHEN 4 THEN '주문완료' END) AS ODR_CONDITION2
+			FROM ORDERS O, MEM_COM M 
+			WHERE O.ODR_MEM_NO = M.MEM_NO
 			<if test="ord_mem_no != null">
-			and odr_mem_no = #{ord_mem_no}
+			AND ODR_MEM_NO = #{ord_mem_no}
 			</if> 
 			ORDER BY ODR_NO DESC
 		) t1, (select @ROWNUM := 0) A
 		) t2
-		LIMIT #{begin_ms},#{numPerPage}			
+		LIMIT #{begin_ms},#{numPerPage}
 	</select>
 	
 	<select id="getOrdersDetList" resultType="com.danacom.mybatis.pro.MpVo" parameterType="string">
-		select
-			o.odr_no
-			, m.mem_id
-			, m.mem_name
-			, m.mem_email
-			, '용궁 별주부리 거북동' as mem_addr
-			, mem_hp as mem_tel
-			, mem_hp 
-			, to_char(o.odr_odate, 'yyyy-mm-dd') odr_odate
-			, d.dlv_sendaddr
-			, o.odr_condition
-			, o.odr_amount 
-			, o.odr_mileage
-			, m.mem_mil
-			, DECODE(odr_condition, 1, '주문신청', 2, '결제확인', 3, '배송', 4, '주문완료') odr_condition2      
-		from orders o, mem_com m, delivery d, odr_det od    
-		where m.mem_no=o.odr_mem_no 
-		and d.dlv_no=od.odt_dlv_no 
-		and od.odt_odr_no = o.odr_no
-		and o.odr_no = #{odr_no}
-		and rownum = 1
+		SELECT
+			O.ODR_NO
+			, M.MEM_ID
+			, M.MEM_NAME
+			, M.MEM_EMAIL
+			, M.MEM_ADDR
+			, M.MEM_TEL
+			, M.MEM_HP 
+			, date_format(O.ODR_ODATE, '%Y-%c-%d') AS ODR_ODATE
+			, D.DLV_SENDADDR
+			, O.ODR_CONDITION
+			, O.ODR_AMOUNT 
+			, O.ODR_MILEAGE
+			, M.MEM_MIL
+			, (CASE ODR_CONDITION 
+					WHEN 1 THEN '주문신청' 
+					WHEN 2 THEN '결제확인' 
+					WHEN 3 THEN '배송' 
+					WHEN 4 THEN '주문완료' END) as ODR_CONDITION2
+		FROM ORDERS O, MEM_COM M, DELIVERY D, ODR_DET OD    
+		WHERE M.MEM_NO=O.ODR_MEM_NO 
+		AND D.DLV_NO=OD.ODT_DLV_NO 
+		AND OD.ODT_ODR_NO = O.ODR_NO
+		AND O.ODR_NO = #{odr_no}
+		LIMIT 0,1
 	</select>
 	
 	<select id="getOdcOdtList" resultType="com.danacom.mybatis.pro.Shop_cart" parameterType="string">
 		SELECT 
 			ODT_PRO_NO SCT_PRO_NO
 			, ODT_COUNT SCT_COUNT
-			, '1' as SCT_PRO_PART
+			, '1' AS SCT_PRO_PART
 		FROM ODR_DET
 		WHERE ODT_ODR_NO = #{odr_no}
 	</select>
 	
 	<update id="conditionUpdate" parameterType="com.danacom.mybatis.pro.OdrDocVo">
-		update 
-		orders set 
-			odr_condition = #{odr_condition}
+		UPDATE 
+		ORDERS SET 
+			ODR_CONDITION = #{odr_condition}
 			<if test='odr_condition == "2"'>
-			, odr_sdate = sysdate
+			, ODR_SDATE = sysdate()
 			</if>
 			<if test='odr_condition == "4"'>
-			, odr_sdate = sysdate
+			, ODR_CDATE = sysdate()
 			</if>
-		where odr_no = #{odr_no}
+		WHERE ODR_NO = #{odr_no}
 	</update>
 	
 </mapper>

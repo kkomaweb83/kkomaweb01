@@ -63,8 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="vblProVo" resultType="com.danacom.mybatis.pro.ProductVo" parameterType="com.danacom.mybatis.pcl.ProClassVo">
 		SELECT 
 			PRO_NO, PRO_DISPRICE
-			, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' PRO_CH_PRICE
-			, TO_CHAR(PRO_DISPRICE, '999,999,999,999') PRO_CH2_PRICE
+			, TO_CHAR(PRO_DISPRICE, '999,999,999,999')||'원' AS PRO_CH_PRICE
+			, TO_CHAR(PRO_DISPRICE, '999,999,999,999') AS PRO_CH2_PRICE
 			, PRO_PCL_NO
 			, PRO_NAME
 			, VDT_QUANTITY AS PST_QUANTITY
@@ -124,46 +124,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT 
 			t1.*
 			, ROWNUM rm
-			, COUNT(vbb_no) OVER() AS tot_cont
+			, COUNT(VBB_NO) OVER() AS tot_cont
 		FROM
 		(
-			select 
-				vbb.vbb_no, vbb.vbb_content, mem.mem_id,
-				to_char(vbb.vbb_date, 'yyyy-mm-dd') as vbb_date,
-				vbb.vbb_recomm, vbb.vbb_count, vbb.vbb_btr_answer, vbb.vbb_title
-			from vir_bill_board vbb, mem_com mem 
-			where vbb.vbb_mem_no = mem.mem_no
+			SELECT 
+				VBB.VBB_NO, VBB.VBB_CONTENT, MEM.MEM_ID,
+				TO_CHAR(VBB.VBB_DATE, 'yyyy-mm-dd') AS VBB_DATE,
+				VBB.VBB_RECOMM, VBB.VBB_COUNT, VBB.VBB_BTR_ANSWER, VBB.VBB_TITLE
+			FROM VIR_BILL_BOARD VBB, MEM_COM MEM 
+			WHERE VBB.VBB_MEM_NO = MEM.MEM_NO
 			<if test="vbb_mem_no != null">
-			and vbb.vbb_mem_no = #{vbb_mem_no}
+			AND VBB.VBB_MEM_NO = #{vbb_mem_no}
 			</if>
-			order by vbb.vbb_no desc
+			ORDER BY VBB.VBB_NO DESC
 		) t1
 		) t2
 		WHERE rm BETWEEN #{begin} AND #{end}
 	</select>
 	
 	<update id="countUpVbbContent" parameterType="com.danacom.mybatis.vbl.VbbVo">
-		update 
-		vir_bill_board
-		set
-			vbb_count = vbb_count + 1
-		where vbb_no = #{vbb_no}
+		UPDATE 
+		VIR_BILL_BOARD
+		SET
+			VBB_COUNT = VBB_COUNT + 1
+		WHERE VBB_NO = #{vbb_no}
 	</update>
 	
 	<select id="getVbbContent" resultType="com.danacom.mybatis.vbl.VbbVo" parameterType="com.danacom.mybatis.vbl.VbbVo">
-		select
-			vbb.vbb_no,
-			vbb.vbb_content,
-			mem.mem_id,
-			to_char(vbb.vbb_date, 'yyyy-mm-dd') as vbb_date,
-			vbb.vbb_recomm,
-			vbb.vbb_count,
-			vbb.vbb_btr_answer,
-			vbb.vbb_title
-		from vir_bill_board vbb
-			join mem_com mem on vbb.vbb_mem_no = mem.mem_no
-		where vbb.vbb_no = #{vbb_no}
-		order by vbb.VBB_NO desc
+		SELECT
+			VBB.VBB_NO,
+			VBB.VBB_CONTENT,
+			MEM.MEM_ID,
+			TO_CHAR(VBB.VBB_DATE, 'yyyy-mm-dd') AS VBB_DATE,
+			VBB.VBB_RECOMM,
+			VBB.VBB_COUNT,
+			VBB.VBB_BTR_ANSWER,
+			VBB.VBB_TITLE
+		FROM VIR_BILL_BOARD VBB
+			JOIN MEM_COM MEM ON VBB.VBB_MEM_NO = MEM.MEM_NO
+		WHERE VBB.VBB_NO = #{vbb_no}
+		ORDER BY VBB.VBB_NO DESC
 	</select>
 	
 	<select id="getVbbContentPro" resultType="com.danacom.mybatis.vbl.VbsVo" parameterType="com.danacom.mybatis.vbl.VbbVo">
@@ -186,42 +186,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			JOIN PRO_CLASS PCL ON PRO.PRO_PCL_NO = PCL.PCL_NO
 			JOIN PRO_SUMM PSM ON PRO.PRO_NO = PSM.PSM_PRO_NO
 			JOIN PRO_IMG PMG ON PRO.PRO_NO = PMG.PMG_PRO_NO
-		where vds_vbb_no = #{vbb_no}
-			and pmg.pmg_idt_no = 1
-		order by pcl.pcl_no
+		WHERE VDS_VBB_NO = #{vbb_no}
+			AND PMG.PMG_IDT_NO = 1
+		ORDER BY PCL.PCL_NO
 	</select>
 	
 	<select id="getVbrList" resultType="com.danacom.mybatis.vbl.VbbVo" parameterType="com.danacom.mybatis.vbl.VbbVo">
-		select 
-			vbr.VBR_NO,
-			vbr.VBR_CONTENT,
-			to_char(vbr.VBR_RDATE, 'yyyy-mm-dd') VBR_RDATE,
-			vbr.VBR_TITLE,
-			mem.mem_id
-		from vbb_reply vbr
-		join mem_com mem on vbr.vbr_mem_no = mem.mem_no 
-		where VBR_VBB_NO = #{vbb_no}
-		order by vbr.vbr_no desc
+		SELECT 
+			VBR.VBR_NO,
+			VBR.VBR_CONTENT,
+			TO_CHAR(VBR.VBR_RDATE, 'yyyy-mm-dd') AS VBR_RDATE,
+			VBR.VBR_TITLE,
+			MEM.MEM_ID
+		FROM VBB_REPLY VBR
+		JOIN MEM_COM MEM ON VBR.VBR_MEM_NO = MEM.MEM_NO 
+		WHERE VBR_VBB_NO = #{vbb_no}
+		ORDER BY VBR.VBR_NO DESC
 	</select>
 	
 	<update id="recommVbbContent" parameterType="com.danacom.mybatis.vbl.VbbVo">
-		update 
-		vir_bill_board set 
-			vbb_recomm = vbb_recomm + 1
-		where vbb_no = #{vbb_no}
+		UPDATE 
+		VIR_BILL_BOARD SET 
+			VBB_RECOMM = VBB_RECOMM + 1
+		WHERE VBB_NO = #{vbb_no}
 	</update>
 	
 	<insert id="replyInsert" parameterType="com.danacom.mybatis.vbl.VbbVo">
-		insert 
-		into VBB_REPLY
-			(vbr_no
-			,vbr_content
-			,vbr_rdate
-			,vbr_vbb_no
-			,vbr_mem_no
-			,vbr_title)
-		values
-			((select nvl(max(vbr_no),0)+1 from vbb_reply)
+		INSERT 
+		INTO VBB_REPLY
+			(VBR_NO
+			,VBR_CONTENT
+			,VBR_RDATE
+			,VBR_VBB_NO
+			,VBR_MEM_NO
+			,VBR_TITLE)
+		VALUES
+			((SELECT NVL(MAX(VBR_NO),0)+1 FROM VBB_REPLY)
 			,#{vbr_content}
 			,sysdate
 			,#{vbb_no}
@@ -230,16 +230,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<delete id="replyDelete" parameterType="com.danacom.mybatis.vbl.VbbVo">
-		delete 
-		from vbb_reply
-		where vbr_no=#{vbr_no}
+		DELETE 
+		FROM VBB_REPLY
+		WHERE VBR_NO = #{vbr_no}
 	</delete>
 	
 	<update id="replyUpdate" parameterType="com.danacom.mybatis.vbl.VbbVo">
-		update 
-		vbb_reply set
-			vbr_content = #{vbr_content}
-		where vbr_no=#{vbr_no}
+		UPDATE 
+		VBB_REPLY SET
+			VBR_CONTENT = #{vbr_content}
+		WHERE VBR_NO = #{vbr_no}
 	</update>
 	
 	<select id="btlList" resultType="com.danacom.mybatis.vbl.BtlVo" parameterType="hashmap">
@@ -250,71 +250,71 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT 
 			t1.*
 			, ROWNUM rm
-			, COUNT(btl_no) OVER() AS tot_cont
+			, COUNT(BTL_NO) OVER() AS tot_cont
 		FROM
 		(
-			select
-				btl_no,
-				to_char(BTL_SDATE, 'yyyy-mm-dd') as BTL_SDATE,
-				to_char(BTL_cDATE, 'yyyy-mm-dd') as BTL_cDATE,
-				btl_title
-			from battle
-			order by btl_no desc
+			SELECT
+				BTL_NO,
+				TO_CHAR(BTL_SDATE, 'yyyy-mm-dd') AS BTL_SDATE,
+				TO_CHAR(BTL_CDATE, 'yyyy-mm-dd') AS BTL_CDATE,
+				BTL_TITLE
+			FROM BATTLE
+			ORDER BY BTL_NO DESC
 		) t1
 		) t2
 		WHERE rm BETWEEN #{begin} AND #{end}
 	</select>
 	
 	<insert id="btlInsert" parameterType="com.danacom.mybatis.vbl.BtlVo">
-		insert 
-		into battle
+		INSERT 
+		INTO BATTLE
 			(BTL_NO
 			,BTL_SDATE
 			,BTL_CDATE
 			,BTL_CONTENT
 			,BTL_TITLE
 			)
-		values
-			((select nvl(max(btl_no),0)+1 from battle)
-			,to_date(#{btl_sdate},'YYYY/MM/DD')
-			,to_date(#{btl_cdate},'YYYY/MM/DD')
+		VALUES
+			((SELECT NVL(MAX(BTL_NO),0)+1 FROM BATTLE)
+			,TO_DATE(#{btl_sdate},'YYYY/MM/DD')
+			,TO_DATE(#{btl_cdate},'YYYY/MM/DD')
 			,#{btl_content}
 			,#{btl_title}
 			)
 	</insert>
 	
 	<select id="getBtlView" resultType="com.danacom.mybatis.vbl.BtlVo" parameterType="com.danacom.mybatis.vbl.BtlVo">
-		select
-			btl_no,
-			to_char(btl_sdate, 'yyyy/mm/dd') btl_sdate,
-			to_char(btl_cdate, 'yyyy/mm/dd') btl_cdate,
-			btl_content,
-			btl_title
-		from battle
-		where btl_no = #{btl_no}
-		and rownum = 1
+		SELECT
+			BTL_NO,
+			TO_CHAR(BTL_SDATE, 'yyyy/mm/dd') AS BTL_SDATE,
+			TO_CHAR(BTL_CDATE, 'yyyy/mm/dd') AS BTL_CDATE,
+			BTL_CONTENT,
+			BTL_TITLE
+		FROM BATTLE
+		WHERE BTL_NO = #{btl_no}
+		AND ROWNUM = 1
 	</select>
 	
 	<select id="getBtlDetList" resultType="com.danacom.mybatis.vbl.BtlVo" parameterType="com.danacom.mybatis.vbl.BtlVo">
-		select
-			vbj.vbj_no,
-			vbj.vbj_title,
-			vbj.vbj_grade,
-			mem.mem_id,
-			(select sum(pro.pro_disprice * vbd.vbd_quantity)
-            	from vbj_det vbd
-            	join product pro on vbd.vbd_pro_no = pro.pro_no) totdisprice
-		from vbl_btl_join vbj
-			join mem_com mem on vbj.vbj_mem_no = mem.mem_no
-        where vbj.vbj_btl_no = #{btl_no}
-		order by vbj.vbj_grade desc
+		SELECT
+			VBJ.VBJ_NO,
+			VBJ.VBJ_TITLE,
+			VBJ.VBJ_GRADE,
+			MEM.MEM_ID,
+			(SELECT SUM(PRO.PRO_DISPRICE * VBD.VBD_QUANTITY)
+            	FROM VBJ_DET VBD
+            	JOIN PRODUCT PRO ON VBD.VBD_PRO_NO = PRO.PRO_NO) TOTDISPRICE
+		FROM VBL_BTL_JOIN VBJ
+			JOIN MEM_COM MEM ON VBJ.VBJ_MEM_NO = MEM.MEM_NO
+        WHERE VBJ.VBJ_BTL_NO = #{btl_no}
+		ORDER BY VBJ.VBJ_GRADE DESC
 	</select>
 	
 	<update id="answerVbbUpdate" parameterType="com.danacom.mybatis.vbl.VbbVo">
-		update 
-		vir_bill_board set 
-			vbb_btr_answer = 'y'
-		where vbb_no = #{vbb_no}
+		UPDATE 
+		VIR_BILL_BOARD SET 
+			VBB_BTR_ANSWER = 'y'
+		WHERE VBB_NO = #{vbb_no}
 	</update>
 	
 	<select id="vbjMaxNo" resultType="int">
@@ -322,39 +322,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="vbjInsert" parameterType="com.danacom.mybatis.vbl.BtlVo">
-		insert 
-		into vbl_btl_join
+		INSERT 
+		INTO VBL_BTL_JOIN
 		(
-			vbj_no
-			,vbj_btl_no
-			,vbj_grade
-			,vbj_mem_no
-			,vbj_title
+			VBJ_NO
+			,VBJ_BTL_NO
+			,VBJ_GRADE
+			,VBJ_MEM_NO
+			,VBJ_TITLE
 		)
-		values
+		VALUES
 		(
 			#{vbj_no}
 			,#{btl_no}
-			,(select
-				(vbb_recomm * 3 + vbb_count)
-				from vir_bill_board where vbb_no=#{vbb_no})
-			,(select vbb_mem_no from vir_bill_board where vbb_no=#{vbb_no})
-			,(select vbb_title from vir_bill_board where vbb_no=#{vbb_no})
+			,(SELECT
+				(VBB_RECOMM * 3 + VBB_COUNT)
+				FROM VIR_BILL_BOARD WHERE VBB_NO = #{vbb_no})
+			,(SELECT VBB_MEM_NO FROM VIR_BILL_BOARD WHERE VBB_NO = #{vbb_no})
+			,(SELECT VBB_TITLE FROM VIR_BILL_BOARD WHERE VBB_NO = #{vbb_no})
 		)
 	</insert>
 	
 	<insert id="vbdInsert" parameterType="com.danacom.mybatis.vbl.BtlVo">
-		insert 
-		into vbj_det
+		INSERT 
+		INTO VBJ_DET
 		(
 			VBD_NO
 			,VBD_QUANTITY
 			,VBD_VBJ_NO
 			,VBD_PRO_NO
 		)
-		values
+		VALUES
 		(
-			(select nvl(max(vbd_no),0)+1 from vbj_det)
+			(SELECT NVL(MAX(VBD_NO),0)+1 FROM VBJ_DET)
 			,#{vbd_quantity}
 			,#{vbj_no}
 			,#{vbd_pro_no}
@@ -362,36 +362,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="getVdsNoList" parameterType="com.danacom.mybatis.vbl.BtlVo" resultType="com.danacom.mybatis.vbl.BtlVo">
-		select 
-			vds_no
-			, vds_quantity
-			, vds_pro_no as vbd_pro_no 
-		from vbl_det_share 
-		where vds_vbb_no = #{vbb_no}
+		SELECT 
+			VDS_NO
+			, VDS_QUANTITY
+			, VDS_PRO_NO AS VBD_PRO_NO 
+		FROM VBL_DET_SHARE 
+		WHERE VDS_VBB_NO = #{vbb_no}
 	</select>
 	
 	<select id="getBtlJoinContent" parameterType="com.danacom.mybatis.vbl.BtlVo" resultType="com.danacom.mybatis.vbl.BtlVo">
-		select
-			vbj.VBJ_NO,
-			vbj.vbj_title,
-			vbj.VBJ_GRADE,
-			vbj.vbj_btl_no,
-			mem.mem_id,
+		SELECT
+			VBJ.VBJ_NO,
+			VBJ.VBJ_TITLE,
+			VBJ.VBJ_GRADE,
+			VBJ.VBJ_BTL_NO,
+			MEM.MEM_ID,
 			TO_CHAR(
-				(SELECT sum(pro.pro_disprice * vbd.vbd_quantity)
-            	FROM vbj_det vbd
-            	JOIN product pro ON vbd.vbd_pro_no = pro.pro_no
-                where vbd.vbd_VBJ_NO = #{vbj_no}),'L9,999,999') totDisprice
-		from VBL_BTL_JOIN vbj
-			join mem_com mem on vbj.vbj_mem_no = mem.mem_no
-        where vbj.VBJ_NO = #{vbj_no}
+				(SELECT SUM(PRO.PRO_DISPRICE * VBD.VBD_QUANTITY)
+            	FROM VBJ_DET VBD
+            	JOIN PRODUCT PRO ON VBD.VBD_PRO_NO = PRO.PRO_NO
+                WHERE VBD.VBD_VBJ_NO = #{vbj_no}),'L9,999,999') totDisprice
+		FROM VBL_BTL_JOIN VBJ
+			JOIN MEM_COM MEM ON VBJ.VBJ_MEM_NO = MEM.MEM_NO
+        WHERE VBJ.VBJ_NO = #{vbj_no}
         AND ROWNUM = 1
 	</select>
 	
 	<select id="getBtlJoinDetList" parameterType="com.danacom.mybatis.vbl.BtlVo" resultType="com.danacom.mybatis.vbl.BtlVo">
-		select 
-			vbd.vbd_no,
-			vbd.vbd_quantity,
+		SELECT 
+			VBD.VBD_NO,
+			VBD.VBD_QUANTITY,
 			PRO.PRO_NO,
 			PRO.PRO_NAME,
 			TO_CHAR(PRO.PRO_DISPRICE,'L9,999,999') PRO_DISPRICE,
@@ -401,36 +401,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			PCL.PCL_NAME,
 			PSM.PSM_CONENT,
 			PMG.PMG_FILE
-		from vbj_det vbd
+		FROM VBJ_DET VBD
 			JOIN PRODUCT PRO ON vbd.vbd_PRO_NO = PRO.PRO_NO
 			JOIN MAKER MKR ON PRO.PRO_MKR_NO = MKR.MKR_NO
 			JOIN PRO_CLASS PCL ON PRO.PRO_PCL_NO = PCL.PCL_NO
 			JOIN PRO_SUMM PSM ON PRO.PRO_NO = PSM.PSM_PRO_NO
 			JOIN PRO_IMG PMG ON PRO.PRO_NO = PMG.PMG_PRO_NO
-		where vbd.vbd_vbj_no = #{vbj_no}
-			and pmg.pmg_idt_no = 1
-		order by pcl.pcl_no
+		WHERE VBD.VBD_VBJ_NO = #{vbj_no}
+			AND PMG.PMG_IDT_NO = 1
+		ORDER BY PCL.PCL_NO
 	</select>
 	
 	<delete id="vbdDelete" parameterType="com.danacom.mybatis.vbl.BtlVo">
-		delete VBJ_DET
-		where vbd_vbj_no = #{vbj_no}
+		DELETE VBJ_DET
+		WHERE VBD_VBJ_NO = #{vbj_no}
 	</delete>
 	<delete id="vbjDelete" parameterType="com.danacom.mybatis.vbl.BtlVo">
-		delete vbl_btl_join
-		where vbj_no = #{vbj_no}
+		DELETE VBL_BTL_JOIN
+		WHERE VBJ_NO = #{vbj_no}
 	</delete>
 	
 	<update id="gradeVbjUpdate" parameterType="com.danacom.mybatis.vbl.BtlVo">
-		update 
-		vbl_btl_join set
+		UPDATE 
+		VBL_BTL_JOIN SET
 			<if test='vbj_title == "up"'>
-			vbj_grade = vbj_grade + 5
+			VBJ_GRADE = VBJ_GRADE + 5
 			</if>
 			<if test='vbj_title == "down"'>
-			vbj_grade = vbj_grade - 5
+			VBJ_GRADE = VBJ_GRADE - 5
 			</if>
-		where vbj_no=#{vbj_no}
+		WHERE VBJ_NO = #{vbj_no}
 	</update>
 	
 </mapper>

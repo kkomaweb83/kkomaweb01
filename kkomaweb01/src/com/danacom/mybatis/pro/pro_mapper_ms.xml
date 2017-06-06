@@ -125,7 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES
 		(#{pro_no}
 		, #{pro_name}
-		, #{pro_disprice}, #{pro_disprice}, SYSDATE
+		, #{pro_disprice}, #{pro_disprice}, sysdate()
 		, FLOOR(#{pro_disprice}*0.005) 
 		, #{pro_stockcount}, #{pro_pcl_no}, #{pro_mkr_no})
 	</insert>
@@ -135,7 +135,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INTO PRO_SUMM
 		(PSM_NO, PSM_CONENT, PSM_PRO_NO)
 		VALUES
-		((SELECT IFNULL(MAX(PSM_NO), 0)+1 FROM PRO_SUMM)
+		((SELECT IFNULL(MAX(PSM_NO), 0)+1 FROM PRO_SUMM a)
 		, #{psm_conent}
 		, #{pro_no})
 	</insert>
@@ -145,7 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INTO PRO_IMG
 		(PMG_NO, PMG_FILE, PMG_PRO_NO, PMG_IDT_NO)
 		VALUES
-		((SELECT IFNULL(MAX(PMG_NO), 0)+1 FROM PRO_IMG)
+		((SELECT IFNULL(MAX(PMG_NO), 0)+1 FROM PRO_IMG a)
 		, #{pmg_file}, #{pmg_pro_no}, #{pmg_idt_no})
 	</insert>
 	
@@ -154,7 +154,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INTO PRO_DET
 		(PDT_NO, PDT_NAME, PDT_CONENT, PDT_STEP, PDT_PRO_NO)
 		VALUES
-		((SELECT IFNULL(MAX(PDT_NO), 0)+1 FROM PRO_DET)
+		((SELECT IFNULL(MAX(PDT_NO), 0)+1 FROM PRO_DET a)
         , #{pdt_name}, #{pdt_conent}, 5, #{pdt_pro_no})
 	</insert>
 	

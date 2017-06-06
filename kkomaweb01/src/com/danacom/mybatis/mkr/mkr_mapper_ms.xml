@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INTO MAKER
 		(MKR_NO, MKR_NAME, MKR_PCL_NO)
 		VALUES
-		((SELECT NVL(MAX(MKR_NO), 0)+1 FROM MAKER)
+		((SELECT IFNULL(MAX(MKR_NO), 0)+1 FROM MAKER a)
 		, #{mkr_name}, #{mkr_pcl_no})
 	</insert>
 	
