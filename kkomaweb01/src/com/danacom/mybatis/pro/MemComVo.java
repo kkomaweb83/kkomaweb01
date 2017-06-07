@@ -18,10 +18,10 @@ public class MemComVo{
 	private String msg;
 	private int cmd;
 	
+	private int tot_cont;
+	
 	public MemComVo() {
 	}
-	
-
 	public MemComVo(int mem_no, String mem_id, String mem_pass, String mem_name, String mem_email, String mem_hp,
 			String mem_tel, String mem_zonecode, String mem_addr, String mem_addr2, int mem_mil, String mem_rdate,
 			String mem_admin_autho, String msg, int cmd) {
@@ -162,6 +162,12 @@ public class MemComVo{
 
 	public void setMem_addr2(String mem_addr2) {
 		this.mem_addr2 = mem_addr2;
+	}
+	public int getTot_cont() {
+		return tot_cont;
+	}
+	public void setTot_cont(int tot_cont) {
+		this.tot_cont = tot_cont;
 	}
 	
 }

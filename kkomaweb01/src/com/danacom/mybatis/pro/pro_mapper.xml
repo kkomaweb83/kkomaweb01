@@ -230,4 +230,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE PRO_NO = #{proMaxNo}
 	</delete>
 	
+	<select id="getMemAdminList" resultType="com.danacom.mybatis.pro.MemComVo" parameterType="hashmap">
+		SELECT 
+			*
+		FROM
+		(
+		SELECT 
+			T1.*
+			, ROWNUM rm
+		    , COUNT(MEM_NO) OVER() AS tot_cont
+		FROM
+		(
+			SELECT 
+				MEM_NO
+				, MEM_ID
+				, MEM_PASS
+				, MEM_NAME
+				, MEM_EMAIL
+				, MEM_HP
+				, MEM_TEL
+				, MEM_ZONECODE
+				, MEM_ADDR
+				, MEM_ADDR2
+				, MEM_MIL
+				, TO_CHAR(MEM_RDATE,'YYYY-MM-DD') AS DATE_DESC
+				, MEM_ADMIN_AUTHO
+			FROM MEM_COM
+			ORDER BY MEM_NO DESC
+		) T1
+		) T2
+		WHERE rm BETWEEN #{begin} AND #{end}
+	</select>
+	
 </mapper>

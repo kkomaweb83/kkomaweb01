@@ -33,7 +33,7 @@
 <span class="box_button2">☞ 회원관리</span>
 <nav id="admin_menu_lnb">
 	<ul>
-		<li><a href="#">- 회원 리스트</a></li>
+		<li><a href="<%=cp %>/ProAdminController?dana=mem_admin_list">- 회원 리스트</a></li>
 	</ul>
 </nav>
 

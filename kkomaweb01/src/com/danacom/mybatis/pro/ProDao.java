@@ -79,4 +79,8 @@ public class ProDao extends BaseDao {
 		return getSql().selectList("proMainList", requestMap);
 	}
 
+	public static List<MemComVo> getMemAdminList(Map<String, Object> requestMap) {
+		return getSql().selectList("getMemAdminList", requestMap);
+	}
+
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.danacom.model.base.BaseCommand;
+import com.danacom.model.pro.MemAdminListCommand;
 import com.danacom.model.pro.ProAdminListCommand;
 import com.danacom.model.pro.ProAdminViewCommand;
 import com.danacom.model.pro.ProDeleteCommand;
@@ -61,6 +62,8 @@ public class ProAdminController extends HttpServlet {
 		}else if("pro_delete".equals(dana)){
 			baseComm = new ProDeleteCommand();
 			forward = false;
+		}else if("mem_admin_list".equals(dana)){
+			baseComm = new MemAdminListCommand();
 		}
 		
 		if(exec_go){
