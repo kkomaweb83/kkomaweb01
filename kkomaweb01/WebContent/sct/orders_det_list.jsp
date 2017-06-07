@@ -102,7 +102,7 @@
 		</tr>
 		<tr>
 			<td class="box_top" style="width: 120px">배송지</td>
-			<td style="width: 700px" colspan="3"><div> ${mpCommand.dlv_sendaddr }</div></td>
+			<td style="width: 700px" colspan="3"><div>[${mpCommand.dlv_zonecode }] ${mpCommand.dlv_sendaddr } ${mpCommand.dlv_sendaddr2 }</div></td>
 		</tr>
 		<tr>
 			<td class="box_top" style="width: 120px">주문상태</td>

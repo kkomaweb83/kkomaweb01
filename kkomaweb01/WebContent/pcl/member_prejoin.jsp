@@ -33,8 +33,65 @@ input {
 			}
 		}).open();
 	}
-	function onMemJoin(f){
-		alert("회원가입");
+	function onMemJoin(){
+		var f = document.mem_form;
+		
+		var val = /(^[가-힝a-zA-Z\s]{1,20}$)/;
+	    if(!val.test(f.mem_name.value)){
+	    	f.mem_name.value = "";
+	    	f.mem_name.focus();
+	    	alert('이름은 한글, 영문으로만 입력해 주세요');
+	    	return false;
+	    }
+	    var val2 = /(^[0-9a-zA-Z\s]{5,10}$)/;
+	    if(!val2.test(f.mem_id.value)){
+	    	f.mem_id.value = "";
+	    	f.mem_id.focus();
+	    	alert('아이디는 5~10자 의 영문,숫자 만 입력해 주세요');
+	    	return false;
+	    }
+	    var val3 = /(^[0-9a-zA-Z\s]{5,10}$)/;
+	    if(!val3.test(f.mem_pass.value)){
+	    	f.mem_pass.value = "";
+	    	f.mem_pass.focus();
+	    	alert('비밀번호는 5~10자 의 영문,숫자 만 입력해 주세요');
+	    	return false;
+	    }
+	    var val4 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
+	    if(!val4.test(f.mem_email.value)){
+	    	f.mem_email.value = "";
+	    	f.mem_email.focus();
+	    	alert('이메일 형식에 맞게 입력해 주세요');
+	    	return false;
+	    }
+	    var val5 = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+	    if(!val5.test(f.mem_hp.value)){
+	    	f.mem_hp.value = "";
+	    	f.mem_hp.focus();
+	    	alert('휴대폰 번호 형식에 맞게 입력해주세요');
+	    	return false;
+	    }
+	    
+    	if(f.mem_addr.value == ""){
+    		f.mem_addr2.focus();
+	    	alert('주소를 검색 하세요');
+	    	return false;
+    	}
+    	var val6 = /(^[0-9가-힝a-zA-Z\s]{3,50}$)/;
+	    if(!val6.test(f.mem_addr2.value)){
+	    	f.mem_addr2.value = "";
+	    	f.mem_addr2.focus();
+	    	alert('주소를 정확히 입력하세요');
+	    	return false;
+	    }
+	    
+    	var val7 = /^\d{2,3}-\d{3,4}-\d{4}$/;
+	    if(!val7.test(f.mem_tel.value)){
+	    	f.mem_tel.value = "";
+	    	f.mem_tel.focus();
+	    	alert('전화번호 형식에 맞게 입력해주세요');
+	    	return false;
+	    }
 	}
 	
 </script>
@@ -51,7 +108,7 @@ input {
 	<!-- 전체 -->
 	<div id="proMainViewDiv" style="width: 960px; margin-left: 5px;">
 	
-	<form method="post">
+	<form method="post" name="mem_form">
 	
 	<table style="border: 1px dotted black; border-spacing:0px; padding: 10px 5px 20px 5px; margin: auto;">
 	<tr>
@@ -110,17 +167,6 @@ input {
 		<tr>
 			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30>
 				<p align="right"><img src="<%=cp %>/img/member_n_icon.gif" border="0"></p></td>
-			<td style="border-bottom: rgb(226,226,226) 1px solid" width="18" bgColor=#f6f7f9 height=30><p align=center>&nbsp; </p></td>
-			<td style=" border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="117" bgColor=#f6f7f9 height=30>
-				<p align="left"><b><font color=black face="돋움"><span style="font-size:9pt;">비밀번호확인</span></font></b></p></td>
-			<td style="border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="689" bgColor=white height=30>
-				<p align="left">&nbsp;&nbsp;
-				<input style="border-right: rgb(204,204,204) 1px solid; border-top: rgb(204,204,204) 1px solid; 
-					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="19" name="mem_repass" type="password" maxlength="30" /></p></td>
-		</tr>
-		<tr>
-			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30>
-				<p align="right"><img src="<%=cp %>/img/member_n_icon.gif" border="0"></p></td>
 			<td style="border-bottom: rgb(226,226,226) 1px solid" width="18" bgColor=#f6f7f9 height=30><p>&nbsp;</p></td>
 			<td style=" border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="117" bgColor=#f6f7f9 height=30>
 				<p align="left"><b><font color=black face="돋움"><span style="font-size:9pt;">이메일</span></font></b></p></td>
@@ -141,7 +187,8 @@ input {
 					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="25" name="mem_hp" maxlength="30" /></p></td>
 		</tr>
 		<tr>
-			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30><p align="right">&nbsp;</p></td>
+			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30>
+				<p align="right"><img src="<%=cp %>/img/member_n_icon.gif" border="0"> </p></td>
 			<td style="border-bottom: rgb(226,226,226) 1px solid" width="18" bgColor=#f6f7f9 height=30><p>&nbsp;</p></td>
 			<td style=" border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="117" bgColor=#f6f7f9 height="30">
 				<p align="left"><b><font color=black face="돋움"><span style="font-size:9pt;">일반주소</span></font></b>
@@ -162,7 +209,8 @@ input {
 			</td>
 		</tr>
 		<tr>
-			<td style="border-left: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30><p align="right">&nbsp;</p></td>
+			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30>
+				<p align="right"><img src="<%=cp %>/img/member_n_icon.gif" border="0"> </p></td>
 			<td style="border-bottom: rgb(226,226,226) 1px solid" width="18" bgColor=#f6f7f9 height=30><p align=center>&nbsp;</p></td>
 			<td style=" border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="117" bgColor=#f6f7f9 height=30>
 				<p align="left"><b><font color=black face="돋움"><span style="font-size:9pt;">일반 전화번호</span></font></b></p></td>
@@ -175,7 +223,7 @@ input {
 		</td>
 	</tr>
 	</table>
-	<p align="center"><img src="<%=cp %>/img/member_agreement_ok1.gif" onclick="onMemJoin(this.form);" style="cursor: pointer;" /></p>
+	<p align="center"><img src="<%=cp %>/img/member_agreement_ok1.gif" onclick="onMemJoin();" style="cursor: pointer;" /></p>
 	</form>	
 	
 	</div>

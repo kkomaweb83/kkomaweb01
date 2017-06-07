@@ -221,7 +221,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			, M.MEM_TEL
 			, M.MEM_HP 
 			, date_format(O.ODR_ODATE, '%Y-%c-%d') AS ODR_ODATE
+			, D.DLV_ZONECODE
 			, D.DLV_SENDADDR
+			, D.DLV_SENDADDR2
 			, O.ODR_CONDITION
 			, O.ODR_AMOUNT 
 			, O.ODR_MILEAGE

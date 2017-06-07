@@ -4,7 +4,9 @@ import java.util.List;
 
 public class OdrDocVo {
 	
+	private String dlv_zonecode;
 	private String dlv_sendaddr;
+	private String dlv_sendaddr2;
 	private String dlv_sender;
 	private String dlv_tel;
 	private String dlv_sphone;
@@ -327,6 +329,18 @@ public class OdrDocVo {
 	}
 	public void setSct_pro_muti(int sct_pro_muti) {
 		this.sct_pro_muti = sct_pro_muti;
+	}
+	public String getDlv_zonecode() {
+		return dlv_zonecode;
+	}
+	public void setDlv_zonecode(String dlv_zonecode) {
+		this.dlv_zonecode = dlv_zonecode;
+	}
+	public String getDlv_sendaddr2() {
+		return dlv_sendaddr2;
+	}
+	public void setDlv_sendaddr2(String dlv_sendaddr2) {
+		this.dlv_sendaddr2 = dlv_sendaddr2;
 	}
 
 }

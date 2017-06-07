@@ -9,7 +9,9 @@ public class MemComVo{
 	private String mem_email;
 	private String mem_hp;
 	private String mem_tel;
+	private String mem_zonecode;
 	private String mem_addr;
+	private String mem_addr2;
 	private int mem_mil;
 	private String mem_rdate;
 	private String mem_admin_autho;
@@ -18,18 +20,29 @@ public class MemComVo{
 	
 	public MemComVo() {
 	}
+	
+
 	public MemComVo(int mem_no, String mem_id, String mem_pass, String mem_name, String mem_email, String mem_hp,
-			int mem_mil, String mem_rdate, String mem_admin_autho) {
+			String mem_tel, String mem_zonecode, String mem_addr, String mem_addr2, int mem_mil, String mem_rdate,
+			String mem_admin_autho, String msg, int cmd) {
+		super();
 		this.mem_no = mem_no;
 		this.mem_id = mem_id;
 		this.mem_pass = mem_pass;
 		this.mem_name = mem_name;
 		this.mem_email = mem_email;
 		this.mem_hp = mem_hp;
+		this.mem_tel = mem_tel;
+		this.mem_zonecode = mem_zonecode;
+		this.mem_addr = mem_addr;
+		this.mem_addr2 = mem_addr2;
 		this.mem_mil = mem_mil;
 		this.mem_rdate = mem_rdate;
 		this.mem_admin_autho = mem_admin_autho;
+		this.msg = msg;
+		this.cmd = cmd;
 	}
+
 
 	public int getMem_no() {
 		return mem_no;
@@ -129,6 +142,26 @@ public class MemComVo{
 	}
 	public void setMem_addr(String mem_addr) {
 		this.mem_addr = mem_addr;
+	}
+
+
+	public String getMem_zonecode() {
+		return mem_zonecode;
+	}
+
+
+	public void setMem_zonecode(String mem_zonecode) {
+		this.mem_zonecode = mem_zonecode;
+	}
+
+
+	public String getMem_addr2() {
+		return mem_addr2;
+	}
+
+
+	public void setMem_addr2(String mem_addr2) {
+		this.mem_addr2 = mem_addr2;
 	}
 	
 }

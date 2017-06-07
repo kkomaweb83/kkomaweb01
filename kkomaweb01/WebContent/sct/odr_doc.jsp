@@ -11,6 +11,7 @@
 <script type="text/javascript" src="<%=cp %>/js/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="<%=cp %>/js/kkoma01.js"></script>
 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=cp %>/css/kkoma_new_01.css" />
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 <style type="text/css">
@@ -24,7 +25,9 @@ useMileage = document.getElementsByName("useMileage");
 var dlv_sender = document.getElementsByName("dlv_sender");
 var dlv_tel = document.getElementsByName("dlv_tel");
 var dlv_sphone = document.getElementsByName("dlv_sphone");
+var dlv_zonecode = document.getElementsByName("dlv_zonecode");
 var dlv_sendaddr = document.getElementsByName("dlv_sendaddr");
+var dlv_sendaddr2 = document.getElementsByName("dlv_sendaddr2");
 var dlv_msg = document.getElementsByName("dlv_msg");
 
 	$(function() {
@@ -72,8 +75,12 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 		document.odr_doc_form.dlv_tel.readOnly = true;
 		document.odr_doc_form.dlv_sphone.value= "${login.mem_hp}";
 		document.odr_doc_form.dlv_sphone.readOnly = true;
+		document.odr_doc_form.dlv_zonecode.value= "${login.mem_zonecode}";
+		document.odr_doc_form.dlv_zonecode.readOnly = true;
 		document.odr_doc_form.dlv_sendaddr.value= "${login.mem_addr}";
 		document.odr_doc_form.dlv_sendaddr.readOnly = true;
+		document.odr_doc_form.dlv_sendaddr2.value= "${login.mem_addr2}";
+		document.odr_doc_form.dlv_sendaddr2.readOnly = true;
 	}
 	function memInfoNotEqual(){
 		document.odr_doc_form.dlv_sender.value= "";
@@ -82,8 +89,12 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 		document.odr_doc_form.dlv_tel.readOnly = false;
 		document.odr_doc_form.dlv_sphone.value= "";
 		document.odr_doc_form.dlv_sphone.readOnly = false;
+		document.odr_doc_form.dlv_zonecode.value= "";
+		document.odr_doc_form.dlv_zonecode.readOnly = true;
 		document.odr_doc_form.dlv_sendaddr.value= "";
-		document.odr_doc_form.dlv_sendaddr.readOnly = false;
+		document.odr_doc_form.dlv_sendaddr.readOnly = true;
+		document.odr_doc_form.dlv_sendaddr2.value= "";
+		document.odr_doc_form.dlv_sendaddr2.readOnly = false;
 	}
 	
 	function doChk(){
@@ -98,14 +109,14 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 	    if(!val2.test(dlv_tel[0].value)){
 	    	dlv_tel[0].value = "";
 	    	dlv_tel[0].focus();
-	    	alert('숫자와 '-'를 사용하여 전화번호를 입력해주세요');
+	    	alert('숫자와 -를 사용하여 전화번호를 입력해주세요');
 	    	return false;
 	    }
 		var val3 = /(^[0-9\-]{5,20}$)/;
 	    if(!val3.test(dlv_sphone[0].value)){
 	    	dlv_sphone[0].value = "";
 	    	dlv_sphone[0].focus();
-	    	alert('숫자와 '-'를 사용하여  휴대폰 번호를 입력해주세요');
+	    	alert('숫자와 -를 사용하여  휴대폰 번호를 입력해주세요');
 	    	return false;
 	    }
 		var val4 = /(^[가-힝a-zA-Z\s]{1,20}$)/;
@@ -115,10 +126,24 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 	    	alert(' 메세지는 꼭 입력해 주세요');
 	    	return false;
 	    }
-		var val5 = /(^[가-힝a-zA-Z0-9\s\-]{1,90}$)/;
-	    if(!val5.test(dlv_sendaddr[0].value)){
+	    var val5 = /(^[0-9]{5,6}$)/;
+	    if(!val5.test(dlv_zonecode[0].value)){
+	    	dlv_zonecode[0].value = "";
+	    	dlv_zonecode[0].focus();
+	    	alert(' 배송지를 입력해 주세요');
+	    	return false;
+	    }
+	    var val6 = /(^[가-힝a-zA-Z0-9\s\-]{1,90}$)/;
+	    if(!val6.test(dlv_sendaddr[0].value)){
 	    	dlv_sendaddr[0].value = "";
 	    	dlv_sendaddr[0].focus();
+	    	alert(' 배송지를 입력해 주세요');
+	    	return false;
+	    }
+		var val7 = /(^[가-힝a-zA-Z0-9\s\-]{1,90}$)/;
+	    if(!val7.test(dlv_sendaddr2[0].value)){
+	    	dlv_sendaddr2[0].value = "";
+	    	dlv_sendaddr2[0].focus();
 	    	alert(' 배송지를 입력해 주세요');
 	    	return false;
 	    }
@@ -146,6 +171,16 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 		useMileage_price.value = useMileage[0].value;
 		mileageAppliedPrice.innerHTML = '-'+useMileage[0].value+' 원';
 		tot_sum();
+	}
+	
+	function addr_serarch(){
+		new daum.Postcode({
+			oncomplete: function(data) {
+				$("#dlv_zonecode").val(data.zonecode);
+				$("#dlv_sendaddr").val(data.address);
+				$("#dlv_sendaddr2").focus();
+			}
+		}).open();
 	}
 </script>
 </head>
@@ -259,64 +294,73 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 	<table style="width: 960px; border-spacing: 5px;">
 	<tr align="center">
 		<td style="width: 560px; vertical-align: top;">
-		<table style="border: #FF9900 1px solid; width: 100%; text-align: left;">
-		<tr style="text-align: left;">
-			<td colspan="4" class="title_box3">배송지정보</td>
-		</tr>
-		<tr>
-			<td colspan="4">
-			<span class="span_box2">
-			<span style="margin-right: 20px;">주문자 정보와 배송지 정보가 같습니까?</span>
-			예<input type="radio" name="rad_equal" id="yes" onclick="javascript:memInfoEqual();"/>
-			아니오<input type="radio" name="rad_equal" id="no"  checked="checked"  onclick="javascript:memInfoNotEqual();"/>
-			</span>
-			</td>
-		</tr>
-		<tr>
-			<td><span class="span_box2">수취인 이름</span></td>
-			<td colspan="3"><input type="text" name="dlv_sender" class="box_input_left" style="width: 90%;" /></td>
-		</tr>
-		<tr>
-			<td><span class="span_box2">전화번호</span></td>
-			<td colspan="3"><input type="text" name="dlv_tel" class="box_input_left" style="width: 90%;" /></td>
-		</tr>
-		<tr>
-			<td><span class="span_box2">휴대폰</span></td>
-			<td colspan="3"><input type="text" name="dlv_sphone" class="box_input_left" style="width: 90%;" /></td>
-		</tr>
-		<tr>
-			<td><span class="span_box2">주소</span></td> 
-			<td colspan="3"><input type="text" name="dlv_sendaddr" class="box_input_left" style="width: 90%;" /></td>
-		</tr>
-		<tr>
-			<td style="vertical-align: top;"><span class="span_box2">배송 메세지</span></td>
-			<td colspan="4">
-				<textarea rows="4" name="dlv_msg" style="width: 90%;"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td style="vertical-align: top;"><span class="span_box2">마일리지 사용</span></td>
-			<td>
-				<input type="text" name="useMileage" onkeyup="checkForNumber();" class="box_input_left" style="width: 90%;" />
-				<input type="hidden" name="useMileageTot" value="${userMil.mem_mil}" />
-				<div style="margin-top:2px;">현재 회원님의 마일리지 &nbsp;<span style="color: red;" >${userMil.mem_ch_mil}</span></div>
-			</td>
-		</tr>
-		<tr>
-			<td><span class="span_box2">결제 방법</span></td>
-			<td colspan="3">
-				무통장입금  <input type="radio" name="odr_way" id="cash" value="무통장입금" checked="checked" />
-				<%--
-				신용카드 <input type="radio" name="odr_way" id="card" value="신용카드" onclick="javascript:ajaxCard();"/>
-				 --%>	
-			</td>
-		</tr>
-		<tr><td colspan="4" style="height: 15px;">&nbsp;</td></tr>
-		<tr>
-			<td style="text-align: right;padding-right: 7px;" colspan="4"><input type="submit" value="확 인" /></td>
-		</tr>
-		<tr><td colspan="4" style="height: 1px;font-size: 8px;">&nbsp;</td></tr>
-		</table>
+			<table style="border: #FF9900 1px solid; width: 100%; text-align: left;">
+			<tr style="text-align: left;">
+				<td colspan="4" class="title_box3">배송지정보</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+				<span class="span_box2">
+				<span style="margin-right: 20px;">주문자 정보와 배송지 정보가 같습니까?</span>
+				예<input type="radio" name="rad_equal" id="yes" onclick="javascript:memInfoEqual();"/>
+				아니오<input type="radio" name="rad_equal" id="no"  checked="checked"  onclick="javascript:memInfoNotEqual();"/>
+				</span>
+				</td>
+			</tr>
+			<tr>
+				<td><span class="span_box2">수취인 이름</span></td>
+				<td colspan="3"><input type="text" name="dlv_sender" class="box_input_left" style="width: 90%;" /></td>
+			</tr>
+			<tr>
+				<td><span class="span_box2">전화번호</span></td>
+				<td colspan="3"><input type="text" name="dlv_tel" class="box_input_left" style="width: 90%;" /></td>
+			</tr>
+			<tr>
+				<td><span class="span_box2">휴대폰</span></td>
+				<td colspan="3"><input type="text" name="dlv_sphone" class="box_input_left" style="width: 90%;" /></td>
+			</tr>
+			<tr>
+				<td style="vertical-align: top;"><span class="span_box2">주소</span></td> 
+				<td colspan="3">
+				<span style="display: block; margin-bottom: 5px;">
+				<input type="text" name="dlv_zonecode" id="dlv_zonecode" class="box_input_left" style="width: 100px;" maxlength="5" />
+				<span style="padding: 4px 9px 3px 9px; border: 1px solid #8BBDFF; color: #ffffff; background: #8BBDFF; cursor: pointer;" onclick="addr_serarch();">검색</span>
+				</span>
+				<span style="display: block; margin-bottom: 5px;">
+				<input type="text" name="dlv_sendaddr" id="dlv_sendaddr" class="box_input_left" style="width: 90%;" /></span>
+				<span style="display: block; margin-bottom: 5px;">
+				<input type="text" name="dlv_sendaddr2" id="dlv_sendaddr2" class="box_input_left" style="width: 90%;" maxlength="50" /></span>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align: top;"><span class="span_box2">배송 메세지</span></td>
+				<td colspan="4">
+					<textarea rows="4" name="dlv_msg" style="width: 90%;"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align: top;"><span class="span_box2">마일리지 사용</span></td>
+				<td>
+					<input type="text" name="useMileage" onkeyup="checkForNumber();" class="box_input_left" style="width: 90%;" />
+					<input type="hidden" name="useMileageTot" value="${userMil.mem_mil}" />
+					<div style="margin-top:2px;">현재 회원님의 마일리지 &nbsp;<span style="color: red;" >${userMil.mem_ch_mil}</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td><span class="span_box2">결제 방법</span></td>
+				<td colspan="3">
+					무통장입금  <input type="radio" name="odr_way" id="cash" value="무통장입금" checked="checked" />
+					<%--
+					신용카드 <input type="radio" name="odr_way" id="card" value="신용카드" onclick="javascript:ajaxCard();"/>
+					 --%>	
+				</td>
+			</tr>
+			<tr><td colspan="4" style="height: 15px;">&nbsp;</td></tr>
+			<tr>
+				<td style="text-align: right;padding-right: 7px;" colspan="4"><input type="submit" value="확 인" /></td>
+			</tr>
+			<tr><td colspan="4" style="height: 1px;font-size: 8px;">&nbsp;</td></tr>
+			</table>
 		</td>
 		<td style="width: 400px; vertical-align: top;">
 		<table style="border: #FF9900 1px solid; width: 100%; text-align: left;">

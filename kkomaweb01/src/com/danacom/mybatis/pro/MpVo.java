@@ -47,7 +47,9 @@ public class MpVo {
 	private String odr_condition2;
 	private String odr_cby_no;
 
+	private String dlv_zonecode;
 	private String dlv_sendaddr;
+	private String dlv_sendaddr2;
 	private List list;
 	
 	private int tot_cont;
@@ -309,5 +311,17 @@ public class MpVo {
 	}
 	public void setOdr_condition2(String odr_condition2) {
 		this.odr_condition2 = odr_condition2;
+	}
+	public String getDlv_zonecode() {
+		return dlv_zonecode;
+	}
+	public void setDlv_zonecode(String dlv_zonecode) {
+		this.dlv_zonecode = dlv_zonecode;
+	}
+	public String getDlv_sendaddr2() {
+		return dlv_sendaddr2;
+	}
+	public void setDlv_sendaddr2(String dlv_sendaddr2) {
+		this.dlv_sendaddr2 = dlv_sendaddr2;
 	}
 }

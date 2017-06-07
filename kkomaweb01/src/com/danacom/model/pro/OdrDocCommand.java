@@ -18,7 +18,9 @@ public class OdrDocCommand implements BaseCommand {
 		
 		OdrDocVo doc = new OdrDocVo();
 		doc.setOdr_condition(1);
+		doc.setDlv_zonecode(request.getParameter("dlv_zonecode"));
 		doc.setDlv_sendaddr(request.getParameter("dlv_sendaddr"));
+		doc.setDlv_sendaddr2(request.getParameter("dlv_sendaddr2"));
 		doc.setMem_no(Integer.parseInt(request.getParameter("mem_no")));
 		doc.setUseMileage(Integer.parseInt((request.getParameter("useMileage") != null && !"".equals(request.getParameter("useMileage")))?request.getParameter("useMileage"):"0"));
 		doc.setS_totPrice(Integer.parseInt(request.getParameter("s_totPrice")));

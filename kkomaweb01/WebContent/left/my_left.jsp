@@ -25,6 +25,16 @@
 	</ul>
 </nav>
 
+<span class="box_button2">☞ 회원관리</span>
+<nav id="admin_menu_lnb">
+	<ul>
+		<li>
+		<c:if test="${login.cmd != 101}"><a href="#">회원정보 수정</a></c:if>
+		<c:if test="${login.cmd == 101}"><a href="<%=cp %>/ProController?dana=mem_preUpdate">회원정보 수정</a></c:if>
+		<li>
+	</ul>
+</nav>
+
 <div style="height: 800px;"></div>
 
 </body>
