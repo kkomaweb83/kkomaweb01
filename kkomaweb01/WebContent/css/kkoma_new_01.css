@@ -116,6 +116,16 @@ td.ar{padding-right:5px !important;}
 	color: white;
 }
 
+#top_ltb_user > ul { overflow: hidden; }
+#top_ltb_user > ul > li { float: left; }
+#top_ltb_user > ul > li {
+	display: block;
+	padding: 7px 5px 5px 2px;
+	margin-left: 1px;
+	margin-top: 30px;
+	color: #800040;
+}
+
 #pro_order_lnb { margin-top: 10px; margin-left: 5px; }
 #pro_order_lnb > ul { overflow: hidden; }
 #pro_order_lnb > ul > li { float: left; }

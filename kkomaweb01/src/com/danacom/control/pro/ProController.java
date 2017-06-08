@@ -100,6 +100,9 @@ public class ProController extends HttpServlet {
 			baseComm = new OrdersAdminDetListCommand();
 		}else if("odr_condition".equals(dana)){
 			baseComm = new OrdersCondUpdateCommand();
+		}else if("mem_preUpdate".equals(dana)){
+			exec_go = false;
+			path = "pcl/mem_update.jsp";
 		}
 		
 		if(exec_go){

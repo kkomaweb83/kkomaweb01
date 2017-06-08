@@ -42,6 +42,12 @@
 	</ul>	
 </nav>
 </c:if>
+<nav id="top_ltb_user">
+	<ul>
+		<li>사용자 -> kko01/111</a></li>
+		<li>관리자 -> admin/111</a></li>
+	</ul>
+</nav>
 
 <nav id="top_gnb">
 	<ul>

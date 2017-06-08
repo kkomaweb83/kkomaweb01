@@ -29,7 +29,7 @@ public class VbbViewCommand implements BaseCommand {
 		request.setAttribute("vbbContent", vbbContent);
 		request.setAttribute("vbbProList", vbbProList);
 		
-		if("".equals(reurl)){
+		if(reurl == null || "".equals(reurl)){
 			List<VbbVo> vbrList = VblDao.getVbrList(vbb_Command);
 			for (VbbVo vbr_command : vbrList) {
 				MemComVo loginCommand= (MemComVo)request.getSession().getAttribute("login");

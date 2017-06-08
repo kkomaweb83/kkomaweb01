@@ -1,27 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    pageEncoding="UTF-8"%>
 <% String cp = request.getContextPath(); %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<title>컴퓨터 쇼핑몰의 최강자 DanaCom</title>
+<title>회원정보 관리</title>
 <script type="text/javascript" src="<%=cp %>/js/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="<%=cp %>/js/kkoma01.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=cp %>/css/kkoma_new_01.css" />
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <style type="text/css">
-input {
-	padding: 3px;
-}
+
 </style>
 <script type="text/javascript">
 	$(function() {
-
+		
 	});
 	
 	function addr_serarch(){
@@ -33,116 +29,46 @@ input {
 			}
 		}).open();
 	}
-	function onMemJoin(){
-		var f = document.mem_form;
-		
-		var val = /(^[가-힝a-zA-Z\s]{1,20}$)/;
-	    if(!val.test(f.mem_name.value)){
-	    	f.mem_name.value = "";
-	    	f.mem_name.focus();
-	    	alert('이름은 한글, 영문으로만 입력해 주세요');
-	    	return false;
-	    }
-	    var val2 = /(^[0-9a-zA-Z\s]{5,10}$)/;
-	    if(!val2.test(f.mem_id.value)){
-	    	f.mem_id.value = "";
-	    	f.mem_id.focus();
-	    	alert('아이디는 5~10자 의 영문,숫자 만 입력해 주세요');
-	    	return false;
-	    }
-	    var val3 = /(^[0-9a-zA-Z\s]{5,10}$)/;
-	    if(!val3.test(f.mem_pass.value)){
-	    	f.mem_pass.value = "";
-	    	f.mem_pass.focus();
-	    	alert('비밀번호는 5~10자 의 영문,숫자 만 입력해 주세요');
-	    	return false;
-	    }
-	    var val4 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
-	    if(!val4.test(f.mem_email.value)){
-	    	f.mem_email.value = "";
-	    	f.mem_email.focus();
-	    	alert('이메일 형식에 맞게 입력해 주세요');
-	    	return false;
-	    }
-	    var val5 = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-	    if(!val5.test(f.mem_hp.value)){
-	    	f.mem_hp.value = "";
-	    	f.mem_hp.focus();
-	    	alert('휴대폰 번호 형식에 맞게 입력해주세요');
-	    	return false;
-	    }
-	    
-    	if(f.mem_addr.value == ""){
-    		f.mem_addr2.focus();
-	    	alert('주소를 검색 하세요');
-	    	return false;
-    	}
-    	var val6 = /(^[0-9가-힝a-zA-Z\s]{3,50}$)/;
-	    if(!val6.test(f.mem_addr2.value)){
-	    	f.mem_addr2.value = "";
-	    	f.mem_addr2.focus();
-	    	alert('주소를 정확히 입력하세요');
-	    	return false;
-	    }
-	    
-    	var val7 = /^\d{2,3}-\d{3,4}-\d{4}$/;
-	    if(!val7.test(f.mem_tel.value)){
-	    	f.mem_tel.value = "";
-	    	f.mem_tel.focus();
-	    	alert('전화번호 형식에 맞게 입력해주세요');
-	    	return false;
-	    }
-	    
-	    alert("회원가입은 2017년 6월 19일 open 예정입니다. 감사합니다.");
-	}
-	
 </script>
 </head>
 <body>
 	<header id="top_header">
-	<%-- 상단 헤더 include 처리 --%> <%-- <%=cp %>/PclController?dana=member_join --%>
+	<%-- 상단 헤더 include 처리 --%>
 	<jsp:include page="../top/top_menu.jsp" flush="false" />
 	
 	</header>
 	
-	<div id="content">
+	<div id="admin_content">
 	
-	<!-- 전체 -->
-	<div id="proMainViewDiv" style="width: 960px; margin-left: 5px;">
+	<aside id="admin_aside">
+	<%-- 견적서 외편 메뉴 include 처리 --%>
+	<jsp:include page="../left/my_left.jsp" flush="false" />
 	
-	<form method="post" name="mem_form">
+	</aside>
 	
-	<table style="border: 1px dotted black; border-spacing:0px; padding: 10px 5px 20px 5px; margin: auto;">
-	<tr>
-		<td>
-		<img src="<%=cp %>/img/member_danacom_top02.jpg" />
-		</td>
-	</tr>
-	<tr>
-		<td style="960px;">
-			<table style="width: 863px; border-spacing:0px; margin: auto;">
-			<tr>
-			<td width="863" height="10">			
-				<p><img src="<%=cp %>/img/member_agreement_01-08.gif" /></p>
-			</td>
-			</tr>
-			<tr><td style="background-color: #1A6BAB;width: 863px; height: 3px;"><p></p></td></tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td>
-		<table style="width: 863px; border-spacing:0px; margin: auto;">
+	<section id="admin_section">
+	
+	<!-- pcl_insert -->
+	<div id="pclListDiv">
+	
+	<div class="title_div1" style="float: left; width: 100%;">
+		<span style="font-size: 5px;">&nbsp;</span><br/>
+		<span class="title_box1">☞ 회원정보 수정</span>
+	</div>		
+	
+		<table style="width: 800px; border-spacing:0px; margin: auto;">
 		<tr>
-			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30>
+			<td style="border-left: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid; border-top: rgb(226,226,226) 1px solid;" 
+						width="36" bgColor=#f6f7f9 height=30>
 				<p align="right"><img src="<%=cp %>/img/member_n_icon.gif" border="0"> </p></td>
-			<td style="border-bottom: rgb(226,226,226) 1px solid" width="18" bgColor=#f6f7f9 height=30><p align=center>&nbsp;</p></td>
-			<td style="border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="117" bgColor=#f6f7f9 height=30>
+			<td style="border-bottom: rgb(226,226,226) 1px solid; border-top: rgb(226,226,226) 1px solid;" width="18" bgColor=#f6f7f9 height=30><p align=center>&nbsp;</p></td>
+			<td style="border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid; border-top: rgb(226,226,226) 1px solid;" 
+						width="117" bgColor=#f6f7f9 height=30>
 				<p align="left"><b><font color=black face="돋움"><span style="font-size:9pt;">이름</span></font></b></p></td>
-			<td style="border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="689" bgColor=white height=30>
+			<td style="border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid; border-top: rgb(226,226,226) 1px solid;" width="689" bgColor=white height=30>
 				<p align="left">&nbsp;&nbsp;
 				<input type="text" style="border-right: rgb(204,204,204) 1px solid; border-top: rgb(204,204,204) 1px solid; 
-					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="15" name="mem_name" maxlength="30" /></p></td>
+					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="15" name="mem_name" maxlength="30" value="${login.mem_name}" /></p></td>
 		</tr>
 		<tr>
 			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30>
@@ -153,7 +79,7 @@ input {
 			<td style="border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="689" bgColor=white height=30>
 				<p align="left">&nbsp;&nbsp;
 				<input type="text" style="border-right: rgb(204,204,204) 1px solid; border-top: rgb(204,204,204) 1px solid; 
-					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="15" name="mem_id" maxlength="30" /></p></td>
+					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="15" name="mem_id" maxlength="30" value="${login.mem_id}" /></p></td>
 		</tr>
 		<tr>
 			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30>
@@ -175,7 +101,7 @@ input {
 			<td style="border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="689" bgColor=white height=30>
 				<p align="left">&nbsp;&nbsp;
 				<input type="text" style="border-right: rgb(204,204,204) 1px solid; border-top: rgb(204,204,204) 1px solid; 
-					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="25" name="mem_email" maxlength="40" /></p></td>
+					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="25" name="mem_email" maxlength="40" value="${login.mem_email}" /></p></td>
 		</tr>
 		<tr>
 			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30>
@@ -186,7 +112,7 @@ input {
 			<td style="border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="689" bgColor=white height=30>
 				<p align="left">&nbsp;&nbsp;
 				<input type="text" style="border-right: rgb(204,204,204) 1px solid; border-top: rgb(204,204,204) 1px solid; 
-					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="25" name="mem_hp" maxlength="30" /></p></td>
+					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="25" name="mem_hp" maxlength="30" value="${login.mem_hp}" /></p></td>
 		</tr>
 		<tr>
 			<td style="border-left: rgb(226,226,226) 1px solid;  border-bottom: rgb(226,226,226) 1px solid" width="36" bgColor=#f6f7f9 height=30>
@@ -199,12 +125,12 @@ input {
 				<p align="left">&nbsp;&nbsp;
 				<input type="text" style="border-right: rgb(204,204,204) 1px solid; border-top: rgb(204,204,204) 1px solid; 
 					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid; width: 60px; text-align: center;" 
-					name="mem_zonecode" id="mem_zonecode" readonly="readonly" />
+					name="mem_zonecode" id="mem_zonecode" readonly="readonly" value="${login.mem_zonecode}" />
 				<input type="text" style="border-right: rgb(204,204,204) 1px solid; border-top: rgb(204,204,204) 1px solid; 
-					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid; width: 500px;" name="mem_addr" id="mem_addr" readonly="readonly" />
+					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid; width: 500px;" name="mem_addr" id="mem_addr" readonly="readonly" value="${login.mem_addr}" />
 				<span style="display: inline-block; margin-top: 5px; margin-left: 12px;">
 				<input type="text" style="border-right: rgb(204,204,204) 1px solid; border-top: rgb(204,204,204) 1px solid; 
-					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid; width: 525px;" name="mem_addr2" id="mem_addr2" maxlength="50" />
+					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid; width: 525px;" name="mem_addr2" id="mem_addr2" maxlength="50" value="${login.mem_addr2}" />
 				</span>	
 				<span style="padding: 4px 9px 3px 9px; border: 1px solid #8BBDFF; color: #ffffff; background: #8BBDFF; cursor: pointer;" onclick="addr_serarch();">검색</span>
 				</p>
@@ -219,24 +145,19 @@ input {
 			<td style="border-right: rgb(226,226,226) 1px solid; border-bottom: rgb(226,226,226) 1px solid" width="689" bgColor=white height=30>
 				<p align="left">&nbsp;&nbsp;
 				<input type="text" style="border-right: rgb(204,204,204) 1px solid; border-top: rgb(204,204,204) 1px solid; 
-					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="25" name="mem_tel" maxlength="15" /></p></td>
+					border-left: rgb(204,204,204) 1px solid; border-bottom: rgb(204,204,204) 1px solid" size="25" name="mem_tel" maxlength="15" value="${login.mem_tel}" /></p></td>
 		</tr>
 		</table>
-		</td>
-	</tr>
-	</table>
-	<p align="center"><img src="<%=cp %>/img/member_agreement_ok1.gif" onclick="onMemJoin();" style="cursor: pointer;" /></p>
-	</form>	
 	
 	</div>
-	<!-- 전체 -->
+	<!-- pcl_list -->
+	
+	</section>
 	
 	</div>
 	
 	<footer>
 	
 	</footer>
-<!-- 상세보기 dlg -->
-<div id="dialog"></div>			
 </body>
 </html>
