@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="pclInsert" parameterType="com.danacom.mybatis.pcl.ProClassVo">
 		INSERT     /* [danacom]_[pcl]_[PclInsertCommand.pclInsert]_kkomaweb_20170513 */   
 		INTO PRO_CLASS
-		(PCL_NO, PCL_NAME, PCL_STEP, PCL_BASIS, PCL_UPPERNO a)
+		(PCL_NO, PCL_NAME, PCL_STEP, PCL_BASIS, PCL_UPPERNO)
 		VALUES
 		(#{pcl_no}, #{pcl_name}, #{pcl_step}, #{pcl_basis}, #{pcl_upperno})
 	</insert>
