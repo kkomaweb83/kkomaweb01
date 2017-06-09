@@ -25,7 +25,7 @@ public class ProDeleteCommand implements BaseCommand {
 					"utf-8",
 					new DefaultFileRenamePolicy());
 			
-			int proMaxNo= Integer.parseInt(request.getParameter("pro_no"));
+			int proMaxNo= Integer.parseInt(mr.getParameter("pro_no"));
 			
 			proCommand.setPro_no(proMaxNo);
 			proCommand.setPro_pcl_no(mr.getParameter("pro_pcl_no"));

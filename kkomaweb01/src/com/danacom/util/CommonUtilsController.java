@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections4.MapUtils;
 
+import com.danacom.mybatis.base.BaseDao;
+
 public class CommonUtilsController {
 	
 	//  페이징 정보 셋팅
@@ -41,6 +43,7 @@ public class CommonUtilsController {
     	request.setAttribute("p_totalPage", totalPage);
     	request.setAttribute("p_nowPage", nowPage);
     	request.setAttribute("p_pagePerBlock", pagePerBlock);
+    	BaseDao.commit();
     	try {
 			Thread.sleep(50);
 		} catch (InterruptedException e) {
