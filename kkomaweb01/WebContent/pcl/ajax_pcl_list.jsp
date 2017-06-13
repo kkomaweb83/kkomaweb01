@@ -20,7 +20,7 @@
 
 <div class="title_div1">
 	<span style="font-size: 5px;">&nbsp;</span><br/>
-	<span class="title_box1">☞ 상품분류 관리</span><br/>
+	<span class="title_box1">☞ 상품분류 관리99</span><br/>
 	<span style="font-size: 0px;">&nbsp;</span>
 </div>
 
