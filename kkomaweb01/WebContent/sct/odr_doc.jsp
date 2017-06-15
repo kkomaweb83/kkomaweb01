@@ -357,9 +357,8 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 			</tr>
 			<tr><td colspan="4" style="height: 15px;">&nbsp;</td></tr>
 			<tr>
-				<td style="text-align: right;padding-right: 7px;" colspan="4"><input type="submit" value="확 인" /></td>
+				<td style="text-align: right;padding-right: 7px;" colspan="4"></td>
 			</tr>
-			<tr><td colspan="4" style="height: 1px;font-size: 8px;">&nbsp;</td></tr>
 			</table>
 		</td>
 		<td style="width: 400px; vertical-align: top;">
@@ -414,11 +413,16 @@ var dlv_msg = document.getElementsByName("dlv_msg");
 			<td><span class="span_box2">이메일</span></td> 
 			<td><input type="text" maxlength="20" value="${login.mem_email }" class="box_input_left" style="width: 90%;" /></td>
 		</tr>
-		<tr><td colspan="4" style="height: 55px;">&nbsp;</td></tr>
+		<tr><td colspan="4" style="height: 15px;">&nbsp;</td></tr>
 		</table>
+		<div style="width: 100%; text-align: right; padding-top: 15px;">
+			<input type="submit" value="주문하기" style="padding: 5px 7px 4px 7px; font-size: 17px; background-color: #6699FF; color: #ffffff;" />
+		</div>
 		</td>
 	</tr>			
 	</table>
+	
+	<div style="height: 50px;"></div>
 	
 	</form>
 	</div>
